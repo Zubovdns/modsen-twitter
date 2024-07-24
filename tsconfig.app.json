@@ -29,6 +29,7 @@
 			"@constants/*": ["constants/*"],
 			"@pages/*": ["pages/*"],
 			"@routes/*": ["routes/*"],
+			"@store/*": ["store/*"],
 			"@styles/*": ["styles/*"],
 			"@types/*": ["types/*"],
 			"@utils/*": ["utils/*"]
