@@ -11,13 +11,14 @@ export default defineConfig(({ mode }) => {
 		resolve: {
 			alias: {
 				'@src': path.resolve(__dirname, 'src'),
-				'@components': path.resolve(__dirname, 'src/components'),
-				'@stories': path.resolve(__dirname, 'src/stories'),
-				'@utils': path.resolve(__dirname, 'src/utils'),
-				'@constants': path.resolve(__dirname, 'src/constants'),
 				'@assets': path.resolve(__dirname, 'src/assets'),
-				'@icons': path.resolve(__dirname, 'src/assets/icons'),
+				'@components': path.resolve(__dirname, 'src/components'),
+				'@constants': path.resolve(__dirname, 'src/constants'),
+				'@pages': path.resolve(__dirname, 'src/pages'),
+				'@routes': path.resolve(__dirname, 'src/routes'),
 				'@styles': path.resolve(__dirname, 'src/styles'),
+				'@types': path.resolve(__dirname, 'src/types'),
+				'@utils': path.resolve(__dirname, 'src/utils'),
 			},
 		},
 		server: {
