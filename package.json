@@ -1,8 +1,8 @@
 {
 	"name": "modsen-twitter",
-	"private": true,
 	"version": "0.0.0",
-	"type": "module",
+	"author": "",
+	"license": "MIT",
 	"scripts": {
 		"dev": "vite --mode development",
 		"build": "vite build --mode production",
