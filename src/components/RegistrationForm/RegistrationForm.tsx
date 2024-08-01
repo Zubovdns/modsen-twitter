@@ -17,10 +17,14 @@ export const RegistrationForm = () => {
 		setStep('password');
 	};
 
-	const handlePasswordSubmit = (data: Partial<FormData>) => {
+	const handlePasswordSubmit = async (data: Partial<FormData>) => {
 		const completeData = { ...formData, ...data };
 		console.log('Success:', completeData);
-		// TODO Отправка данных на сервер
+		await createUserWithEmailAndPassword(
+			auth,
+			completeData.email,
+			completeData.password
+		);
 	};
 
 	return (
