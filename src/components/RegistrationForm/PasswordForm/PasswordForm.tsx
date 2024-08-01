@@ -12,6 +12,9 @@ export const PasswordForm = ({ onSubmit }: PasswordFormProps) => {
 		register,
 		handleSubmit,
 		formState: { errors },
+		setValue,
+		setError,
+		clearErrors,
 	} = useForm<FormData>({
 		defaultValues: {
 			password: '',
@@ -32,6 +35,9 @@ export const PasswordForm = ({ onSubmit }: PasswordFormProps) => {
 					required: PASSWORD_VALIDATION_ERROR,
 					validate: isValidPassword,
 				}}
+				setValue={setValue}
+				setError={setError}
+				clearErrors={clearErrors}
 			/>
 			<Button type='submit'>{SUBMIT_BUTTON}</Button>
 		</Form>
