@@ -1,8 +1,8 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 
 const firebaseConfig = {
-	apiKey: 'AIzaSyDV-BwscOq2bLQ9F_jzYmi47MVp-HAbVBI',
+	apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
 	authDomain: 'zubovdns-modsen-twitter.firebaseapp.com',
 	projectId: 'zubovdns-modsen-twitter',
 	storageBucket: 'zubovdns-modsen-twitter.appspot.com',
@@ -13,3 +13,4 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
+export const googleProvider = new GoogleAuthProvider();

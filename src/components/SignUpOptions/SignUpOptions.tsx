@@ -1,7 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import GoogleIcon from '@assets/icons/GoogleIcon.svg';
 import TwitterLogo from '@assets/icons/TwitterLogo.svg';
+import { auth, googleProvider } from '@src/firebase';
 import { LOGIN_ROUTE, REGISTER_ROUTE, SIGN_UP_ROUTE } from '@src/routes';
+import { signInWithPopup } from 'firebase/auth';
 
 import {
 	ALREADY_HAVE_AN_ACCOUNT,
@@ -29,7 +31,13 @@ import {
 const SignUpOptions = () => {
 	const navigate = useNavigate();
 
-	const handleGoogleSignUpClick = () => {};
+	const handleGoogleSignUpClick = async () => {
+		try {
+			await signInWithPopup(auth, googleProvider);
+		} catch (error) {
+			console.error(error);
+		}
+	};
 	const handleEmailSignUpClick = () => {
 		navigate(REGISTER_ROUTE);
 	};
