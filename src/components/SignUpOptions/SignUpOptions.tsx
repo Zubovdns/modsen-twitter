@@ -1,6 +1,7 @@
+import { useNavigate } from 'react-router-dom';
 import GoogleIcon from '@assets/icons/GoogleIcon.svg';
-import TwitterLogo from '@assets/images/TwitterLogo.svg';
-import { LOGIN_ROUTE, SIGN_UP_ROUTE } from '@src/routes';
+import TwitterLogo from '@assets/icons/TwitterLogo.svg';
+import { LOGIN_ROUTE, REGISTER_ROUTE, SIGN_UP_ROUTE } from '@src/routes';
 
 import {
 	ALREADY_HAVE_AN_ACCOUNT,
@@ -25,32 +26,43 @@ import {
 	Title,
 } from './styled';
 
-const SignUpOptions = () => (
-	<ContentContainer>
-		<Logo src={TwitterLogo} />
-		<Title>{HAPPENING_NOW}</Title>
-		<Subtitle>{JOIN_TWITTER_TODAY}</Subtitle>
+const SignUpOptions = () => {
+	const navigate = useNavigate();
 
-		<SignUpButton>
-			<Icon src={GoogleIcon} alt='Google Icon' />
-			{SIGN_UP_WITH_GOOGLE}
-		</SignUpButton>
-		<SignUpButton>{SIGN_UP_WITH_EMAIL}</SignUpButton>
+	const handleGoogleSignUpClick = () => {};
+	const handleEmailSignUpClick = () => {
+		navigate(REGISTER_ROUTE);
+	};
 
-		<Disclaimer>
-			{DISCLAIMER_TEXT}
-			<DisclaimerLink to={SIGN_UP_ROUTE}>
-				{TERMS_OF_SERVICE}
-			</DisclaimerLink> and{' '}
-			<DisclaimerLink to={SIGN_UP_ROUTE}>{PRIVACY_POLICY}</DisclaimerLink>,
-			including <DisclaimerLink to={SIGN_UP_ROUTE}>{COOKIE_USE}</DisclaimerLink>
-			.
-		</Disclaimer>
-		<Disclaimer>
-			{ALREADY_HAVE_AN_ACCOUNT}{' '}
-			<DisclaimerLink to={LOGIN_ROUTE}>{LOG_IN}</DisclaimerLink>
-		</Disclaimer>
-	</ContentContainer>
-);
+	return (
+		<ContentContainer>
+			<Logo src={TwitterLogo} />
+			<Title>{HAPPENING_NOW}</Title>
+			<Subtitle>{JOIN_TWITTER_TODAY}</Subtitle>
+
+			<SignUpButton onClick={handleGoogleSignUpClick}>
+				<Icon src={GoogleIcon} alt='Google Icon' />
+				{SIGN_UP_WITH_GOOGLE}
+			</SignUpButton>
+			<SignUpButton onClick={handleEmailSignUpClick}>
+				{SIGN_UP_WITH_EMAIL}
+			</SignUpButton>
+
+			<Disclaimer>
+				{DISCLAIMER_TEXT}
+				<DisclaimerLink to={SIGN_UP_ROUTE}>
+					{TERMS_OF_SERVICE}
+				</DisclaimerLink>{' '}
+				and <DisclaimerLink to={SIGN_UP_ROUTE}>{PRIVACY_POLICY}</DisclaimerLink>
+				, including{' '}
+				<DisclaimerLink to={SIGN_UP_ROUTE}>{COOKIE_USE}</DisclaimerLink>.
+			</Disclaimer>
+			<Disclaimer>
+				{ALREADY_HAVE_AN_ACCOUNT}{' '}
+				<DisclaimerLink to={LOGIN_ROUTE}>{LOG_IN}</DisclaimerLink>
+			</Disclaimer>
+		</ContentContainer>
+	);
+};
 
 export default SignUpOptions;

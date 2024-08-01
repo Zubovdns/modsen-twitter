@@ -1,4 +1,4 @@
-import SignUpImage from '@assets/images/SignUpImage.svg';
+import SignUpImage from '@assets/images/SignUpImage.jpg';
 import Footer from '@src/components/Footer';
 import SignUpOptions from '@src/components/SignUpOptions';
 

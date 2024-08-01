@@ -13,6 +13,7 @@ export const ContentContainer = styled.div`
 export const Logo = styled.img`
 	object-fit: cover;
 	object-position: center;
+	width: 70px;
 `;
 
 export const Icon = styled.img`
@@ -66,5 +67,9 @@ export const DisclaimerLink = styled(Link)`
 
 	&:hover {
 		text-decoration: underline;
+	}
+
+	&:visited {
+		color: ${({ theme }) => theme.signUpLinkText};
 	}
 `;

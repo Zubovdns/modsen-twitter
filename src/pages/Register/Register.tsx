@@ -1,3 +1,11 @@
-const Register = () => <div>RegisterPage</div>;
+import { RegistrationForm } from '@src/components/RegistrationForm';
+
+import { RegisterContainer } from './styled';
+
+const Register = () => (
+	<RegisterContainer>
+		<RegistrationForm />
+	</RegisterContainer>
+);
 
 export default Register;

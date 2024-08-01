@@ -2,8 +2,10 @@ import { Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { routes } from '@src/routes';
 
+import { Loader } from '../Loader';
+
 export const App = () => (
-	<Suspense fallback={<div>Loading...</div>}>
+	<Suspense fallback={<Loader />}>
 		<Routes>
 			<Route path='/' element={<Navigate to='/home' />} />
 			{routes.map(({ path, Page }) => (
