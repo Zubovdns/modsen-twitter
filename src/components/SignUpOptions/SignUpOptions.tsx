@@ -1,9 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import GoogleIcon from '@assets/icons/GoogleIcon.svg';
 import TwitterLogo from '@assets/icons/TwitterLogo.svg';
-import { auth, googleProvider } from '@src/firebase';
+import { auth, db, googleProvider } from '@src/firebase';
 import { LOGIN_ROUTE, REGISTER_ROUTE, SIGN_UP_ROUTE } from '@src/routes';
 import { signInWithPopup } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
 
 import {
 	ALREADY_HAVE_AN_ACCOUNT,
@@ -33,11 +34,26 @@ const SignUpOptions = () => {
 
 	const handleGoogleSignUpClick = async () => {
 		try {
-			await signInWithPopup(auth, googleProvider);
+			const result = await signInWithPopup(auth, googleProvider);
+			const user = result.user;
+			console.log(user);
+
+			try {
+				await setDoc(doc(db, 'users', user.uid), {
+					name: user.displayName || null,
+					phone_number: user.phoneNumber || null,
+					birth_date: null,
+					email: user.email || null,
+				});
+				console.log('User data saved successfully');
+			} catch (error) {
+				console.error('Error saving user data: ', error);
+			}
 		} catch (error) {
-			console.error(error);
+			console.error('Error signing up with Google: ', error);
 		}
 	};
+
 	const handleEmailSignUpClick = () => {
 		navigate(REGISTER_ROUTE);
 	};
