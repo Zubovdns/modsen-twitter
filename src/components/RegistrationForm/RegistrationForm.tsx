@@ -47,8 +47,9 @@ export const RegistrationForm = () => {
 
 				await setDoc(doc(db, 'users', user.uid), {
 					name: completeData.name,
-					phone: completeData.phone,
-					birthDate,
+					phone_number: completeData.phone,
+					birth_date: birthDate,
+					email: completeData.email,
 				});
 				console.log('User data saved successfully');
 			} catch (error) {

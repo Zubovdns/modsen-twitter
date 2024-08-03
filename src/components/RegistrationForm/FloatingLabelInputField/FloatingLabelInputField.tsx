@@ -27,9 +27,9 @@ export const FloatingLabelInputField = ({
 		}
 	};
 
-	const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+	const handleBlur = async (e: React.FocusEvent<HTMLInputElement>) => {
 		const value = e.target.value;
-		const validationError = validationRules.validate(value);
+		const validationError = await validationRules.validate(value);
 		if (validationError !== true) {
 			setError(id, {
 				type: 'manual',
@@ -46,7 +46,11 @@ export const FloatingLabelInputField = ({
 				type={type}
 				id={id}
 				placeholder={placeholder}
-				{...register(id, validationRules)}
+				{...register(id, {
+					...validationRules,
+					validate: async (value: string) =>
+						await validationRules.validate(value),
+				})}
 				$error={!!error}
 				onChange={handleChange}
 				onBlur={handleBlur}
