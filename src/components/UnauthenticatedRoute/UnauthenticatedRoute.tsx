@@ -1,23 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '@src/firebase';
-import { HOME_ROUTE, SIGN_UP_ROUTE } from '@src/routes';
+import { HOME_ROUTE } from '@src/routes';
 import { onAuthStateChanged } from 'firebase/auth';
 
 import { Loader } from '../Loader';
 
-import { AuthCheckerProps } from './types';
+interface UnauthenticatedRouteProps {
+	children: ReactNode;
+}
 
-export const AuthChecker: React.FC<AuthCheckerProps> = ({ children }) => {
+const UnauthenticatedRoute: React.FC<UnauthenticatedRouteProps> = ({
+	children,
+}) => {
 	const [loading, setLoading] = useState(true);
+	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, (user) => {
 			if (user) {
+				setIsAuthenticated(true);
 				navigate(HOME_ROUTE);
-			} else {
-				navigate(SIGN_UP_ROUTE);
 			}
 			setLoading(false);
 		});
@@ -29,5 +33,7 @@ export const AuthChecker: React.FC<AuthCheckerProps> = ({ children }) => {
 		return <Loader />;
 	}
 
-	return <>{children}</>;
+	return !isAuthenticated ? <>{children}</> : null;
 };
+
+export default UnauthenticatedRoute;

@@ -1,19 +1,41 @@
-import { Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { routes } from '@src/routes';
+import {
+	authenticatedRoutes,
+	HOME_ROUTE,
+	unauthenticatedRoutes,
+} from '@src/routes';
 
-import { AuthChecker } from '../AuthChecker';
 import { Loader } from '../Loader';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import UnauthenticatedRoute from '../UnauthenticatedRoute/UnauthenticatedRoute';
 
-export const App = () => (
+export const App: React.FC = () => (
 	<Suspense fallback={<Loader />}>
-		<AuthChecker>
-			<Routes>
-				<Route path='/' element={<Navigate to='/home' />} />
-				{routes.map(({ path, Page }) => (
-					<Route key={path} path={path} element={<Page />} />
-				))}
-			</Routes>
-		</AuthChecker>
+		<Routes>
+			<Route path='/' element={<Navigate to={HOME_ROUTE} />} />
+			{authenticatedRoutes.map(({ path, Page }) => (
+				<Route
+					key={path}
+					path={path}
+					element={
+						<ProtectedRoute>
+							<Page />
+						</ProtectedRoute>
+					}
+				/>
+			))}
+			{unauthenticatedRoutes.map(({ path, Page }) => (
+				<Route
+					key={path}
+					path={path}
+					element={
+						<UnauthenticatedRoute>
+							<Page />
+						</UnauthenticatedRoute>
+					}
+				/>
+			))}
+		</Routes>
 	</Suspense>
 );
