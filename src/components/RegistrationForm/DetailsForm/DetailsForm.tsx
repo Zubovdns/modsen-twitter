@@ -5,6 +5,7 @@ import { isValidPhoneNumber } from '@src/utils/isValidPhoneNumber';
 
 import {
 	EMAIL_VALIDATION_ERROR,
+	LOADING_BUTTON,
 	NAME_VALIDATION_ERROR,
 	NEXT_BUTTON,
 	PHONE_VALIDATION_ERROR,
@@ -31,7 +32,7 @@ export const DetailsForm = ({ onSubmit }: DetailsFormProps) => {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
+		formState: { errors, isSubmitting },
 		setValue,
 		setError,
 		clearErrors,
@@ -91,7 +92,9 @@ export const DetailsForm = ({ onSubmit }: DetailsFormProps) => {
 					dayError={errors.day?.message}
 					yearError={errors.year?.message}
 				/>
-				<Button type='submit'>{NEXT_BUTTON}</Button>
+				<Button type='submit'>
+					{isSubmitting ? LOADING_BUTTON : NEXT_BUTTON}
+				</Button>
 			</Form>
 		</FormProvider>
 	);

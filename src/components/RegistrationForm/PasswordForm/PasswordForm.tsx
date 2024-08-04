@@ -1,7 +1,12 @@
 import { useForm } from 'react-hook-form';
 import { isValidPassword } from '@src/utils/isValidPassword';
 
-import { PASSWORD_VALIDATION_ERROR, SUBMIT_BUTTON, TITLE } from '../constants';
+import {
+	LOADING_BUTTON,
+	PASSWORD_VALIDATION_ERROR,
+	SUBMIT_BUTTON,
+	TITLE,
+} from '../constants';
 import { FloatingLabelInputField } from '../FloatingLabelInputField';
 import { Button, Form, Title } from '../styled';
 
@@ -11,7 +16,7 @@ export const PasswordForm = ({ onSubmit }: PasswordFormProps) => {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
+		formState: { errors, isSubmitting },
 		setValue,
 		setError,
 		clearErrors,
@@ -39,7 +44,9 @@ export const PasswordForm = ({ onSubmit }: PasswordFormProps) => {
 				setError={setError}
 				clearErrors={clearErrors}
 			/>
-			<Button type='submit'>{SUBMIT_BUTTON}</Button>
+			<Button type='submit'>
+				{isSubmitting ? LOADING_BUTTON : SUBMIT_BUTTON}
+			</Button>
 		</Form>
 	);
 };

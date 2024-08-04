@@ -10,6 +10,7 @@ export const YEAR = 'Year';
 
 export const NEXT_BUTTON = 'Next';
 export const SUBMIT_BUTTON = 'Submit';
+export const LOADING_BUTTON = 'Loading...';
 
 export const months = [
 	'January',
