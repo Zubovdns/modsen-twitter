@@ -22,8 +22,6 @@ export const RegistrationForm = () => {
 	const handlePasswordSubmit = async (data: Partial<FormData>) => {
 		const completeData = { ...formData, ...data };
 
-		console.log('Success:', completeData); // ! удалить
-
 		try {
 			const userCredential = await createUserWithEmailAndPassword(
 				auth,
@@ -51,7 +49,6 @@ export const RegistrationForm = () => {
 					birth_date: birthDate,
 					email: completeData.email,
 				});
-				console.log('User data saved successfully');
 			} catch (error) {
 				await deleteUser(user);
 				console.error('Error saving user data, user deleted: ', error);

@@ -36,7 +36,6 @@ const SignUpOptions = () => {
 		try {
 			const result = await signInWithPopup(auth, googleProvider);
 			const user = result.user;
-			console.log(user);
 
 			try {
 				await setDoc(doc(db, 'users', user.uid), {
@@ -45,7 +44,6 @@ const SignUpOptions = () => {
 					birth_date: null,
 					email: user.email || null,
 				});
-				console.log('User data saved successfully');
 			} catch (error) {
 				console.error('Error saving user data: ', error);
 			}
