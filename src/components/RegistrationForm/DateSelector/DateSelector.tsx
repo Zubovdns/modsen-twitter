@@ -1,4 +1,3 @@
-import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { getDaysInMonth } from '@utils/getDaysInMonth';
 import { getYears } from '@utils/getYears';
@@ -17,11 +16,11 @@ import {
 } from './styled';
 import { DateSelectorProps } from './types';
 
-export const DateSelector: React.FC<DateSelectorProps> = ({
+export const DateSelector = ({
 	monthError,
 	dayError,
 	yearError,
-}) => {
+}: DateSelectorProps) => {
 	const { control, watch } = useFormContext();
 	const month = watch('month');
 	const year = watch('year');

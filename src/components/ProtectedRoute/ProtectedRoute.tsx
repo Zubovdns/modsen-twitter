@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '@src/firebase';
 import { SIGN_UP_ROUTE } from '@src/routes';
@@ -6,11 +6,9 @@ import { onAuthStateChanged } from 'firebase/auth';
 
 import { Loader } from '../Loader';
 
-interface ProtectedRouteProps {
-	children: ReactNode;
-}
+import { ProtectedRouteProps } from './types';
 
-export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
+export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
 	const [loading, setLoading] = useState(true);
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const navigate = useNavigate();

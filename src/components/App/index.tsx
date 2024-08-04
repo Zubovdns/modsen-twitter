@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import {
 	authenticatedRoutes,
@@ -10,7 +10,7 @@ import { Loader } from '../Loader';
 import { ProtectedRoute } from '../ProtectedRoute';
 import { UnauthenticatedRoute } from '../UnauthenticatedRoute';
 
-export const App: React.FC = () => (
+export const App = () => (
 	<Suspense fallback={<Loader />}>
 		<Routes>
 			<Route path='/' element={<Navigate to={HOME_ROUTE} />} />
