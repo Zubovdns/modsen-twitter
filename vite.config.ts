@@ -2,12 +2,13 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 import { defineConfig } from 'vite';
 import babel from 'vite-plugin-babel';
+import svgr from 'vite-plugin-svgr';
 
 export default defineConfig(({ mode }) => {
 	const isProduction = mode === 'production';
 
 	return {
-		plugins: [react(), babel()],
+		plugins: [react(), babel(), svgr()],
 		resolve: {
 			alias: {
 				'@src': path.resolve(__dirname, 'src'),

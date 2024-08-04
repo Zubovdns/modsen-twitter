@@ -4,4 +4,6 @@ export const lightTheme = {
 	...commonTheme,
 
 	bodyBg: '#FFF',
+
+	footerLinkText: '#000',
 };

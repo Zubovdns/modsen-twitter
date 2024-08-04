@@ -10,8 +10,9 @@ export const SIGN_UP_ROUTE = '/sign_up';
 export const REGISTER_ROUTE = '/register';
 export const LOGIN_ROUTE = '/login';
 
-export const routes = [
-	{ path: HOME_ROUTE, Page: Home },
+export const authenticatedRoutes = [{ path: HOME_ROUTE, Page: Home }];
+
+export const unauthenticatedRoutes = [
 	{ path: SIGN_UP_ROUTE, Page: SignUp },
 	{ path: REGISTER_ROUTE, Page: Register },
 	{ path: LOGIN_ROUTE, Page: Login },

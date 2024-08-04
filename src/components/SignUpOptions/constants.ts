@@ -1,0 +1,10 @@
+export const HAPPENING_NOW = 'Happening now';
+export const JOIN_TWITTER_TODAY = 'Join Twitter today';
+export const SIGN_UP_WITH_GOOGLE = 'Sign up with Google';
+export const SIGN_UP_WITH_EMAIL = 'Sign up with Email';
+export const TERMS_OF_SERVICE = 'Terms of Service';
+export const PRIVACY_POLICY = 'Privacy Policy';
+export const COOKIE_USE = 'Cookie Use';
+export const ALREADY_HAVE_AN_ACCOUNT = 'Already have an account?';
+export const LOG_IN = 'Log in';
+export const DISCLAIMER_TEXT = 'By signing up you agree to the ';
