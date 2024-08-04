@@ -7,7 +7,7 @@ import { doc, setDoc } from 'firebase/firestore';
 import { months } from './constants';
 import { DetailsForm } from './DetailsForm';
 import { PasswordForm } from './PasswordForm';
-import { FormWrapper, Logo } from './styled';
+import { FormWrapper, Logo } from '../styled';
 import { FormData } from './types';
 
 export const RegistrationForm = () => {

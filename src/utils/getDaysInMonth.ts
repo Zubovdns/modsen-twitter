@@ -1,4 +1,4 @@
-import { months } from '@src/components/RegistrationForm/constants';
+import { months } from '@src/components/Forms/RegistrationForm/constants';
 
 export const getDaysInMonth = (month: string, year: number) => {
 	const monthIndex = months.indexOf(month);

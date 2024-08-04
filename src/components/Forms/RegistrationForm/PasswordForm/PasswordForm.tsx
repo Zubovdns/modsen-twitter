@@ -2,8 +2,8 @@ import { useForm } from 'react-hook-form';
 import { isValidPassword } from '@utils/isValidPassword';
 
 import { PASSWORD_VALIDATION_ERROR, SUBMIT_BUTTON, TITLE } from '../constants';
-import { FloatingLabelInputField } from '../FloatingLabelInputField';
-import { Form, Title } from '../styled';
+import { FloatingLabelInputField } from '../../FloatingLabelInputField';
+import { Form, Title } from '../../styled';
 import { SubmitButton } from '../SubmitButton';
 
 import { FormData, PasswordFormProps } from './types';

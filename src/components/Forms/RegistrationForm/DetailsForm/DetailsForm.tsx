@@ -11,8 +11,8 @@ import {
 	TITLE,
 } from '../constants';
 import { DateSelector } from '../DateSelector';
-import { FloatingLabelInputField } from '../FloatingLabelInputField';
-import { Form, Title } from '../styled';
+import { FloatingLabelInputField } from '../../FloatingLabelInputField';
+import { Form, Title } from '../../styled';
 import { SubmitButton } from '../SubmitButton';
 
 import { DetailsFormProps, FormData } from './types';

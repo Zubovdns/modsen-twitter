@@ -3,7 +3,7 @@ import { getDaysInMonth } from '@utils/getDaysInMonth';
 import { getYears } from '@utils/getYears';
 
 import { DAY, DESCRIPTION, LABEL, MONTH, months } from '../constants';
-import { ValidationError } from '../styled';
+import { ValidationError } from '../../styled';
 
 import {
 	DateSelect,
