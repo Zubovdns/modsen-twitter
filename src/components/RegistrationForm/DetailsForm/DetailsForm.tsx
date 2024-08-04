@@ -5,7 +5,6 @@ import { isValidPhoneNumber } from '@src/utils/isValidPhoneNumber';
 
 import {
 	EMAIL_VALIDATION_ERROR,
-	LOADING_BUTTON,
 	NAME_VALIDATION_ERROR,
 	NEXT_BUTTON,
 	PHONE_VALIDATION_ERROR,
@@ -13,7 +12,8 @@ import {
 } from '../constants';
 import { DateSelector } from '../DateSelector';
 import { FloatingLabelInputField } from '../FloatingLabelInputField';
-import { Button, Form, Title } from '../styled';
+import { Form, Title } from '../styled';
+import { SubmitButton } from '../SubmitButton/SubmitButton';
 
 import { DetailsFormProps, FormData } from './types';
 
@@ -92,9 +92,7 @@ export const DetailsForm = ({ onSubmit }: DetailsFormProps) => {
 					dayError={errors.day?.message}
 					yearError={errors.year?.message}
 				/>
-				<Button type='submit'>
-					{isSubmitting ? LOADING_BUTTON : NEXT_BUTTON}
-				</Button>
+				<SubmitButton isSubmitting={isSubmitting} buttonText={NEXT_BUTTON} />
 			</Form>
 		</FormProvider>
 	);
