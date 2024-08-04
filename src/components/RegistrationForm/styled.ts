@@ -80,6 +80,12 @@ export const Button = styled.button`
 	border-radius: 20px;
 	cursor: pointer;
 
+	height: 40px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
 	&:hover {
 		background-color: #0d8ddb;
 	}
