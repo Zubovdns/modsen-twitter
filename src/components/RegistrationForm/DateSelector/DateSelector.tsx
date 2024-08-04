@@ -4,12 +4,14 @@ import { getDaysInMonth } from '@src/utils/getDaysInMonth';
 import { getYears } from '@src/utils/getYears';
 
 import { DAY, DESCRIPTION, LABEL, MONTH, months } from '../constants';
-import { Description, Label, ValidationError } from '../styled';
+import { ValidationError } from '../styled';
 
 import {
 	DateSelect,
 	DateWrapper,
 	DefaultOption,
+	Description,
+	Label,
 	MonthSelect,
 	Option,
 } from './styled';

@@ -7,6 +7,18 @@ export const DateWrapper = styled.div`
 	margin: 10px 0;
 `;
 
+export const Label = styled.label`
+	font-size: 14px;
+	font-weight: bold;
+	margin-top: 20px;
+`;
+
+export const Description = styled.p`
+	font-size: 12px;
+	color: #555;
+	margin-bottom: 10px;
+`;
+
 export const DateSelect = styled.select<{ $error: boolean }>`
 	padding: 15px;
 	font-size: 16px;
