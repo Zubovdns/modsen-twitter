@@ -1,8 +1,8 @@
-import { FOOTER_LINKS } from '@src/constants/footer';
+import { FOOTER_LINKS } from '@constants/footer';
 
 import { FooterContainer, FooterLink } from './styled';
 
-const Footer = () => (
+export const Footer = () => (
 	<FooterContainer>
 		{FOOTER_LINKS.map((item, index) => (
 			<FooterLink key={index} to={item.to}>
@@ -11,5 +11,3 @@ const Footer = () => (
 		))}
 	</FooterContainer>
 );
-
-export default Footer;

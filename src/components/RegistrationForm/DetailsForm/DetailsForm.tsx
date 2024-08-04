@@ -1,7 +1,7 @@
 import { FormProvider, useForm } from 'react-hook-form';
-import { isValidEmail } from '@src/utils/isValidEmail';
-import { isValidName } from '@src/utils/isValidName';
-import { isValidPhoneNumber } from '@src/utils/isValidPhoneNumber';
+import { isValidEmail } from '@utils/isValidEmail';
+import { isValidName } from '@utils/isValidName';
+import { isValidPhoneNumber } from '@utils/isValidPhoneNumber';
 
 import {
 	EMAIL_VALIDATION_ERROR,
@@ -13,7 +13,7 @@ import {
 import { DateSelector } from '../DateSelector';
 import { FloatingLabelInputField } from '../FloatingLabelInputField';
 import { Form, Title } from '../styled';
-import { SubmitButton } from '../SubmitButton/SubmitButton';
+import { SubmitButton } from '../SubmitButton';
 
 import { DetailsFormProps, FormData } from './types';
 

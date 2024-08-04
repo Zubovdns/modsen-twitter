@@ -1,6 +1,6 @@
 import SignUpImage from '@assets/images/SignUpImage.jpg';
-import Footer from '@src/components/Footer';
-import SignUpOptions from '@src/components/SignUpOptions';
+import { Footer } from '@components/Footer';
+import SignUpOptions from '@components/SignUpOptions';
 
 import { ContentContainer, Image, SignUpContainer } from './styled';
 

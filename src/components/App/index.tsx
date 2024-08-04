@@ -7,8 +7,8 @@ import {
 } from '@src/routes';
 
 import { Loader } from '../Loader';
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import UnauthenticatedRoute from '../UnauthenticatedRoute/UnauthenticatedRoute';
+import { ProtectedRoute } from '../ProtectedRoute';
+import { UnauthenticatedRoute } from '../UnauthenticatedRoute';
 
 export const App: React.FC = () => (
 	<Suspense fallback={<Loader />}>

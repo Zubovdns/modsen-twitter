@@ -10,7 +10,7 @@ interface UnauthenticatedRouteProps {
 	children: ReactNode;
 }
 
-const UnauthenticatedRoute: React.FC<UnauthenticatedRouteProps> = ({
+export const UnauthenticatedRoute: React.FC<UnauthenticatedRouteProps> = ({
 	children,
 }) => {
 	const [loading, setLoading] = useState(true);
@@ -35,5 +35,3 @@ const UnauthenticatedRoute: React.FC<UnauthenticatedRouteProps> = ({
 
 	return !isAuthenticated ? <>{children}</> : null;
 };
-
-export default UnauthenticatedRoute;
