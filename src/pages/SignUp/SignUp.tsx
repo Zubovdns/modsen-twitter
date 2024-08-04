@@ -4,7 +4,7 @@ import SignUpOptions from '@components/SignUpOptions';
 
 import { ContentContainer, Image, SignUpContainer } from './styled';
 
-const SignUp = () => (
+export const SignUp = () => (
 	<SignUpContainer>
 		<ContentContainer>
 			<Image src={SignUpImage} alt='SignUp Image' />
@@ -13,5 +13,3 @@ const SignUp = () => (
 		<Footer />
 	</SignUpContainer>
 );
-
-export default SignUp;
