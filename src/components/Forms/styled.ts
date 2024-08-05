@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const FormWrapper = styled.div`
@@ -31,4 +32,17 @@ export const ValidationError = styled.p`
 	left: 0;
 	font-size: 12px;
 	margin-top: 4px;
+`;
+
+export const LinkTo = styled(Link)`
+	text-decoration: none;
+	color: ${({ theme }) => theme.signUpLinkText};
+
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+
+	&:hover {
+		text-decoration: underline;
+	}
 `;
