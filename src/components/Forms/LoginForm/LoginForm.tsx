@@ -1,6 +1,8 @@
 import { useForm } from 'react-hook-form';
 import TwitterLogo from '@assets/icons/TwitterLogo.svg';
 import { SIGN_UP_ROUTE } from '@src/routes';
+import { isValidEmail } from '@src/utils/isValidEmail';
+import { requiredField } from '@src/utils/requiredField';
 
 import { FloatingLabelInputField } from '../FloatingLabelInputField';
 import { SubmitButton } from '../RegistrationForm/SubmitButton';
@@ -36,14 +38,16 @@ export const LoginForm = () => {
 				<FloatingLabelInputField
 					id='login'
 					label='Phone number, email address'
-					type='login'
+					type='text'
 					placeholder=' '
 					register={register}
 					error={errors.login}
 					setValue={setValue}
 					setError={setError}
 					clearErrors={clearErrors}
-					validationRules={undefined}
+					validationRules={{
+						validate: isValidEmail,
+					}}
 				/>
 				<FloatingLabelInputField
 					id='password'
@@ -55,7 +59,9 @@ export const LoginForm = () => {
 					setValue={setValue}
 					setError={setError}
 					clearErrors={clearErrors}
-					validationRules={undefined}
+					validationRules={{
+						validate: requiredField,
+					}}
 				/>
 				<SubmitButton isSubmitting={isSubmitting} buttonText={SUBMIT_BUTTON} />
 				<LinkTo to={SIGN_UP_ROUTE}>Sign up to Twitter</LinkTo>

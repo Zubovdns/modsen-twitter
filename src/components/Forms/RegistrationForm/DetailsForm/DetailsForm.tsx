@@ -1,5 +1,5 @@
 import { FormProvider, useForm } from 'react-hook-form';
-import { isValidEmail } from '@utils/isValidEmail';
+import { isValidEmailAsync } from '@utils/isValidEmailAsync';
 import { isValidName } from '@utils/isValidName';
 import { isValidPhoneNumber } from '@utils/isValidPhoneNumber';
 
@@ -81,7 +81,7 @@ export const DetailsForm = ({ onSubmit }: DetailsFormProps) => {
 					error={errors.email}
 					validationRules={{
 						required: EMAIL_VALIDATION_ERROR,
-						validate: isValidEmail,
+						validate: isValidEmailAsync,
 					}}
 					setValue={setValue}
 					setError={setError}
