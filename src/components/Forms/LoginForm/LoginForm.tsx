@@ -1,8 +1,10 @@
 import { useForm } from 'react-hook-form';
 import TwitterLogo from '@assets/icons/TwitterLogo.svg';
+import { auth, db } from '@src/firebase';
 import { SIGN_UP_ROUTE } from '@src/routes';
-import { isValidEmail } from '@src/utils/isValidEmail';
 import { requiredField } from '@src/utils/requiredField';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 
 import { FloatingLabelInputField } from '../FloatingLabelInputField';
 import { SubmitButton } from '../RegistrationForm/SubmitButton';
@@ -26,8 +28,29 @@ export const LoginForm = () => {
 		},
 	});
 
-	const onSubmit = (data: FormData) => {
-		console.log(data);
+	const onSubmit = async (data: FormData) => {
+		const { login, password } = data;
+		try {
+			const isEmail = login.includes('@');
+			const usersRef = collection(db, 'users');
+			const q = query(
+				usersRef,
+				where(isEmail ? 'email' : 'phone_number', '==', login)
+			);
+			const querySnapshot = await getDocs(q);
+
+			if (querySnapshot.empty) {
+				console.log('Пользователь не найден');
+				return;
+			}
+
+			const userDoc = querySnapshot.docs[0];
+			const userData = userDoc.data();
+
+			await signInWithEmailAndPassword(auth, userData.email, password);
+		} catch (error) {
+			console.log('Неверные данные для входа', error);
+		}
 	};
 
 	return (
@@ -46,7 +69,7 @@ export const LoginForm = () => {
 					setError={setError}
 					clearErrors={clearErrors}
 					validationRules={{
-						validate: isValidEmail,
+						validate: requiredField,
 					}}
 				/>
 				<FloatingLabelInputField
