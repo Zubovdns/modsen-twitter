@@ -68,8 +68,4 @@ export const DisclaimerLink = styled(Link)`
 	&:hover {
 		text-decoration: underline;
 	}
-
-	&:visited {
-		color: ${({ theme }) => theme.signUpLinkText};
-	}
 `;

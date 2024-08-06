@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import GoogleIcon from '@assets/icons/GoogleIcon.svg';
 import TwitterLogo from '@assets/icons/TwitterLogo.svg';
 import { auth, db, googleProvider } from '@src/firebase';
-import { LOGIN_ROUTE, REGISTER_ROUTE, SIGN_UP_ROUTE } from '@src/routes';
+import { LOGIN_ROUTE, REGISTRATION_ROUTE, SIGN_UP_ROUTE } from '@src/routes';
 import { signInWithPopup } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 
@@ -53,7 +53,7 @@ const SignUpOptions = () => {
 	};
 
 	const handleEmailSignUpClick = () => {
-		navigate(REGISTER_ROUTE);
+		navigate(REGISTRATION_ROUTE);
 	};
 
 	return (

@@ -6,24 +6,28 @@ export const FloatingLabelInputWrapper = styled.div`
 `;
 
 export const FloatingLabelInput = styled.input<{ $error: boolean }>`
-	padding: 10px;
+	padding: 18px;
 	font-size: 16px;
 	border: 1px solid ${({ $error }) => ($error ? '#F00' : '#ccc')};
 	border-radius: 4px;
 	width: 100%;
 	outline: none;
 	box-sizing: border-box;
+
 	&::placeholder {
 		opacity: 0;
 		transition: opacity 0.2s ease;
 	}
+
 	&:focus::placeholder {
 		opacity: 1;
 	}
+
 	&:focus {
-		border-color: #1da1f2;
-		box-shadow: 0 0 0 1px #1da1f2;
+		border-color: ${({ $error }) => ($error ? '#F00' : '#1da1f2')};
+		box-shadow: 0 0 0 1px ${({ $error }) => ($error ? '#F00' : '#1da1f2')};
 	}
+
 	&:focus + label,
 	&:not(:placeholder-shown) + label {
 		top: -1px;

@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 
-export const RegisterContainer = styled.div`
+export const RegistrationContainer = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;

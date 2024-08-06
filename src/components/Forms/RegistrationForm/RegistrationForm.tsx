@@ -4,10 +4,11 @@ import { auth, db } from '@src/firebase';
 import { createUserWithEmailAndPassword, deleteUser } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 
+import { FormWrapper, Logo } from '../styled';
+
 import { months } from './constants';
 import { DetailsForm } from './DetailsForm';
 import { PasswordForm } from './PasswordForm';
-import { FormWrapper, Logo } from './styled';
 import { FormData } from './types';
 
 export const RegistrationForm = () => {

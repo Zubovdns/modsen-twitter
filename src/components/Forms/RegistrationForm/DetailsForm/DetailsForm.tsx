@@ -1,8 +1,10 @@
 import { FormProvider, useForm } from 'react-hook-form';
-import { isValidEmail } from '@utils/isValidEmail';
+import { isValidEmailAsync } from '@utils/isValidEmailAsync';
 import { isValidName } from '@utils/isValidName';
 import { isValidPhoneNumber } from '@utils/isValidPhoneNumber';
 
+import { FloatingLabelInputField } from '../../FloatingLabelInputField';
+import { Form, Title } from '../../styled';
 import {
 	EMAIL_VALIDATION_ERROR,
 	NAME_VALIDATION_ERROR,
@@ -11,8 +13,6 @@ import {
 	TITLE,
 } from '../constants';
 import { DateSelector } from '../DateSelector';
-import { FloatingLabelInputField } from '../FloatingLabelInputField';
-import { Form, Title } from '../styled';
 import { SubmitButton } from '../SubmitButton';
 
 import { DetailsFormProps, FormData } from './types';
@@ -81,7 +81,7 @@ export const DetailsForm = ({ onSubmit }: DetailsFormProps) => {
 					error={errors.email}
 					validationRules={{
 						required: EMAIL_VALIDATION_ERROR,
-						validate: isValidEmail,
+						validate: isValidEmailAsync,
 					}}
 					setValue={setValue}
 					setError={setError}
