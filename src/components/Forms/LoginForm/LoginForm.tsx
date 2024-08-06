@@ -11,7 +11,12 @@ import { FloatingLabelInputField } from '../FloatingLabelInputField';
 import { SubmitButton } from '../RegistrationForm/SubmitButton';
 import { Form, FormWrapper, LinkTo, Logo, Title } from '../styled';
 
-import { SUBMIT_BUTTON, TITLE } from './constants';
+import {
+	INCORRECT_LOGIN_INFORMATION_MESSAGE,
+	SUBMIT_BUTTON,
+	TITLE,
+	USER_NOT_FOUND_MESSAGE,
+} from './constants';
 import { FormData } from './types';
 
 export const LoginForm = () => {
@@ -43,7 +48,7 @@ export const LoginForm = () => {
 			const querySnapshot = await getDocs(q);
 
 			if (querySnapshot.empty) {
-				showNotification('Пользователь не найден');
+				showNotification(USER_NOT_FOUND_MESSAGE);
 				return;
 			}
 
@@ -52,7 +57,7 @@ export const LoginForm = () => {
 
 			await signInWithEmailAndPassword(auth, userData.email, password);
 		} catch (error) {
-			showNotification('Неверные данные для входа');
+			showNotification(INCORRECT_LOGIN_INFORMATION_MESSAGE);
 		}
 	};
 
