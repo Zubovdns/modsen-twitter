@@ -49,6 +49,7 @@ export const RegistrationForm = () => {
 					phone_number: completeData.phone,
 					birth_date: birthDate,
 					email: completeData.email,
+					profile_image: null,
 				});
 			} catch (error) {
 				await deleteUser(user);
