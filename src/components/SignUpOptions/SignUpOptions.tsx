@@ -44,6 +44,7 @@ const SignUpOptions = () => {
 					birth_date: null,
 					email: user.email || null,
 					profile_image: null,
+					login_name: user.uid,
 				});
 			} catch (error) {
 				console.error('Error saving user data: ', error);

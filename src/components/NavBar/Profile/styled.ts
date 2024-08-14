@@ -32,6 +32,11 @@ export const UserName = styled.p`
 
 export const UserLoginName = styled.p`
 	font-size: 15px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+
+	max-width: 107px;
 `;
 
 export const ExitButton = styled.button`

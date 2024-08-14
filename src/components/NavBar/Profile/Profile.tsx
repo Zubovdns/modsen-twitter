@@ -20,6 +20,7 @@ export const Profile = () => {
 	const { showNotification, NotificationComponent } = useNotification();
 	const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
 	const [name, setName] = useState<string | null>(null);
+	const [loginName, setLoginName] = useState<string | null>(null);
 
 	useEffect(() => {
 		const fetchUserProfile = async () => {
@@ -32,8 +33,8 @@ export const Profile = () => {
 					if (userDoc.exists()) {
 						const userData = userDoc.data();
 						setAvatarUrl(userData.profile_image);
-						console.log(avatarUrl);
 						setName(userData.name);
+						setLoginName(userData.login_name);
 					}
 				}
 			} catch (error) {
@@ -58,7 +59,7 @@ export const Profile = () => {
 				<Avatar src={avatarUrl} alt='Avatar image' />
 				<TextContainer>
 					<UserName>{name}</UserName>
-					<UserLoginName>{'@' + name}</UserLoginName>
+					<UserLoginName>{'@' + loginName}</UserLoginName>
 				</TextContainer>
 				<ExitButton onClick={handleLogOut}>
 					<ExitImage src={ExitIcon} alt='Exit icon' />

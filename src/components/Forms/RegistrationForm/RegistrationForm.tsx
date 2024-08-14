@@ -50,6 +50,7 @@ export const RegistrationForm = () => {
 					birth_date: birthDate,
 					email: completeData.email,
 					profile_image: null,
+					login_name: user.uid,
 				});
 			} catch (error) {
 				await deleteUser(user);
