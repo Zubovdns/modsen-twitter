@@ -28,14 +28,23 @@ export const TextContainer = styled.div`
 export const UserName = styled.p`
 	font-size: 16px;
 	font-weight: bold;
-`;
 
-export const UserLoginName = styled.p`
-	font-size: 15px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 
+	width: 107px;
+	max-width: 107px;
+`;
+
+export const UserLoginName = styled.p`
+	font-size: 15px;
+
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+
+	width: 107px;
 	max-width: 107px;
 `;
 
