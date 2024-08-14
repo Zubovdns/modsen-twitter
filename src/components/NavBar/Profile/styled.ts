@@ -1,15 +1,25 @@
 import styled from 'styled-components';
 
 export const ProfileWrapper = styled.div`
-	width: 100%;
+	width: 240px;
 	height: auto;
 
 	padding: 10px;
 	margin-top: 20px;
+	margin-right: 10px;
 
 	display: flex;
 	align-items: center;
 	justify-content: center;
+
+	border-radius: 30px;
+
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+
+	&:hover {
+		background-color: #e7e7e7;
+	}
 `;
 
 export const TextContainer = styled.div`
@@ -25,18 +35,6 @@ export const TextContainer = styled.div`
 	padding: 0 10px;
 `;
 
-export const UserName = styled.p`
-	font-size: 16px;
-	font-weight: bold;
-
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-
-	width: 107px;
-	max-width: 107px;
-`;
-
 export const UserLoginName = styled.p`
 	font-size: 15px;
 
@@ -44,27 +42,19 @@ export const UserLoginName = styled.p`
 	overflow: hidden;
 	text-overflow: ellipsis;
 
-	width: 107px;
-	max-width: 107px;
+	width: 124px;
+	max-width: 124px;
 `;
 
-export const ExitButton = styled.button`
-	background-color: inherit;
-	border: none;
-	border-radius: 30px;
-	padding: 8px;
-
-	flex: 0 1 auto;
-
-	cursor: pointer;
-
-	transition: background-color 0.2s ease;
-
-	&:hover {
-		background-color: #e7e7e7;
-	}
+export const UserName = styled(UserLoginName)`
+	font-size: 16px;
+	font-weight: bold;
 `;
 
 export const ExitImage = styled.img`
+	background-color: inherit;
+	border: none;
+
+	flex: 0 1 auto;
 	width: 30px;
 `;

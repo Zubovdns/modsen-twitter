@@ -8,7 +8,6 @@ import { doc, getDoc } from 'firebase/firestore';
 import { Avatar } from './Avatar';
 import { LOG_OUT_ERROR_MESSAGE } from './constants';
 import {
-	ExitButton,
 	ExitImage,
 	ProfileWrapper,
 	TextContainer,
@@ -55,15 +54,13 @@ export const Profile = () => {
 
 	return (
 		<>
-			<ProfileWrapper>
+			<ProfileWrapper onClick={handleLogOut}>
 				<Avatar src={avatarUrl} alt='Avatar image' />
 				<TextContainer>
 					<UserName>{name}</UserName>
 					<UserLoginName>{'@' + loginName}</UserLoginName>
 				</TextContainer>
-				<ExitButton onClick={handleLogOut}>
-					<ExitImage src={ExitIcon} alt='Exit icon' />
-				</ExitButton>
+				<ExitImage src={ExitIcon} alt='Exit icon' />
 			</ProfileWrapper>
 			<NotificationComponent />
 		</>

@@ -3,14 +3,24 @@ import { styled } from 'styled-components';
 export const NavBarContainer = styled.div`
 	display: flex;
 	flex-direction: column;
-	align-items: flex-start;
+	align-items: flex-end;
 	justify-content: flex-start;
 
-	width: 300px;
 	height: 100vh;
 	border-right: 1px solid black;
 
-	padding: 30px;
+	flex: 1;
+`;
+
+export const ItemContainer = styled.div`
+	width: 250px;
+
+	padding-right: 30px;
+
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: flex-start;
 `;
 
 export const Logo = styled.img`
