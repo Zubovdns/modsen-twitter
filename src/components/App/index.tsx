@@ -7,6 +7,7 @@ import {
 } from '@src/routes';
 
 import { Loader } from '../Loader';
+import { MainLayout } from '../MainLayout';
 import { ProtectedRoute } from '../ProtectedRoute';
 import { UnauthenticatedRoute } from '../UnauthenticatedRoute';
 
@@ -20,7 +21,7 @@ export const App = () => (
 					path={path}
 					element={
 						<ProtectedRoute>
-							<Page />
+							<MainLayout Page={Page} />
 						</ProtectedRoute>
 					}
 				/>
