@@ -1,29 +1,18 @@
 import { useEffect, useState } from 'react';
-import SelectImageIcon from '@assets/icons/Tweet/SelectImageIcon.svg';
 import { ThemeSwitcher } from '@components/ThemeSwitcher';
 import { auth, db } from '@src/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 
 import { PLACEHOLDER_TEXT, PLACEHOLDER_TITLE } from './constants';
 import {
-	Avatar,
-	AvatarContainer,
 	HeaderContainer,
 	HomeContainer,
-	Input,
-	InputContainer,
-	InputOptions,
-	OptionButton,
-	OptionIcon,
-	OptionsGroup,
 	PlaceholderContainer,
 	PlaceholderText,
 	PlaceholderTitle,
 	Title,
-	TweetButton,
-	UserTweetAvatarWrapper,
-	UserTweetContainer,
 } from './styled';
+import { TweetInput } from './TweetInput';
 
 export const Home = () => {
 	const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
@@ -54,24 +43,7 @@ export const Home = () => {
 				<Title>Home</Title>
 				<ThemeSwitcher />
 			</HeaderContainer>
-			<UserTweetContainer>
-				<UserTweetAvatarWrapper>
-					<AvatarContainer>
-						<Avatar src={avatarUrl || ''} />
-					</AvatarContainer>
-				</UserTweetAvatarWrapper>
-				<InputContainer>
-					<Input placeholder='Whats happening?!' />
-					<InputOptions>
-						<OptionsGroup>
-							<OptionButton>
-								<OptionIcon src={SelectImageIcon} />
-							</OptionButton>
-						</OptionsGroup>
-						<TweetButton>Tweet</TweetButton>
-					</InputOptions>
-				</InputContainer>
-			</UserTweetContainer>
+			<TweetInput avatarUrl={avatarUrl} />
 			<PlaceholderContainer>
 				<PlaceholderTitle>{PLACEHOLDER_TITLE}</PlaceholderTitle>
 				<PlaceholderText>{PLACEHOLDER_TEXT}</PlaceholderText>
