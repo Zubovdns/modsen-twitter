@@ -51,6 +51,8 @@ export const RegistrationForm = () => {
 					email: completeData.email,
 					profile_image: null,
 					login_name: user.uid,
+					followers: [],
+					following: [],
 				});
 			} catch (error) {
 				await deleteUser(user);
