@@ -16,7 +16,7 @@ import {
 } from './styled';
 
 export const Profile = () => {
-	const { showNotification, NotificationComponent } = useNotification();
+	const [showNotification, NotificationComponent] = useNotification();
 	const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
 	const [name, setName] = useState<string | null>(null);
 	const [loginName, setLoginName] = useState<string | null>(null);

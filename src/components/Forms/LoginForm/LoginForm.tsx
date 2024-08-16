@@ -34,7 +34,7 @@ export const LoginForm = () => {
 		},
 	});
 
-	const { showNotification, NotificationComponent } = useNotification();
+	const [showNotification, NotificationComponent] = useNotification();
 
 	const onSubmit = async (data: FormData) => {
 		const { login, password } = data;
