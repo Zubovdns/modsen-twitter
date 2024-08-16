@@ -14,6 +14,10 @@ export const PageWrapper = styled.div`
 
 	border-right: 2px solid #eff3f4;
 	border-left: 2px solid #eff3f4;
+
+	& > * > * {
+		border-bottom: 2px solid #eff3f4;
+	}
 `;
 
 export const MainLayoutContainer = styled.main`
