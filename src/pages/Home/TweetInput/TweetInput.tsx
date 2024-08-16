@@ -3,7 +3,9 @@ import { Controller, useForm } from 'react-hook-form';
 import DeleteImageIcon from '@assets/icons/Tweet/DeleteImageIcon.svg';
 import SelectImageIcon from '@assets/icons/Tweet/SelectImageIcon.svg';
 import { useNotification } from '@hooks/useNotification';
+import { auth, db } from '@src/firebase';
 import { isTweetButtonDisabled } from '@src/utils/isTweetButtonDisabled';
+import { addDoc, collection } from 'firebase/firestore';
 import {
 	getDownloadURL,
 	getStorage,
@@ -80,9 +82,25 @@ export const TweetInput = ({ avatarUrl }: TweetInputProps) => {
 		setIsUploading(false);
 	};
 
-	const onSubmit = (data: FormData) => {
-		// Handle form submission
-		console.log(data);
+	const onSubmit = async (data: FormData) => {
+		try {
+			const user = auth.currentUser;
+			if (user) {
+				await addDoc(collection(db, 'tweets'), {
+					text: data.text,
+					image_url: data.imageUrl,
+					likes_user_id: [],
+					publish_time: new Date(),
+					user_id: user.uid,
+				});
+
+				setValue('text', '');
+				setValue('image', null);
+				setValue('imageUrl', null);
+			}
+		} catch (error) {
+			showNotification('Error with creating tweet');
+		}
 	};
 
 	return (
