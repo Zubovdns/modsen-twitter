@@ -1,4 +1,4 @@
-export type NotificationHook = {
-	showNotification: (message: string, duration?: number) => void;
-	NotificationComponent: React.FC;
-};
+export type NotificationHook = [
+	(message: string, duration?: number) => void,
+	React.FC
+];

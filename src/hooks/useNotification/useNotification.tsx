@@ -27,5 +27,5 @@ export const useNotification = (): NotificationHook => {
 			/>
 		) : null;
 
-	return { showNotification, NotificationComponent };
+	return [showNotification, NotificationComponent];
 };

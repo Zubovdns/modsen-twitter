@@ -43,6 +43,10 @@ const SignUpOptions = () => {
 					phone_number: user.phoneNumber || null,
 					birth_date: null,
 					email: user.email || null,
+					profile_image: null,
+					login_name: user.uid,
+					followers: [],
+					following: [],
 				});
 			} catch (error) {
 				console.error('Error saving user data: ', error);
