@@ -1,3 +1,6 @@
+import { Suspense } from 'react';
+
+import { Loader } from '../Loader';
 import { NavBar } from '../NavBar';
 import { SearchPanel } from '../SearchPanel';
 
@@ -9,7 +12,9 @@ export const MainLayout = ({ Page }: MainLayoutProps) => (
 		<NavBar />
 		<MainLayoutContainer>
 			<PageWrapper>
-				<Page />
+				<Suspense fallback={<Loader />}>
+					<Page />
+				</Suspense>
 			</PageWrapper>
 			<SearchPanel />
 		</MainLayoutContainer>

@@ -10,14 +10,15 @@ import {
 	where,
 } from 'firebase/firestore';
 
-import { Tweet } from './types';
+import { Tweet, UseUserTweetsReturnType } from './types';
 
-export const useUserTweets = () => {
+export const useUserTweets = (): UseUserTweetsReturnType => {
 	const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
 	const [tweets, setTweets] = useState<Tweet[]>([]);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		const fetchUserProfile = async () => {
+		const fetchUserProfileAndTweets = async () => {
 			try {
 				const user = auth.currentUser;
 				if (user) {
@@ -29,6 +30,8 @@ export const useUserTweets = () => {
 
 						const following = userData.following || [];
 						const userIds = [...following, user.uid];
+
+						setLoading(true);
 
 						const tweetsQuery = query(
 							collection(db, 'tweets'),
@@ -52,16 +55,19 @@ export const useUserTweets = () => {
 								} as Tweet;
 							})
 						);
+
 						setTweets(fetchedTweets);
 					}
 				}
 			} catch (error) {
 				console.error('Failed to load user data or tweets: ', error);
+			} finally {
+				setLoading(false);
 			}
 		};
 
-		fetchUserProfile();
+		fetchUserProfileAndTweets();
 	}, []);
 
-	return { avatarUrl, tweets, setTweets };
+	return [avatarUrl, tweets, loading, setTweets];
 };

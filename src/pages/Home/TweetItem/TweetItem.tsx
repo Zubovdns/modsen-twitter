@@ -135,7 +135,16 @@ export const TweetItem = memo(
 						{menuOpen && (
 							<MoreMenu ref={menuRef}>
 								<MoreMenuItem onClick={handleMenuItemClick}>
-									Option 1
+									{'Go to ' + userLogin + ' profile'}
+								</MoreMenuItem>
+								<MoreMenuItem onClick={handleMenuItemClick}>
+									{'Follow ' + userLogin}
+								</MoreMenuItem>
+								<MoreMenuItem onClick={handleMenuItemClick}>
+									{'Mute ' + userLogin}
+								</MoreMenuItem>
+								<MoreMenuItem onClick={handleMenuItemClick}>
+									{'Block ' + userLogin}
 								</MoreMenuItem>
 								{isOwner && (
 									<MoreMenuItem onClick={handleDeleteClick}>

@@ -180,7 +180,8 @@ export const MoreMenu = styled.div`
 `;
 
 export const MoreMenuItem = styled.div`
-	padding: 7px 16px;
+	padding: 8px 16px;
+	font-weight: bold;
 	cursor: pointer;
 	transition: background-color 0.2s ease;
 

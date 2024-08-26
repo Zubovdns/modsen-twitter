@@ -14,3 +14,10 @@ export type Tweet = {
 	likes_user_id: string[];
 	user?: User;
 };
+
+export type UseUserTweetsReturnType = [
+	string | null,
+	Tweet[],
+	boolean,
+	React.Dispatch<React.SetStateAction<Tweet[]>>
+];

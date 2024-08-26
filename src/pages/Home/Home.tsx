@@ -1,4 +1,6 @@
+/* eslint-disable no-nested-ternary */
 import { ThemeSwitcher } from '@components/ThemeSwitcher';
+import { Loader } from '@src/components/Loader';
 import { auth, db } from '@src/firebase';
 import { useUserTweets } from '@src/hooks/useUserTweets/useUserTweets';
 import { deleteDoc, doc } from 'firebase/firestore';
@@ -16,7 +18,7 @@ import { TweetInput } from './TweetInput';
 import { TweetItem } from './TweetItem';
 
 export const Home = () => {
-	const { avatarUrl, tweets, setTweets } = useUserTweets();
+	const [avatarUrl, tweets, loading, setTweets] = useUserTweets();
 
 	const handleDeleteTweet = async (tweetId: string) => {
 		try {
@@ -29,6 +31,8 @@ export const Home = () => {
 		}
 	};
 
+	console.log(tweets, loading);
+
 	return (
 		<HomeContainer>
 			<HeaderContainer>
@@ -36,8 +40,9 @@ export const Home = () => {
 				<ThemeSwitcher />
 			</HeaderContainer>
 			<TweetInput avatarUrl={avatarUrl} />
-
-			{tweets.length > 0 ? (
+			{!loading ? (
+				<Loader />
+			) : tweets.length > 0 ? (
 				tweets.map((tweet) => (
 					<TweetItem
 						text={tweet.text}
