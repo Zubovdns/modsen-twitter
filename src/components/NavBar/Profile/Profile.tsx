@@ -42,7 +42,7 @@ export const Profile = () => {
 		};
 
 		fetchUserProfile();
-	}, []);
+	});
 
 	const handleLogOut = async () => {
 		try {
