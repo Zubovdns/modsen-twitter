@@ -6,7 +6,16 @@ import MessagesIcon from '@assets/icons/NavBar/Simple/MessagesIcon.svg';
 import MoreIcon from '@assets/icons/NavBar/Simple/MoreIcon.svg';
 import NotificationsIcon from '@assets/icons/NavBar/Simple/NotificationsIcon.svg';
 import ProfileIcon from '@assets/icons/NavBar/Simple/ProfileIcon.svg';
-import { HOME_ROUTE } from '@src/routes';
+import {
+	BOOKMARKS_ROUTE,
+	EXPLORE_ROUTE,
+	HOME_ROUTE,
+	LISTS_ROUTE,
+	MESSAGES_ROUTE,
+	MORE_ROUTE,
+	NOTIFICATIONS_ROUTE,
+	PROFILE_ROUTE,
+} from '@src/routes';
 
 export const TWEET_BUTTON = 'Tweet';
 
@@ -18,37 +27,37 @@ export const navBarList = [
 	},
 	{
 		name: 'Explore',
-		to: HOME_ROUTE,
+		to: EXPLORE_ROUTE,
 		icon: ExploreIcon,
 	},
 	{
 		name: 'Notification',
-		to: HOME_ROUTE,
+		to: NOTIFICATIONS_ROUTE,
 		icon: NotificationsIcon,
 	},
 	{
 		name: 'Messages',
-		to: HOME_ROUTE,
+		to: MESSAGES_ROUTE,
 		icon: MessagesIcon,
 	},
 	{
 		name: 'Bookmarks',
-		to: HOME_ROUTE,
+		to: BOOKMARKS_ROUTE,
 		icon: BookmarksIcon,
 	},
 	{
 		name: 'Lists',
-		to: HOME_ROUTE,
+		to: LISTS_ROUTE,
 		icon: ListsIcon,
 	},
 	{
 		name: 'Profile',
-		to: HOME_ROUTE,
+		to: PROFILE_ROUTE,
 		icon: ProfileIcon,
 	},
 	{
 		name: 'More',
-		to: HOME_ROUTE,
+		to: MORE_ROUTE,
 		icon: MoreIcon,
 	},
 ];

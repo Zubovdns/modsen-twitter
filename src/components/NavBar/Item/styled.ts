@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-export const ItemContainer = styled(Link)`
+export const ItemContainer = styled(Link)<{ $isActive: boolean }>`
 	width: auto;
 	height: 50px;
 
@@ -26,8 +26,9 @@ export const Icon = styled.img`
 	height: 26px;
 `;
 
-export const Text = styled.span`
+export const Text = styled.span<{ $isActive: boolean }>`
 	color: black;
+	font-weight: ${({ $isActive }) => ($isActive ? 'bold' : '400')};
 	font-size: 20px;
 	margin: 0 20px;
 `;
