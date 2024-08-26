@@ -6,20 +6,6 @@ export const MainLayoutWrapper = styled.div`
 	justify-content: center;
 `;
 
-export const PageWrapper = styled.div`
-	min-width: 600px;
-	width: 600px;
-	max-width: 600px;
-	min-height: 100vh;
-
-	border-right: 2px solid #eff3f4;
-	border-left: 2px solid #eff3f4;
-
-	& > * > * {
-		border-bottom: 2px solid #eff3f4;
-	}
-`;
-
 export const MainLayoutContainer = styled.main`
 	display: flex;
 	gap: 40px;

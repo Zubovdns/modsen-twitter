@@ -4,6 +4,7 @@ const Home = lazy(() => import('@pages/Home'));
 const Login = lazy(() => import('@pages/Login'));
 const Registration = lazy(() => import('@src/pages/Registration'));
 const SignUp = lazy(() => import('@pages/SignUp'));
+const InDevelopment = lazy(() => import('@pages/InDevelopment'));
 
 export const SIGN_UP_ROUTE = '/sign_up';
 export const REGISTRATION_ROUTE = '/registration';
@@ -20,13 +21,13 @@ export const MORE_ROUTE = '/more';
 
 export const authenticatedRoutes = [
 	{ path: HOME_ROUTE, Page: Home },
-	{ path: EXPLORE_ROUTE, Page: Home },
-	{ path: NOTIFICATIONS_ROUTE, Page: Home },
-	{ path: MESSAGES_ROUTE, Page: Home },
-	{ path: BOOKMARKS_ROUTE, Page: Home },
-	{ path: LISTS_ROUTE, Page: Home },
-	{ path: PROFILE_ROUTE, Page: Home },
-	{ path: MORE_ROUTE, Page: Home },
+	{ path: EXPLORE_ROUTE, Page: InDevelopment },
+	{ path: NOTIFICATIONS_ROUTE, Page: InDevelopment },
+	{ path: MESSAGES_ROUTE, Page: InDevelopment },
+	{ path: BOOKMARKS_ROUTE, Page: InDevelopment },
+	{ path: LISTS_ROUTE, Page: InDevelopment },
+	{ path: PROFILE_ROUTE, Page: InDevelopment },
+	{ path: MORE_ROUTE, Page: InDevelopment },
 ];
 
 export const unauthenticatedRoutes = [
