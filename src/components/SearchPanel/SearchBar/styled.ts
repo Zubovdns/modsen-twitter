@@ -18,7 +18,7 @@ export const SearchImage = styled.img`
 export const SearchInput = styled.input`
 	border: none;
 	background-color: transparent;
-	color: #6e7a82;
+	color: black;
 	font-size: 16px;
 	width: 100%;
 	outline: none;
