@@ -7,7 +7,6 @@ export const HomeWrapper = styled.div`
 	min-height: 100vh;
 
 	border-right: 2px solid #eff3f4;
-	border-left: 2px solid #eff3f4;
 
 	& > * > * {
 		border-bottom: 2px solid #eff3f4;

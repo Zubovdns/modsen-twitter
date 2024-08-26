@@ -9,6 +9,8 @@ export const NavBarContainer = styled.div`
 	position: sticky;
 	top: 0px;
 
+	border-right: 2px solid #eff3f4;
+
 	height: 100vh;
 
 	flex: 1;
