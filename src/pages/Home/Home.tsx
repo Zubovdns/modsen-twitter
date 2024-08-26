@@ -40,7 +40,7 @@ export const Home = () => {
 				<ThemeSwitcher />
 			</HeaderContainer>
 			<TweetInput avatarUrl={avatarUrl} />
-			{!loading ? (
+			{loading ? (
 				<Loader />
 			) : tweets.length > 0 ? (
 				tweets.map((tweet) => (
