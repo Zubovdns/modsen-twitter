@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import DeleteImageIcon from '@assets/icons/Tweet/DeleteImageIcon.svg';
-import SelectImageIcon from '@assets/icons/Tweet/SelectImageIcon.svg';
+import DeleteImageIcon from '@assets/icons/TweetInput/DeleteImageIcon.svg';
+import SelectImageIcon from '@assets/icons/TweetInput/SelectImageIcon.svg';
 import { useNotification } from '@hooks/useNotification';
 import { auth, db } from '@src/firebase';
 import { isTweetButtonDisabled } from '@src/utils/isTweetButtonDisabled';

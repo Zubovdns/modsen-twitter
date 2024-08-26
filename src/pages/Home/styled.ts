@@ -38,4 +38,5 @@ export const PlaceholderTitle = styled.h2`
 export const PlaceholderText = styled.p`
 	font-size: 20px;
 	text-align: center;
+	overflow-wrap: break-word;
 `;
