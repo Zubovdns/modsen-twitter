@@ -71,16 +71,23 @@ export const BannerImage = styled.img`
 
 export const ProfileImageContainer = styled.div`
 	position: absolute;
+
 	bottom: -60px;
 	left: 20px;
-	border-radius: 50%;
+
 	width: 130px;
 	height: 130px;
+
+	border-radius: 50%;
+
 	background-color: #f7f9f9;
+
 	display: flex;
 	align-items: center;
 	justify-content: center;
+
 	overflow: hidden;
+
 	border: 3px solid #fff;
 `;
 
@@ -158,3 +165,17 @@ export const Info = styled.p`
 export const FollowInfo = styled.p`
 	font-size: 14px;
 `;
+
+export const DontExistContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	height: 50vh;
+	border: none;
+`;
+
+export const DontExistTitle = styled.h2``;
+
+export const DontExistText = styled.p``;
