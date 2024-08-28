@@ -56,7 +56,7 @@ export const BannerWrapper = styled.div`
 export const BannerImageContainer = styled.div`
 	width: 100%;
 	height: 100%;
-	background-color: #ccc;
+	background-color: #cfd9de;
 	overflow: hidden;
 	display: flex;
 	align-items: center;
@@ -76,7 +76,7 @@ export const ProfileImageContainer = styled.div`
 	border-radius: 50%;
 	width: 130px;
 	height: 130px;
-	background-color: #ccc;
+	background-color: #f7f9f9;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -92,6 +92,8 @@ export const ProfileImage = styled.img`
 
 export const EditButtonContainer = styled.div`
 	width: 100%;
+	height: 60px;
+
 	display: flex;
 	justify-content: flex-end;
 	align-items: flex-start;
@@ -124,7 +126,8 @@ export const TextContainer = styled.div`
 
 	gap: 10px;
 
-	padding: 10px 20px;
+	padding: 0 20px;
+	padding-bottom: 10px;
 `;
 
 export const UsernameContainer = styled.div`
