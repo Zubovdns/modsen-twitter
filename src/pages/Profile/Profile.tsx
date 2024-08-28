@@ -1,8 +1,7 @@
 import { useState } from 'react';
+import { TweetInput } from '@components/TweetInput';
 import { SearchPanel } from '@src/components/SearchPanel';
 import { ThemeSwitcher } from '@src/components/ThemeSwitcher';
-
-import { TweetInput } from '../Home/TweetInput';
 
 import {
 	BannerImage,

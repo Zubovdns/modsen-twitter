@@ -1,5 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import { ThemeSwitcher } from '@components/ThemeSwitcher';
+import { TweetInput } from '@components/TweetInput';
+import { TweetItem } from '@components/TweetItem';
 import { Loader } from '@src/components/Loader';
 import { SearchPanel } from '@src/components/SearchPanel';
 import { auth, db } from '@src/firebase';
@@ -16,8 +18,6 @@ import {
 	PlaceholderTitle,
 	Title,
 } from './styled';
-import { TweetInput } from './TweetInput';
-import { TweetItem } from './TweetItem';
 
 export const Home = () => {
 	const [avatarUrl, tweets, loading, setTweets] = useUserTweets();
