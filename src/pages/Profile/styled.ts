@@ -149,10 +149,9 @@ export const Bio = styled.p`
 
 export const Info = styled.p`
 	font-size: 15px;
-	color: #aaa;
+	color: #536471;
 `;
 
 export const FollowInfo = styled.p`
 	font-size: 14px;
-	color: #333;
 `;
