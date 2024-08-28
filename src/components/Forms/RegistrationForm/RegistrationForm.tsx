@@ -50,6 +50,7 @@ export const RegistrationForm = () => {
 					birth_date: birthDate,
 					email: completeData.email,
 					profile_image: null,
+					background_profile_image: null,
 					login_name: user.uid,
 					followers: [],
 					following: [],
