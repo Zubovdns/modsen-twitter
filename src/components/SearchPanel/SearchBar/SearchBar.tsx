@@ -46,7 +46,7 @@ export const SearchBar = () => {
 
 	return (
 		<SearchContainer ref={searchRef}>
-			<SearchImage src={SearchIcon} />
+			<SearchImage src={SearchIcon} alt='Search icon' />
 			<SearchInput
 				type='text'
 				placeholder='Поиск'
