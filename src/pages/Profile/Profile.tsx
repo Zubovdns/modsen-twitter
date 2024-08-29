@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Loader } from '@src/components/Loader';
-import { SearchPanel } from '@src/components/SearchPanel';
-import { ThemeSwitcher } from '@src/components/ThemeSwitcher';
-import { TweetInput } from '@src/components/TweetInput';
-import { TweetItem } from '@src/components/TweetItem';
+import { Loader } from '@components/Loader';
+import { SearchPanel } from '@components/SearchPanel';
+import { ThemeSwitcher } from '@components/ThemeSwitcher';
+import { TweetInput } from '@components/TweetInput';
+import { TweetItem } from '@components/TweetItem';
+import { useProfileTweets } from '@hooks/useProfileTweets';
 import { auth, db } from '@src/firebase';
-import { useProfileTweets } from '@src/hooks/useProfileTweets';
 import { onAuthStateChanged } from 'firebase/auth';
 import {
 	collection,
