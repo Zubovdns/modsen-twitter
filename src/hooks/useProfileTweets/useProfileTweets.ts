@@ -37,6 +37,7 @@ export const useProfileTweets = (
 								return {
 									...tweetData,
 									id: doc.id,
+									user_id: userDoc.id,
 								} as Tweet;
 							})
 						);
