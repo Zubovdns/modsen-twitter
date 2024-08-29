@@ -58,16 +58,14 @@ export const SearchBar = () => {
 					{searchResults.length === 0 ? (
 						<EmptyMessage>{NO_RESULT}</EmptyMessage>
 					) : (
-						searchResults
-							.slice(0, 9)
-							.map(({ avatarUrl, name, loginName }) => (
-								<SearchItem
-									key={loginName}
-									avatarUrl={avatarUrl}
-									name={name}
-									loginName={loginName}
-								/>
-							))
+						searchResults.map(({ avatarUrl, name, loginName }) => (
+							<SearchItem
+								key={loginName}
+								avatarUrl={avatarUrl}
+								name={name}
+								loginName={loginName}
+							/>
+						))
 					)}
 				</DropdownList>
 			)}
