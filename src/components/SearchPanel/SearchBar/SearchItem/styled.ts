@@ -1,48 +1,5 @@
 import styled from 'styled-components';
 
-export const SearchContainer = styled.div`
-	position: relative;
-	display: flex;
-	align-items: center;
-	background-color: #f1f4f6;
-	border-radius: 25px;
-	padding: 10px 20px;
-	width: 100%;
-	max-width: 400px;
-`;
-
-export const SearchImage = styled.img`
-	margin-right: 10px;
-	width: 18px;
-`;
-
-export const SearchInput = styled.input`
-	border: none;
-	background-color: transparent;
-	color: black;
-	font-size: 16px;
-	width: 100%;
-	outline: none;
-
-	&::placeholder {
-		color: #6e7a82;
-	}
-`;
-
-export const DropdownList = styled.div`
-	position: absolute;
-	top: 100%;
-	left: 0;
-	right: 0;
-	background-color: white;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	border-radius: 10px;
-	margin-top: 8px;
-	max-height: 300px;
-	overflow-y: auto;
-	z-index: 10;
-`;
-
 export const DropdownItem = styled.div`
 	display: flex;
 	align-items: center;
