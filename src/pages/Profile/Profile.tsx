@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Loader } from '@components/Loader';
+import { Modal } from '@components/Modal';
 import { SearchPanel } from '@components/SearchPanel';
 import { ThemeSwitcher } from '@components/ThemeSwitcher';
 import { TweetInput } from '@components/TweetInput';
@@ -29,6 +30,7 @@ import {
 	FollowInfo,
 	HeaderContainer,
 	Info,
+	ModalTestPlaceholder,
 	Name,
 	NumberOfPosts,
 	ProfileContainer,
@@ -46,6 +48,8 @@ import { UserData } from './types';
 
 export const Profile = () => {
 	const login_name = window.location.pathname.substring(1);
+
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const [tweets, loading, setTweets] = useProfileTweets(login_name);
 	const [userData, setUserData] = useState<UserData | null>(null);
@@ -93,6 +97,14 @@ export const Profile = () => {
 		}
 	};
 
+	const handleModalOpen = () => {
+		setIsModalOpen(true);
+	};
+
+	const handleModalClose = () => {
+		setIsModalOpen(false);
+	};
+
 	return (
 		<>
 			<ProfileWrapper>
@@ -128,7 +140,14 @@ export const Profile = () => {
 							</ProfileImageContainer>
 						</BannerWrapper>
 						<EditButtonContainer>
-							{isCurrentUser && <EditButton>Edit profile</EditButton>}
+							{isCurrentUser && (
+								<EditButton onClick={handleModalOpen}>Edit profile</EditButton>
+							)}
+							{isModalOpen && (
+								<Modal onClose={handleModalClose}>
+									<ModalTestPlaceholder></ModalTestPlaceholder>
+								</Modal>
+							)}
 						</EditButtonContainer>
 
 						<TextContainer>
