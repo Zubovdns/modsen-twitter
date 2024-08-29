@@ -30,17 +30,20 @@ export const useProfileTweets = (
 						);
 
 						const tweetDocs = await getDocs(tweetsQuery);
-						const fetchedTweets = await Promise.all(
-							tweetDocs.docs.map(async (doc) => {
-								const tweetData = doc.data();
+						const fetchedTweets: Tweet[] = tweetDocs.docs.map((doc) => {
+							const tweetData = doc.data();
 
-								return {
-									...tweetData,
-									id: doc.id,
-									user_id: userDoc.id,
-								} as Tweet;
-							})
-						);
+							const tweet: Tweet = {
+								id: doc.id,
+								text: tweetData.text,
+								image_url: tweetData.image_url || undefined,
+								publish_time: tweetData.publish_time,
+								user_id: userDoc.id,
+								likes_user_id: tweetData.likes_user_id,
+							};
+
+							return tweet;
+						});
 
 						setTweets(fetchedTweets);
 					}
