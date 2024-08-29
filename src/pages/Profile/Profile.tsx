@@ -157,26 +157,34 @@ export const Profile = () => {
 								<Loader />
 							) : (
 								tweets.length > 0 &&
-								tweets.map((tweet) => (
-									<TweetItem
-										text={tweet.text}
-										avatarUrl={userData.profile_image || ''}
-										key={tweet.id}
-										id={tweet.id}
-										userName={userData.name || ''}
-										likesAmount={tweet.likes_user_id?.length || 0}
-										liked={
-											tweet.likes_user_id?.includes(
-												auth.currentUser?.uid || ''
-											) || false
-										}
-										userLogin={`@${userData.login_name || ''}`}
-										image={tweet.image_url}
-										publishDate={new Date(tweet.publish_time.seconds * 1000)}
-										userId={tweet.user_id}
-										onDeleteTweet={handleDeleteTweet}
-									/>
-								))
+								tweets.map(
+									({
+										text,
+										id,
+										likes_user_id,
+										image_url,
+										publish_time,
+										user_id,
+									}) => (
+										<TweetItem
+											text={text}
+											avatarUrl={userData.profile_image || ''}
+											key={id}
+											id={id}
+											userName={userData.name || ''}
+											likesAmount={likes_user_id?.length || 0}
+											liked={
+												likes_user_id?.includes(auth.currentUser?.uid || '') ||
+												false
+											}
+											userLogin={`@${userData.login_name || ''}`}
+											image={image_url}
+											publishDate={new Date(publish_time.seconds * 1000)}
+											userId={user_id}
+											onDeleteTweet={handleDeleteTweet}
+										/>
+									)
+								)
 							)}
 						</>
 					) : (
