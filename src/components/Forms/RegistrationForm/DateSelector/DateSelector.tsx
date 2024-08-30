@@ -43,11 +43,7 @@ export const DateSelector = ({
 								{MONTH}
 							</DefaultOption>
 							{months.map((monthName, index) => (
-								<Option
-									key={monthName}
-									value={index}
-									selected={month === index + 1}
-								>
+								<Option key={monthName} value={index + 1}>
 									{monthName}
 								</Option>
 							))}
@@ -67,11 +63,7 @@ export const DateSelector = ({
 								{DAY}
 							</DefaultOption>
 							{days.map((dayValue) => (
-								<Option
-									key={dayValue}
-									value={dayValue}
-									selected={day === dayValue}
-								>
+								<Option key={dayValue} value={dayValue}>
 									{dayValue}
 								</Option>
 							))}
@@ -86,11 +78,7 @@ export const DateSelector = ({
 					render={({ field }) => (
 						<DateSelect {...field} $error={!!yearError}>
 							{getYears().map((yearValue) => (
-								<Option
-									key={yearValue}
-									value={yearValue}
-									selected={year === yearValue}
-								>
+								<Option key={yearValue} value={yearValue}>
 									{yearValue}
 								</Option>
 							))}
