@@ -6,6 +6,7 @@ import { ValidationError } from '../../styled';
 import { DAY, DESCRIPTION, LABEL, MONTH, months } from '../constants';
 
 import {
+	DateContainer,
 	DateSelect,
 	DateWrapper,
 	DefaultOption,
@@ -28,10 +29,10 @@ export const DateSelector = ({
 	const days = getDaysInMonth(month, year);
 
 	return (
-		<>
+		<DateWrapper>
 			<Label>{LABEL}</Label>
 			<Description>{DESCRIPTION}</Description>
-			<DateWrapper>
+			<DateContainer>
 				<Controller
 					control={control}
 					name='month'
@@ -53,6 +54,7 @@ export const DateSelector = ({
 						</MonthSelect>
 					)}
 				/>
+
 				<Controller
 					control={control}
 					name='day'
@@ -83,6 +85,7 @@ export const DateSelector = ({
 						</DateSelect>
 					)}
 				/>
+
 				<Controller
 					control={control}
 					name='year'
@@ -101,10 +104,10 @@ export const DateSelector = ({
 						</DateSelect>
 					)}
 				/>
-			</DateWrapper>
+			</DateContainer>
 			{(monthError || dayError || yearError) && (
 				<ValidationError>{monthError || dayError || yearError}</ValidationError>
 			)}
-		</>
+		</DateWrapper>
 	);
 };
