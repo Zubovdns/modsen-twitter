@@ -1,15 +1,10 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import ChangeImageIcon from '@assets/icons/EditProfile/ChangeImageIcon.svg';
 import { Loader } from '@src/components/Loader';
+import { useImageUploader } from '@src/hooks/useImageUploader';
 import { isValidLoginName } from '@src/utils/isValidLoginName';
 import { isValidName } from '@utils/isValidName';
-import {
-	getDownloadURL,
-	getStorage,
-	ref,
-	uploadBytesResumable,
-} from 'firebase/storage';
 
 import { FloatingLabelInputField } from '../FloatingLabelInputField';
 import { DateSelector } from '../RegistrationForm/DateSelector';
@@ -35,21 +30,31 @@ import {
 import { EditingProfileTypes, FormData } from './types';
 
 export const EditProfile = ({ userData }: EditingProfileTypes) => {
-	const [avatar, setAvatar] = useState(userData?.profile_image);
-	const [banner, setBanner] = useState(userData?.background_profile_image);
-	const [isUploading, setIsUploading] = useState(false);
+	const {
+		image: avatar,
+		isUploading: isAvatarUploading,
+		handleImageChange: handleAvatarChange,
+	} = useImageUploader(userData?.profile_image || null);
+	const {
+		image: banner,
+		isUploading: isBannerUploading,
+		handleImageChange: handleBannerChange,
+	} = useImageUploader(userData?.background_profile_image || null);
 
 	const methods = useForm<FormData>({
-		defaultValues: {
-			avatar: userData?.profile_image,
-			banner: userData?.background_profile_image,
-			name: userData?.name,
-			loginName: userData?.login_name,
-			bio: '',
-			month: '',
-			day: '',
-			year: 0,
-		},
+		defaultValues: useMemo(
+			() => ({
+				avatar: userData?.profile_image,
+				banner: userData?.background_profile_image,
+				name: userData?.name,
+				loginName: userData?.login_name,
+				bio: '',
+				month: '',
+				day: '',
+				year: 0,
+			}),
+			[userData]
+		),
 	});
 
 	const {
@@ -61,39 +66,11 @@ export const EditProfile = ({ userData }: EditingProfileTypes) => {
 		formState: { errors },
 	} = methods;
 
-	const onSubmit = (data: FormData) => {
+	const onSubmit = useCallback((data: FormData) => {
 		console.log(data);
-	};
+	}, []);
 
-	const handleImageChange = async (
-		event: React.ChangeEvent<HTMLInputElement>,
-		setImage: Dispatch<SetStateAction<string | null | undefined>>,
-		field: 'avatar' | 'banner'
-	) => {
-		const file = event.target.files?.[0] || null;
-		if (file) {
-			setIsUploading(true);
-			const storage = getStorage();
-			const storageRef = ref(storage, `${field}_images/${file.name}`);
-			const uploadTask = uploadBytesResumable(storageRef, file);
-
-			uploadTask.on(
-				'state_changed',
-				() => {},
-				(error) => {
-					console.error('Image upload failed:', error);
-					setIsUploading(false);
-				},
-				() => {
-					getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-						setImage(downloadURL);
-						setValue(field, downloadURL);
-						setIsUploading(false);
-					});
-				}
-			);
-		}
-	};
+	const isUploading = isAvatarUploading || isBannerUploading;
 
 	return (
 		<FormProvider {...methods}>
@@ -101,7 +78,7 @@ export const EditProfile = ({ userData }: EditingProfileTypes) => {
 				<EditHeaderContainer>
 					<EditBannerImageContainer>
 						{banner && <EditImage src={banner} alt='Banner image' />}
-						{isUploading ? (
+						{isBannerUploading ? (
 							<LoaderContainer>
 								<Loader />
 							</LoaderContainer>
@@ -110,7 +87,7 @@ export const EditProfile = ({ userData }: EditingProfileTypes) => {
 								<EditImageIcon src={ChangeImageIcon} />
 								<HiddenFileInput
 									id='banner-input'
-									onChange={(e) => handleImageChange(e, setBanner, 'banner')}
+									onChange={(e) => handleBannerChange(e, 'banner', setValue)}
 								/>
 							</EditImageButton>
 						)}
@@ -118,7 +95,7 @@ export const EditProfile = ({ userData }: EditingProfileTypes) => {
 
 					<EditProfileImageContainer>
 						{avatar && <EditImage src={avatar} alt='Profile image' />}
-						{isUploading ? (
+						{isAvatarUploading ? (
 							<LoaderContainer>
 								<Loader />
 							</LoaderContainer>
@@ -127,12 +104,13 @@ export const EditProfile = ({ userData }: EditingProfileTypes) => {
 								<EditImageIcon src={ChangeImageIcon} />
 								<HiddenFileInput
 									id='avatar-input'
-									onChange={(e) => handleImageChange(e, setAvatar, 'avatar')}
+									onChange={(e) => handleAvatarChange(e, 'avatar', setValue)}
 								/>
 							</EditImageButton>
 						)}
 					</EditProfileImageContainer>
 				</EditHeaderContainer>
+
 				<TextInformationContainer>
 					<FloatingLabelInputField
 						id='name'
