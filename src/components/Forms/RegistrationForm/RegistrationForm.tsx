@@ -6,7 +6,6 @@ import { doc, setDoc } from 'firebase/firestore';
 
 import { FormWrapper, Logo } from '../styled';
 
-import { months } from './constants';
 import { DetailsForm } from './DetailsForm';
 import { PasswordForm } from './PasswordForm';
 import { FormData } from './types';
@@ -34,9 +33,9 @@ export const RegistrationForm = () => {
 			try {
 				const birthDate = new Date(
 					Date.UTC(
-						+completeData.year!,
-						+months.indexOf(completeData.month!),
-						+completeData.day!,
+						completeData.year!,
+						completeData.month!,
+						completeData.day!,
 						0,
 						0,
 						0,

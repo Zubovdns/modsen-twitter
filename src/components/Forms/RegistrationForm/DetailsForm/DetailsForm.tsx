@@ -23,8 +23,8 @@ export const DetailsForm = ({ onSubmit }: DetailsFormProps) => {
 			name: '',
 			phone: '',
 			email: '',
-			month: '',
-			day: '',
+			month: null,
+			day: null,
 			year: new Date().getFullYear(),
 		},
 	});

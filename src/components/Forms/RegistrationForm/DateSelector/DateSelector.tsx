@@ -23,7 +23,8 @@ export const DateSelector = ({
 }: DateSelectorProps) => {
 	const { control, watch } = useFormContext();
 	const month = watch('month');
-	const year = watch('year');
+	const year = watch('year') ?? new Date().getFullYear();
+	const day = watch('day');
 	const days = getDaysInMonth(month, year);
 
 	return (
@@ -37,10 +38,16 @@ export const DateSelector = ({
 					rules={{ required: 'Please select a valid month.' }}
 					render={({ field }) => (
 						<MonthSelect {...field} $error={!!monthError}>
-							<DefaultOption value=''>{MONTH}</DefaultOption>
-							{months.map((month) => (
-								<Option key={month} value={month}>
-									{month}
+							<DefaultOption value='' disabled={month}>
+								{MONTH}
+							</DefaultOption>
+							{months.map((monthName, index) => (
+								<Option
+									key={monthName}
+									value={index}
+									selected={month === index + 1}
+								>
+									{monthName}
 								</Option>
 							))}
 						</MonthSelect>
@@ -61,10 +68,16 @@ export const DateSelector = ({
 					}}
 					render={({ field }) => (
 						<DateSelect {...field} $error={!!dayError}>
-							<DefaultOption value=''>{DAY}</DefaultOption>
-							{days.map((day) => (
-								<Option key={day} value={day}>
-									{day}
+							<DefaultOption value='' disabled={day}>
+								{DAY}
+							</DefaultOption>
+							{days.map((dayValue) => (
+								<Option
+									key={dayValue}
+									value={dayValue}
+									selected={day === dayValue}
+								>
+									{dayValue}
 								</Option>
 							))}
 						</DateSelect>
@@ -76,9 +89,13 @@ export const DateSelector = ({
 					rules={{ required: 'Please select a valid year.' }}
 					render={({ field }) => (
 						<DateSelect {...field} $error={!!yearError}>
-							{getYears().map((year) => (
-								<Option key={year} value={year}>
-									{year}
+							{getYears().map((yearValue) => (
+								<Option
+									key={yearValue}
+									value={yearValue}
+									selected={year === yearValue}
+								>
+									{yearValue}
 								</Option>
 							))}
 						</DateSelect>
