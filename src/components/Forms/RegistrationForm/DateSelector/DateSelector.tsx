@@ -60,13 +60,6 @@ export const DateSelector = ({
 					name='day'
 					rules={{
 						required: 'Please select a valid day.',
-						validate: (value) => {
-							const dayNumber = Number(value);
-							return (
-								(dayNumber > 0 && dayNumber <= days.length) ||
-								'Invalid day selected'
-							);
-						},
 					}}
 					render={({ field }) => (
 						<DateSelect {...field} $error={!!dayError}>
