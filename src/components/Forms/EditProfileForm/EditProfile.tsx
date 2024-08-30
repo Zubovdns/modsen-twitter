@@ -48,7 +48,7 @@ export const EditProfile = ({ userData }: EditingProfileTypes) => {
 				banner: userData?.background_profile_image,
 				name: userData?.name,
 				loginName: userData?.login_name,
-				bio: '',
+				bio: userData?.bio || '',
 				month: '',
 				day: '',
 				year: 0,

@@ -44,6 +44,7 @@ const SignUpOptions = () => {
 					birth_date: null,
 					email: user.email || null,
 					profile_image: null,
+					bio: null,
 					background_profile_image: null,
 					login_name: user.uid,
 					followers: [],
