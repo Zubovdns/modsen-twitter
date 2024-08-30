@@ -144,7 +144,7 @@ export const Profile = () => {
 								<EditButton onClick={handleModalOpen}>Edit profile</EditButton>
 							)}
 							{isModalOpen && (
-								<Modal onClose={handleModalClose}>
+								<Modal onClose={handleModalClose} title='Edit profile'>
 									<ModalTestPlaceholder></ModalTestPlaceholder>
 								</Modal>
 							)}
