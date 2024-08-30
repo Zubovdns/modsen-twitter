@@ -159,7 +159,9 @@ export const Profile = () => {
 								<>
 									<Bio>Mock</Bio>
 									{userData.birth_date && (
-										<Info>Date of birth {userData.birth_date}</Info>
+										<Info>
+											{'Date of birth: ' + userData.birth_date.toDate()}
+										</Info>
 									)}
 									<FollowInfo>11 Following | 11 Followers</FollowInfo>
 								</>
