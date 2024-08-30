@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { EditProfile } from '@components/Forms/EditProfileForm';
 import { Loader } from '@components/Loader';
 import { Modal } from '@components/Modal';
 import { SearchPanel } from '@components/SearchPanel';
@@ -30,7 +31,6 @@ import {
 	FollowInfo,
 	HeaderContainer,
 	Info,
-	ModalTestPlaceholder,
 	Name,
 	NumberOfPosts,
 	ProfileContainer,
@@ -145,7 +145,7 @@ export const Profile = () => {
 							)}
 							{isModalOpen && (
 								<Modal onClose={handleModalClose}>
-									<ModalTestPlaceholder></ModalTestPlaceholder>
+									<EditProfile userData={userData} />
 								</Modal>
 							)}
 						</EditButtonContainer>
