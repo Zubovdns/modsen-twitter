@@ -33,8 +33,6 @@ export const Home = () => {
 		}
 	};
 
-	console.log(tweets, loading);
-
 	return (
 		<>
 			<HomeWrapper>
