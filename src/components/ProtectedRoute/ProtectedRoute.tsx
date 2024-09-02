@@ -18,7 +18,7 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
 	useEffect(() => {
 		if (userStatus === 'idle') {
 			dispatch(fetchUserData());
-		} else if (userStatus === 'succeeded' && userData) {
+		} else if (userStatus === 'succeeded' && !userData) {
 			navigate(SIGN_UP_ROUTE);
 		}
 	}, [dispatch, navigate, userStatus, userData]);
@@ -27,5 +27,7 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
 		return <Loader />;
 	}
 
-	return userStatus === 'succeeded' || userData ? <>{children}</> : null;
+	console.log('protect');
+
+	return userData ? <>{children}</> : null;
 };

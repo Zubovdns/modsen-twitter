@@ -17,7 +17,6 @@ export const AuthenticatedRoute = ({ children }: AuthenticatedRouteProps) => {
 		}
 	}, [dispatch, userStatus]);
 
-	console.log(userStatus);
 	if (userStatus === 'loading') {
 		return <Loader />;
 	}
