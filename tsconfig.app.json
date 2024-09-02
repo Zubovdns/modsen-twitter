@@ -28,7 +28,7 @@
 			"@components/*": ["components/*"],
 			"@constants/*": ["constants/*"],
 			"@hooks/*": ["hooks/*"],
-			"@interface/*": ["interface/*"],
+			"@interfaces/*": ["interfaces/*"],
 			"@pages/*": ["pages/*"],
 			"@routes/*": ["routes/*"],
 			"@store/*": ["store/*"],
