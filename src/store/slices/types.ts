@@ -1,4 +1,5 @@
-import { UserData } from '@src/firebase/firebaseService';
+import { UserData } from '@src/interfaces/user';
+
 export interface ThemeInitialState {
 	mode: string;
 }

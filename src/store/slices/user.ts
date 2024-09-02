@@ -1,5 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchUserData } from '@store/thunks/userThunk';
+import {
+	fetchUserData,
+	fetchUserDataWithLoginViaGoogle,
+} from '@store/thunks/userThunk';
 
 import { UserInitialState } from './types';
 
@@ -29,6 +32,17 @@ const userSlice = createSlice({
 				state.data = action.payload;
 			})
 			.addCase(fetchUserData.rejected, (state, action) => {
+				state.status = 'failed';
+				state.error = action.error.message || 'Failed to fetch user data';
+			})
+			.addCase(fetchUserDataWithLoginViaGoogle.pending, (state) => {
+				state.status = 'loading';
+			})
+			.addCase(fetchUserDataWithLoginViaGoogle.fulfilled, (state, action) => {
+				state.status = 'succeeded';
+				state.data = action.payload;
+			})
+			.addCase(fetchUserDataWithLoginViaGoogle.rejected, (state, action) => {
 				state.status = 'failed';
 				state.error = action.error.message || 'Failed to fetch user data';
 			});
