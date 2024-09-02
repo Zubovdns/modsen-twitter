@@ -18,7 +18,7 @@ export const getUserData = async (): Promise<UserData | null> => {
 	const user = auth.currentUser;
 
 	if (!user) {
-		throw new Error('User is not authenticated');
+		return null;
 	}
 
 	const userDocRef = doc(db, 'users', user.uid);
