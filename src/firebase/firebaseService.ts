@@ -15,12 +15,15 @@ import {
 } from 'firebase/auth';
 import {
 	addDoc,
+	arrayRemove,
+	arrayUnion,
 	collection,
 	doc,
 	getDoc,
 	getDocs,
 	query,
 	setDoc,
+	updateDoc,
 	where,
 } from 'firebase/firestore';
 
@@ -164,3 +167,28 @@ export const createTweet = async (data: TweetData): Promise<void> => {
 		throw new Error('Error with creating tweet');
 	}
 };
+
+export const likeTweet = async (
+	tweetId: string,
+	isLiked: boolean
+): Promise<void> => {
+	try {
+		const tweetDocRef = doc(db, 'tweets', tweetId);
+		const userId = auth.currentUser?.uid;
+
+		if (isLiked) {
+			await updateDoc(tweetDocRef, {
+				likes_user_id: arrayRemove(userId),
+			});
+		} else {
+			await updateDoc(tweetDocRef, {
+				likes_user_id: arrayUnion(userId),
+			});
+		}
+	} catch (error) {
+		throw new Error("Can't like this tweet");
+	}
+};
+
+export const isOwner = (tweetOwnerId: string) =>
+	auth.currentUser?.uid === tweetOwnerId;

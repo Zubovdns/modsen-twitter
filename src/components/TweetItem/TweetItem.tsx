@@ -1,9 +1,8 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { LikeButtonIcon } from '@src/assets/icons/Tweet/LikeButtonIcon';
-import { MoreIcon } from '@src/assets/icons/Tweet/MoreIcon';
-import { auth, db } from '@src/firebase';
-import { getRelativeTime } from '@src/utils/getRelativeTime';
-import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore';
+import { LikeButtonIcon } from '@assets/icons/Tweet/LikeButtonIcon';
+import { MoreIcon } from '@assets/icons/Tweet/MoreIcon';
+import { isOwner, likeTweet } from '@src/firebase/firebaseService';
+import { getRelativeTime } from '@utils/getRelativeTime';
 
 import {
 	Avatar,
@@ -53,34 +52,23 @@ export const TweetItem = memo(
 			[publishDate]
 		);
 
-		const handleLikeClick = useCallback(async () => {
+		const handleLikeClick = async () => {
 			setIsLiked((prev) => !prev);
 			setLikes((prev) => (isLiked ? prev - 1 : prev + 1));
 
 			try {
-				const tweetDocRef = doc(db, 'tweets', id);
-				const userId = auth.currentUser?.uid;
-
-				if (isLiked) {
-					await updateDoc(tweetDocRef, {
-						likes_user_id: arrayRemove(userId),
-					});
-				} else {
-					await updateDoc(tweetDocRef, {
-						likes_user_id: arrayUnion(userId),
-					});
-				}
+				likeTweet(id, isLiked);
 			} catch (error) {
-				console.error('Ошибка при обновлении лайка: ', error);
+				console.error(error);
 				setIsLiked((prev) => !prev);
 				setLikes((prev) => (isLiked ? prev + 1 : prev - 1));
 			}
-		}, [isLiked, id]);
+		};
 
-		const handleMoreClick = useCallback((event: React.MouseEvent) => {
+		const handleMoreClick = (event: React.MouseEvent) => {
 			event.stopPropagation();
 			setMenuOpen((prev) => !prev);
-		}, []);
+		};
 
 		const handleClickOutside = useCallback(
 			(event: MouseEvent) => {
@@ -102,17 +90,15 @@ export const TweetItem = memo(
 			};
 		}, [handleClickOutside]);
 
-		const handleMenuItemClick = useCallback(() => {
+		const handleMenuItemClick = () => {
 			setMenuOpen(false);
-		}, []);
+		};
 
-		const handleDeleteClick = useCallback(() => {
-			if (auth.currentUser?.uid) {
+		const handleDeleteClick = () => {
+			if (isOwner(userId)) {
 				onDeleteTweet(id);
 			}
-		}, [id, onDeleteTweet]);
-
-		const isOwner = auth.currentUser?.uid === userId;
+		};
 
 		return (
 			<TweetItemContainer>
@@ -146,7 +132,7 @@ export const TweetItem = memo(
 								<MoreMenuItem onClick={handleMenuItemClick}>
 									{'Block ' + userLogin}
 								</MoreMenuItem>
-								{isOwner && (
+								{isOwner(userId) && (
 									<MoreMenuItem onClick={handleDeleteClick}>
 										Delete Tweet
 									</MoreMenuItem>
