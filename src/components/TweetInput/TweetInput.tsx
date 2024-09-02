@@ -4,9 +4,8 @@ import DeleteImageIcon from '@assets/icons/TweetInput/DeleteImageIcon.svg';
 import SelectImageIcon from '@assets/icons/TweetInput/SelectImageIcon.svg';
 import { useNotification } from '@hooks/useNotification';
 import { TweetData } from '@interfaces/tweet';
-import { auth, db } from '@src/firebase';
+import { createTweet } from '@src/firebase/firebaseService';
 import { isTweetButtonDisabled } from '@utils/isTweetButtonDisabled';
-import { addDoc, collection } from 'firebase/firestore';
 import {
 	getDownloadURL,
 	getStorage,
@@ -85,20 +84,11 @@ export const TweetInput = ({ avatarUrl }: TweetInputProps) => {
 
 	const onSubmit = async (data: TweetData) => {
 		try {
-			const user = auth.currentUser;
-			if (user) {
-				await addDoc(collection(db, 'tweets'), {
-					text: data.text,
-					image_url: data.imageUrl,
-					likes_user_id: [],
-					publish_time: new Date(),
-					user_id: user.uid,
-				});
+			await createTweet(data);
 
-				setValue('text', '');
-				setValue('image', null);
-				setValue('imageUrl', null);
-			}
+			setValue('text', '');
+			setValue('image', null);
+			setValue('imageUrl', null);
 		} catch (error) {
 			showNotification('Error with creating tweet');
 		}

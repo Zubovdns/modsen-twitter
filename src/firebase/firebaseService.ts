@@ -6,6 +6,7 @@ import {
 } from '@src/components/Forms/LoginForm/constants';
 import { LOG_OUT_ERROR_MESSAGE } from '@src/components/NavBar/MiniProfile/constants';
 import { LoginData } from '@src/interfaces/login';
+import { TweetData } from '@src/interfaces/tweet';
 import {
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
@@ -13,6 +14,7 @@ import {
 	signOut,
 } from 'firebase/auth';
 import {
+	addDoc,
 	collection,
 	doc,
 	getDoc,
@@ -143,5 +145,22 @@ export const logOut = async (): Promise<void> => {
 		await signOut(auth).then();
 	} catch (error) {
 		throw new Error(LOG_OUT_ERROR_MESSAGE);
+	}
+};
+
+export const createTweet = async (data: TweetData): Promise<void> => {
+	try {
+		const user = auth.currentUser;
+		if (user) {
+			await addDoc(collection(db, 'tweets'), {
+				text: data.text,
+				image_url: data.imageUrl,
+				likes_user_id: [],
+				publish_time: new Date(),
+				user_id: user.uid,
+			});
+		}
+	} catch (error) {
+		throw new Error('Error with creating tweet');
 	}
 };
