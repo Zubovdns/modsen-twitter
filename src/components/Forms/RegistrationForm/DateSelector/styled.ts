@@ -1,10 +1,14 @@
 import { styled } from 'styled-components';
 
 export const DateWrapper = styled.div`
+	position: relative;
+	margin: 10px 0;
+`;
+
+export const DateContainer = styled.div`
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
 	gap: 10px;
-	margin: 10px 0;
 `;
 
 export const Label = styled.label`
