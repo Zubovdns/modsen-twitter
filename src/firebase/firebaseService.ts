@@ -18,6 +18,7 @@ import {
 	arrayRemove,
 	arrayUnion,
 	collection,
+	deleteDoc,
 	doc,
 	getDoc,
 	getDocs,
@@ -168,6 +169,14 @@ export const createTweet = async (data: TweetData): Promise<void> => {
 	}
 };
 
+export const deleteTweet = async (tweetId: string): Promise<void> => {
+	try {
+		await deleteDoc(doc(db, 'tweets', tweetId));
+	} catch (error) {
+		throw new Error('Failed to delete tweet');
+	}
+};
+
 export const likeTweet = async (
 	tweetId: string,
 	isLiked: boolean
@@ -192,3 +201,5 @@ export const likeTweet = async (
 
 export const isOwner = (tweetOwnerId: string) =>
 	auth.currentUser?.uid === tweetOwnerId;
+
+export const getUserUid = () => auth.currentUser?.uid;
