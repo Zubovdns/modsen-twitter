@@ -3,8 +3,9 @@ import { Controller, useForm } from 'react-hook-form';
 import DeleteImageIcon from '@assets/icons/TweetInput/DeleteImageIcon.svg';
 import SelectImageIcon from '@assets/icons/TweetInput/SelectImageIcon.svg';
 import { useNotification } from '@hooks/useNotification';
+import { TweetData } from '@interfaces/tweet';
 import { auth, db } from '@src/firebase';
-import { isTweetButtonDisabled } from '@src/utils/isTweetButtonDisabled';
+import { isTweetButtonDisabled } from '@utils/isTweetButtonDisabled';
 import { addDoc, collection } from 'firebase/firestore';
 import {
 	getDownloadURL,
@@ -32,10 +33,10 @@ import {
 	UserTweetAvatarWrapper,
 	UserTweetContainer,
 } from './styled';
-import { FormData, TweetInputProps } from './types';
+import { TweetInputProps } from './types';
 
 export const TweetInput = ({ avatarUrl }: TweetInputProps) => {
-	const { control, handleSubmit, setValue, watch } = useForm<FormData>({
+	const { control, handleSubmit, setValue, watch } = useForm<TweetData>({
 		defaultValues: {
 			text: '',
 			image: null,
@@ -82,7 +83,7 @@ export const TweetInput = ({ avatarUrl }: TweetInputProps) => {
 		setIsUploading(false);
 	};
 
-	const onSubmit = async (data: FormData) => {
+	const onSubmit = async (data: TweetData) => {
 		try {
 			const user = auth.currentUser;
 			if (user) {
