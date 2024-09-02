@@ -1,23 +1,24 @@
-import { useEffect, useState } from 'react';
-import { auth } from '@src/firebase';
-import { onAuthStateChanged } from 'firebase/auth';
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '@src/store/hooks';
+import { selectUserStatus } from '@src/store/selectors/user';
+import { fetchUserData } from '@src/store/thunks/userThunk';
 
 import { Loader } from '../Loader';
 
 import { AuthenticatedRouteProps } from './types';
 
 export const AuthenticatedRoute = ({ children }: AuthenticatedRouteProps) => {
-	const [loading, setLoading] = useState(true);
+	const dispatch = useAppDispatch();
+	const userStatus = useAppSelector(selectUserStatus);
 
 	useEffect(() => {
-		const unsubscribe = onAuthStateChanged(auth, () => {
-			setLoading(false);
-		});
+		if (userStatus === 'idle') {
+			dispatch(fetchUserData());
+		}
+	}, [dispatch, userStatus]);
 
-		return () => unsubscribe();
-	}, []);
-
-	if (loading) {
+	console.log(userStatus);
+	if (userStatus === 'loading') {
 		return <Loader />;
 	}
 
