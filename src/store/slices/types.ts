@@ -1,4 +1,4 @@
-import { UserData } from '@src/interfaces/user';
+import { UserData } from '@interfaces/user';
 
 export interface ThemeInitialState {
 	mode: string;

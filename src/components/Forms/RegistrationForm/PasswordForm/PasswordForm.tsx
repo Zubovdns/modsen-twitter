@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import { PasswordRegistrationData } from '@interfaces/registration';
 import { isValidPassword } from '@utils/isValidPassword';
 
 import { FloatingLabelInputField } from '../../FloatingLabelInputField';
@@ -6,7 +7,7 @@ import { Form, Title } from '../../styled';
 import { PASSWORD_VALIDATION_ERROR, SUBMIT_BUTTON, TITLE } from '../constants';
 import { SubmitButton } from '../SubmitButton';
 
-import { FormData, PasswordFormProps } from './types';
+import { PasswordFormProps } from './types';
 
 export const PasswordForm = ({ onSubmit }: PasswordFormProps) => {
 	const {
@@ -16,7 +17,7 @@ export const PasswordForm = ({ onSubmit }: PasswordFormProps) => {
 		setValue,
 		setError,
 		clearErrors,
-	} = useForm<FormData>({
+	} = useForm<PasswordRegistrationData>({
 		defaultValues: {
 			password: '',
 		},

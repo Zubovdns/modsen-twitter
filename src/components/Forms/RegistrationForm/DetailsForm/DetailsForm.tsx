@@ -1,4 +1,5 @@
 import { FormProvider, useForm } from 'react-hook-form';
+import { DetailsRegistrationData } from '@interfaces/registration';
 import { isValidEmailAsync } from '@utils/isValidEmailAsync';
 import { isValidName } from '@utils/isValidName';
 import { isValidPhoneNumber } from '@utils/isValidPhoneNumber';
@@ -15,16 +16,16 @@ import {
 import { DateSelector } from '../DateSelector';
 import { SubmitButton } from '../SubmitButton';
 
-import { DetailsFormProps, FormData } from './types';
+import { DetailsFormProps } from './types';
 
 export const DetailsForm = ({ onSubmit }: DetailsFormProps) => {
-	const methods = useForm<FormData>({
+	const methods = useForm<DetailsRegistrationData>({
 		defaultValues: {
 			name: '',
 			phone: '',
 			email: '',
-			month: null,
-			day: null,
+			month: null!,
+			day: null!,
 			year: new Date().getFullYear(),
 		},
 	});
