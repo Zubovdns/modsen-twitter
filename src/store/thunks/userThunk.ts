@@ -52,3 +52,8 @@ export const fetchUserDataWithLoginViaEmail: AsyncThunk<
 	const userData = await getUserData();
 	return userData;
 });
+
+export const logOut: AsyncThunk<void, void, { state: RootState }> =
+	createAsyncThunk('user/logOut', async () => {
+		logOut();
+	});

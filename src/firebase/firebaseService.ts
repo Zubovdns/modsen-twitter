@@ -4,11 +4,13 @@ import {
 	INCORRECT_LOGIN_INFORMATION_MESSAGE,
 	USER_NOT_FOUND_MESSAGE,
 } from '@src/components/Forms/LoginForm/constants';
+import { LOG_OUT_ERROR_MESSAGE } from '@src/components/NavBar/MiniProfile/constants';
 import { LoginData } from '@src/interfaces/login';
 import {
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
 	signInWithPopup,
+	signOut,
 } from 'firebase/auth';
 import {
 	collection,
@@ -133,5 +135,13 @@ export const loginViaEmail = async (data: LoginData): Promise<void> => {
 				throw new Error(INCORRECT_LOGIN_INFORMATION_MESSAGE);
 			}
 		}
+	}
+};
+
+export const logOut = async (): Promise<void> => {
+	try {
+		await signOut(auth).then();
+	} catch (error) {
+		throw new Error(LOG_OUT_ERROR_MESSAGE);
 	}
 };
