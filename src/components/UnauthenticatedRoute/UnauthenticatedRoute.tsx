@@ -2,11 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HOME_ROUTE } from '@src/routes';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
-import {
-	selectUserData,
-	selectUserError,
-	selectUserStatus,
-} from '@store/selectors/user';
+import { selectUserData, selectUserStatus } from '@store/selectors/user';
 import { fetchUserData } from '@store/thunks/userThunk';
 
 import { Loader } from '../Loader';
@@ -20,9 +16,6 @@ export const UnauthenticatedRoute = ({
 	const navigate = useNavigate();
 	const userData = useAppSelector(selectUserData);
 	const userStatus = useAppSelector(selectUserStatus);
-	const userError = useAppSelector(selectUserError);
-
-	console.log(userError);
 
 	useEffect(() => {
 		if (userStatus === 'idle') {
@@ -36,5 +29,5 @@ export const UnauthenticatedRoute = ({
 		return <Loader />;
 	}
 
-	return userStatus === 'succeeded' && !userData ? <>{children}</> : null;
+	return userStatus === 'succeeded' || !userData ? <>{children}</> : null;
 };
