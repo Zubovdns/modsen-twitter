@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import TwitterLogo from '@assets/icons/TwitterLogo.svg';
 import { useNotification } from '@hooks/useNotification';
+import { LoginData } from '@interfaces/login';
 import { auth, db } from '@src/firebase';
 import { SIGN_UP_ROUTE } from '@src/routes';
 import { requiredField } from '@utils/requiredField';
@@ -17,7 +18,6 @@ import {
 	TITLE,
 	USER_NOT_FOUND_MESSAGE,
 } from './constants';
-import { FormData } from './types';
 
 export const LoginForm = () => {
 	const {
@@ -27,7 +27,7 @@ export const LoginForm = () => {
 		setValue,
 		setError,
 		clearErrors,
-	} = useForm<FormData>({
+	} = useForm<LoginData>({
 		defaultValues: {
 			login: '',
 			password: '',
@@ -36,7 +36,7 @@ export const LoginForm = () => {
 
 	const [showNotification, NotificationComponent] = useNotification();
 
-	const onSubmit = async (data: FormData) => {
+	const onSubmit = async (data: LoginData) => {
 		const { login, password } = data;
 		try {
 			const isEmail = login.includes('@');

@@ -5,7 +5,7 @@ import {
 	PasswordRegistrationData,
 } from '@interfaces/registration';
 import { useAppDispatch } from '@store/hooks';
-import { fetchUserDataWithLoginViaEmail } from '@store/thunks/userThunk';
+import { fetchUserDataWithRegistrationViaEmail } from '@store/thunks/userThunk';
 
 import { FormWrapper, Logo } from '../styled';
 
@@ -25,7 +25,7 @@ export const RegistrationForm = () => {
 
 	const handlePasswordSubmit = async (data: PasswordRegistrationData) => {
 		const completeData = { ...formData, ...data };
-		dispatch(fetchUserDataWithLoginViaEmail(completeData));
+		dispatch(fetchUserDataWithRegistrationViaEmail(completeData));
 	};
 
 	return (

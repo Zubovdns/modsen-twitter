@@ -28,12 +28,15 @@ export const fetchUserDataWithLoginViaGoogle: AsyncThunk<
 	return userData;
 });
 
-export const fetchUserDataWithLoginViaEmail: AsyncThunk<
+export const fetchUserDataWithRegistrationViaEmail: AsyncThunk<
 	UserData | null,
 	RegistrationData,
 	{ state: RootState }
-> = createAsyncThunk('user/fetchUserDataWithLoginViaEmail', async (data) => {
-	await registerViaEmail(data);
-	const userData = await getUserData();
-	return userData;
-});
+> = createAsyncThunk(
+	'user/fetchUserDataWithRegistrationViaEmail',
+	async (data) => {
+		await registerViaEmail(data);
+		const userData = await getUserData();
+		return userData;
+	}
+);

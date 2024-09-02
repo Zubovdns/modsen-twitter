@@ -1,7 +1,24 @@
 import { RegistrationData } from '@interfaces/registration';
 import { UserData } from '@interfaces/user';
-import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import {
+	INCORRECT_LOGIN_INFORMATION_MESSAGE,
+	USER_NOT_FOUND_MESSAGE,
+} from '@src/components/Forms/LoginForm/constants';
+import { LoginData } from '@src/interfaces/login';
+import {
+	createUserWithEmailAndPassword,
+	signInWithEmailAndPassword,
+	signInWithPopup,
+} from 'firebase/auth';
+import {
+	collection,
+	doc,
+	getDoc,
+	getDocs,
+	query,
+	setDoc,
+	where,
+} from 'firebase/firestore';
 
 import { auth, db, googleProvider } from '.';
 
@@ -86,5 +103,29 @@ export const registerViaEmail = async (
 		}
 	} catch (error) {
 		throw new Error('Error creating user: ' + error);
+	}
+};
+
+export const loginViaEmail = async (data: LoginData): Promise<void> => {
+	const { login, password } = data;
+	try {
+		const isEmail = login.includes('@');
+		const usersRef = collection(db, 'users');
+		const q = query(
+			usersRef,
+			where(isEmail ? 'email' : 'phone_number', '==', login)
+		);
+		const querySnapshot = await getDocs(q);
+
+		if (querySnapshot.empty) {
+			throw new Error(USER_NOT_FOUND_MESSAGE);
+		}
+
+		const userDoc = querySnapshot.docs[0];
+		const userData = userDoc.data();
+
+		await signInWithEmailAndPassword(auth, userData.email, password);
+	} catch (error) {
+		throw new Error(INCORRECT_LOGIN_INFORMATION_MESSAGE);
 	}
 };
