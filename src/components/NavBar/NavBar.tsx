@@ -30,7 +30,7 @@ export const NavBar = () => {
 					</>
 				)}
 				<Item text={'More'} icon={MoreIcon} to={MORE_ROUTE} />
-				<TweetButton>{TWEET_BUTTON}</TweetButton>
+				{userData && <TweetButton>{TWEET_BUTTON}</TweetButton>}
 			</ItemContainer>
 			{userData && <MiniProfile userData={userData} />}
 		</NavBarContainer>
