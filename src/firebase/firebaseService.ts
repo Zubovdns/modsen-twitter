@@ -118,14 +118,20 @@ export const loginViaEmail = async (data: LoginData): Promise<void> => {
 		const querySnapshot = await getDocs(q);
 
 		if (querySnapshot.empty) {
-			throw new Error(USER_NOT_FOUND_MESSAGE);
+			throw new Error('USER_NOT_FOUND');
 		}
 
 		const userDoc = querySnapshot.docs[0];
 		const userData = userDoc.data();
 
 		await signInWithEmailAndPassword(auth, userData.email, password);
-	} catch (error) {
-		throw new Error(INCORRECT_LOGIN_INFORMATION_MESSAGE);
+	} catch (error: unknown) {
+		if (error instanceof Error) {
+			if (error.message === 'USER_NOT_FOUND') {
+				throw new Error(USER_NOT_FOUND_MESSAGE);
+			} else {
+				throw new Error(INCORRECT_LOGIN_INFORMATION_MESSAGE);
+			}
+		}
 	}
 };

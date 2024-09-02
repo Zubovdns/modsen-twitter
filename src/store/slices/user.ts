@@ -3,6 +3,7 @@ import {
 	fetchUserData,
 	fetchUserDataWithLoginViaEmail,
 	fetchUserDataWithLoginViaGoogle,
+	fetchUserDataWithRegistrationViaEmail,
 } from '@store/thunks/userThunk';
 
 import { UserInitialState } from './types';
@@ -47,6 +48,23 @@ const userSlice = createSlice({
 				state.status = 'failed';
 				state.error = action.error.message || 'Failed to fetch user data';
 			})
+			.addCase(fetchUserDataWithRegistrationViaEmail.pending, (state) => {
+				state.status = 'loading';
+			})
+			.addCase(
+				fetchUserDataWithRegistrationViaEmail.fulfilled,
+				(state, action) => {
+					state.status = 'succeeded';
+					state.data = action.payload;
+				}
+			)
+			.addCase(
+				fetchUserDataWithRegistrationViaEmail.rejected,
+				(state, action) => {
+					state.status = 'failed';
+					state.error = action.error.message || 'Failed to fetch user data';
+				}
+			)
 			.addCase(fetchUserDataWithLoginViaEmail.pending, (state) => {
 				state.status = 'loading';
 			})

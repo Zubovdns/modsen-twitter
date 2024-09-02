@@ -3,9 +3,11 @@ import { UserData } from '@interfaces/user';
 import { AsyncThunk, createAsyncThunk } from '@reduxjs/toolkit';
 import {
 	getUserData,
+	loginViaEmail,
 	loginViaGoogle,
 	registerViaEmail,
 } from '@src/firebase/firebaseService';
+import { LoginData } from '@src/interfaces/login';
 
 import { RootState } from '../types';
 
@@ -40,3 +42,13 @@ export const fetchUserDataWithRegistrationViaEmail: AsyncThunk<
 		return userData;
 	}
 );
+
+export const fetchUserDataWithLoginViaEmail: AsyncThunk<
+	UserData | null,
+	LoginData,
+	{ state: RootState }
+> = createAsyncThunk('user/fetchUserDataWithLoginViaEmail', async (data) => {
+	await loginViaEmail(data);
+	const userData = await getUserData();
+	return userData;
+});

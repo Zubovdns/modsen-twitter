@@ -2,22 +2,17 @@ import { useForm } from 'react-hook-form';
 import TwitterLogo from '@assets/icons/TwitterLogo.svg';
 import { useNotification } from '@hooks/useNotification';
 import { LoginData } from '@interfaces/login';
-import { auth, db } from '@src/firebase';
 import { SIGN_UP_ROUTE } from '@src/routes';
+import { useAppDispatch, useAppSelector } from '@src/store/hooks';
+import { selectUserError, selectUserStatus } from '@src/store/selectors/user';
+import { fetchUserDataWithLoginViaEmail } from '@src/store/thunks/userThunk';
 import { requiredField } from '@utils/requiredField';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { collection, getDocs, query, where } from 'firebase/firestore';
 
 import { FloatingLabelInputField } from '../FloatingLabelInputField';
 import { SubmitButton } from '../RegistrationForm/SubmitButton';
 import { Form, FormWrapper, LinkTo, Logo, Title } from '../styled';
 
-import {
-	INCORRECT_LOGIN_INFORMATION_MESSAGE,
-	SUBMIT_BUTTON,
-	TITLE,
-	USER_NOT_FOUND_MESSAGE,
-} from './constants';
+import { SUBMIT_BUTTON, TITLE } from './constants';
 
 export const LoginForm = () => {
 	const {
@@ -36,29 +31,16 @@ export const LoginForm = () => {
 
 	const [showNotification, NotificationComponent] = useNotification();
 
+	const dispatch = useAppDispatch();
+	const userError = useAppSelector(selectUserError);
+	const userStatus = useAppSelector(selectUserStatus);
+
 	const onSubmit = async (data: LoginData) => {
-		const { login, password } = data;
-		try {
-			const isEmail = login.includes('@');
-			const usersRef = collection(db, 'users');
-			const q = query(
-				usersRef,
-				where(isEmail ? 'email' : 'phone_number', '==', login)
-			);
-			const querySnapshot = await getDocs(q);
-
-			if (querySnapshot.empty) {
-				showNotification(USER_NOT_FOUND_MESSAGE);
-				return;
+		dispatch(fetchUserDataWithLoginViaEmail(data)).then(() => {
+			if (userStatus === 'failed' && userError !== null) {
+				showNotification(userError);
 			}
-
-			const userDoc = querySnapshot.docs[0];
-			const userData = userDoc.data();
-
-			await signInWithEmailAndPassword(auth, userData.email, password);
-		} catch (error) {
-			showNotification(INCORRECT_LOGIN_INFORMATION_MESSAGE);
-		}
+		});
 	};
 
 	return (
@@ -96,7 +78,7 @@ export const LoginForm = () => {
 						}}
 					/>
 					<SubmitButton
-						isSubmitting={isSubmitting}
+						isSubmitting={isSubmitting && userStatus === 'loading'}
 						buttonText={SUBMIT_BUTTON}
 					/>
 					<LinkTo to={SIGN_UP_ROUTE}>Sign up to Twitter</LinkTo>
