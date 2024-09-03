@@ -1,5 +1,5 @@
 import { RegistrationData } from '@interfaces/registration';
-import { UserData } from '@interfaces/user';
+import { ReceivedUserData, UserData } from '@interfaces/user';
 import {
 	INCORRECT_LOGIN_INFORMATION_MESSAGE,
 	USER_NOT_FOUND_MESSAGE,
@@ -25,13 +25,14 @@ import {
 	orderBy,
 	query,
 	setDoc,
+	Timestamp,
 	updateDoc,
 	where,
 } from 'firebase/firestore';
 
 import { auth, db, googleProvider } from '.';
 
-export const getUserData = async (): Promise<UserData | null> => {
+export const getUserData = async (): Promise<ReceivedUserData | null> => {
 	try {
 		const user = auth.currentUser;
 
@@ -40,16 +41,38 @@ export const getUserData = async (): Promise<UserData | null> => {
 		}
 
 		const userDocRef = doc(db, 'users', user.uid);
-		const userDocSnap = await getDoc(userDocRef);
+		const userDoc = await getDoc(userDocRef);
 
-		if (userDocSnap.exists()) {
-			return userDocSnap.data() as UserData;
+		if (userDoc.exists()) {
+			return {
+				...userDoc.data(),
+				id: userDoc.id,
+			} as ReceivedUserData;
 		} else {
 			throw new Error('User document not found');
 		}
 	} catch (error) {
 		throw new Error('Cant check auth: ' + error);
 	}
+};
+
+export const getUserDataByLogin = async (
+	login_name: string
+): Promise<ReceivedUserData | null> => {
+	const userQuery = query(
+		collection(db, 'users'),
+		where('login_name', '==', login_name)
+	);
+	const userDocs = await getDocs(userQuery);
+
+	if (userDocs.empty) {
+		return null;
+	}
+
+	return {
+		...userDocs.docs[0].data(),
+		id: userDocs.docs[0].id,
+	} as ReceivedUserData;
 };
 
 export const loginViaGoogle = async (): Promise<void> => {
@@ -62,9 +85,10 @@ export const loginViaGoogle = async (): Promise<void> => {
 
 		if (!userDocSnap.exists()) {
 			const userData: UserData = {
-				name: user.displayName || '',
-				phone_number: user.phoneNumber || '',
+				name: user.displayName || user.uid,
+				phone_number: user.phoneNumber,
 				birth_date: null,
+				bio: null,
 				email: user.email || '',
 				profile_image: null,
 				background_profile_image: null,
@@ -96,17 +120,20 @@ export const registerViaEmail = async (
 				Date.UTC(data.year!, data.month!, data.day!, 0, 0, 0, 0)
 			);
 
-			await setDoc(doc(db, 'users', user.uid), {
+			const userData: UserData = {
 				name: data.name,
 				phone_number: data.phone,
-				birth_date: birthDate,
+				birth_date: Timestamp.fromDate(birthDate),
+				bio: null,
 				email: data.email,
 				profile_image: null,
 				background_profile_image: null,
 				login_name: user.uid,
 				followers: [],
 				following: [],
-			});
+			};
+
+			await setDoc(doc(db, 'users', user.uid), userData);
 		} catch (error) {
 			throw new Error('Error saving user data, user deleted: ' + error);
 		}

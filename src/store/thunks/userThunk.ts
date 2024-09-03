@@ -1,5 +1,5 @@
 import { RegistrationData } from '@interfaces/registration';
-import { UserData } from '@interfaces/user';
+import { ReceivedUserData } from '@interfaces/user';
 import { AsyncThunk, createAsyncThunk } from '@reduxjs/toolkit';
 import {
 	getUserData,
@@ -12,7 +12,7 @@ import { LoginData } from '@src/interfaces/login';
 import { RootState } from '../types';
 
 export const fetchUserData: AsyncThunk<
-	UserData | null,
+	ReceivedUserData | null,
 	void,
 	{ state: RootState }
 > = createAsyncThunk('user/fetchUserData', async () => {
@@ -21,7 +21,7 @@ export const fetchUserData: AsyncThunk<
 });
 
 export const fetchUserDataWithLoginViaGoogle: AsyncThunk<
-	UserData | null,
+	ReceivedUserData | null,
 	void,
 	{ state: RootState }
 > = createAsyncThunk('user/fetchUserDataWithLoginViaGoogle', async () => {
@@ -31,7 +31,7 @@ export const fetchUserDataWithLoginViaGoogle: AsyncThunk<
 });
 
 export const fetchUserDataWithRegistrationViaEmail: AsyncThunk<
-	UserData | null,
+	ReceivedUserData | null,
 	RegistrationData,
 	{ state: RootState }
 > = createAsyncThunk(
@@ -44,7 +44,7 @@ export const fetchUserDataWithRegistrationViaEmail: AsyncThunk<
 );
 
 export const fetchUserDataWithLoginViaEmail: AsyncThunk<
-	UserData | null,
+	ReceivedUserData | null,
 	LoginData,
 	{ state: RootState }
 > = createAsyncThunk('user/fetchUserDataWithLoginViaEmail', async (data) => {
