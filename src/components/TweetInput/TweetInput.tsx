@@ -5,6 +5,8 @@ import SelectImageIcon from '@assets/icons/TweetInput/SelectImageIcon.svg';
 import { useNotification } from '@hooks/useNotification';
 import { TweetData } from '@interfaces/tweet';
 import { createTweet } from '@src/firebase/firebaseService';
+import { useAppSelector } from '@src/store/hooks';
+import { selectUserData } from '@src/store/selectors/user';
 import { isTweetButtonDisabled } from '@utils/isTweetButtonDisabled';
 import {
 	getDownloadURL,
@@ -32,9 +34,8 @@ import {
 	UserTweetAvatarWrapper,
 	UserTweetContainer,
 } from './styled';
-import { TweetInputProps } from './types';
 
-export const TweetInput = ({ avatarUrl }: TweetInputProps) => {
+export const TweetInput = () => {
 	const { control, handleSubmit, setValue, watch } = useForm<TweetData>({
 		defaultValues: {
 			text: '',
@@ -43,6 +44,7 @@ export const TweetInput = ({ avatarUrl }: TweetInputProps) => {
 		},
 	});
 
+	const userData = useAppSelector(selectUserData);
 	const [showNotification, NotificationComponent] = useNotification();
 	const [isUploading, setIsUploading] = useState(false);
 
@@ -99,7 +101,7 @@ export const TweetInput = ({ avatarUrl }: TweetInputProps) => {
 			<UserTweetContainer>
 				<UserTweetAvatarWrapper>
 					<AvatarContainer>
-						<Avatar src={avatarUrl || undefined} />
+						<Avatar src={userData?.profile_image || undefined} />
 					</AvatarContainer>
 				</UserTweetAvatarWrapper>
 

@@ -40,7 +40,7 @@ export const Home = () => {
 						<Title>Home</Title>
 						<ThemeSwitcher />
 					</HeaderContainer>
-					<TweetInput avatarUrl={avatarUrl} />
+					<TweetInput />
 					{loading ? (
 						<Loader />
 					) : tweets.length > 0 ? (
