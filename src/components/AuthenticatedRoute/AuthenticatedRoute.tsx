@@ -21,5 +21,5 @@ export const AuthenticatedRoute = ({ children }: AuthenticatedRouteProps) => {
 		return <Loader />;
 	}
 
-	return children;
+	return userStatus === 'succeeded' && children;
 };

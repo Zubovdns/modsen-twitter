@@ -27,7 +27,5 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
 		return <Loader />;
 	}
 
-	console.log('protect');
-
 	return userData ? <>{children}</> : null;
 };

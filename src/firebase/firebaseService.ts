@@ -13,6 +13,7 @@ import {
 	signInWithPopup,
 	signOut,
 } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import {
 	addDoc,
 	arrayRemove,
@@ -32,29 +33,34 @@ import {
 
 import { auth, db, googleProvider } from '.';
 
-export const getUserData = async (): Promise<ReceivedUserData | null> => {
-	try {
-		const user = auth.currentUser;
+export const getUserData = async (): Promise<ReceivedUserData | null> =>
+	new Promise<ReceivedUserData | null>((resolve, reject) => {
+		onAuthStateChanged(auth, async (user) => {
+			if (!user) {
+				resolve(null);
+				return;
+			}
 
-		if (!user) {
-			return null;
-		}
+			try {
+				const userDocRef = doc(db, 'users', user.uid);
+				const userDoc = await getDoc(userDocRef);
 
-		const userDocRef = doc(db, 'users', user.uid);
-		const userDoc = await getDoc(userDocRef);
+				if (!userDoc.exists()) {
+					reject(new Error('User document not found'));
+					return;
+				}
 
-		if (userDoc.exists()) {
-			return {
-				...userDoc.data(),
-				id: userDoc.id,
-			} as ReceivedUserData;
-		} else {
-			throw new Error('User document not found');
-		}
-	} catch (error) {
-		throw new Error('Cant check auth: ' + error);
-	}
-};
+				const userData = {
+					...userDoc.data(),
+					id: userDoc.id,
+				} as ReceivedUserData;
+
+				resolve(userData);
+			} catch (error) {
+				reject(new Error('Failed to retrieve user data'));
+			}
+		});
+	});
 
 export const getUserDataByLogin = async (
 	login_name: string
