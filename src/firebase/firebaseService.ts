@@ -205,8 +205,22 @@ export const isOwner = (tweetOwnerId: string) =>
 
 export const getUserUid = () => auth.currentUser?.uid;
 
+export const getUserUidFromLogin = async (login_name: string) => {
+	const userQuery = query(
+		collection(db, 'users'),
+		where('login_name', '==', login_name)
+	);
+	const userDocs = await getDocs(userQuery);
+
+	if (userDocs.empty) {
+		return null;
+	}
+
+	return userDocs.docs[0].id;
+};
+
 export const fetchTweetsByUserIDs = async (
-	userIDs: string | string[],
+	userIDs: string[],
 	setLoading: React.Dispatch<React.SetStateAction<boolean>>
 ): Promise<TweetData[]> => {
 	try {
@@ -234,7 +248,7 @@ export const fetchTweetsByUserIDs = async (
 		);
 		return fetchedTweets;
 	} catch (error) {
-		throw new Error('Failed to load tweets');
+		throw new Error('Failed to fetch tweets');
 	} finally {
 		setLoading(false);
 	}
