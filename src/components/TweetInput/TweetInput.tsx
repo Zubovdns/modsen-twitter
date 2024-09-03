@@ -3,10 +3,10 @@ import { Controller, useForm } from 'react-hook-form';
 import DeleteImageIcon from '@assets/icons/TweetInput/DeleteImageIcon.svg';
 import SelectImageIcon from '@assets/icons/TweetInput/SelectImageIcon.svg';
 import { useNotification } from '@hooks/useNotification';
-import { TweetData } from '@interfaces/tweet';
+import { TweetInputData } from '@interfaces/tweet';
 import { createTweet } from '@src/firebase/firebaseService';
-import { useAppSelector } from '@src/store/hooks';
-import { selectUserData } from '@src/store/selectors/user';
+import { useAppSelector } from '@store/hooks';
+import { selectUserData } from '@store/selectors/user';
 import { isTweetButtonDisabled } from '@utils/isTweetButtonDisabled';
 import {
 	getDownloadURL,
@@ -36,7 +36,7 @@ import {
 } from './styled';
 
 export const TweetInput = () => {
-	const { control, handleSubmit, setValue, watch } = useForm<TweetData>({
+	const { control, handleSubmit, setValue, watch } = useForm<TweetInputData>({
 		defaultValues: {
 			text: '',
 			image: null,
@@ -84,7 +84,7 @@ export const TweetInput = () => {
 		setIsUploading(false);
 	};
 
-	const onSubmit = async (data: TweetData) => {
+	const onSubmit = async (data: TweetInputData) => {
 		try {
 			await createTweet(data);
 

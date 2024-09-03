@@ -19,7 +19,7 @@ import {
 } from './styled';
 
 export const Home = () => {
-	const [avatarUrl, tweets, loading, setTweets] = useUserTweets();
+	const [ tweets, loading, setTweets] = useUserTweets();
 
 	const handleDeleteTweet = async (tweetId: string) => {
 		try {

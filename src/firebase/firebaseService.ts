@@ -6,7 +6,7 @@ import {
 } from '@src/components/Forms/LoginForm/constants';
 import { LOG_OUT_ERROR_MESSAGE } from '@src/components/NavBar/MiniProfile/constants';
 import { LoginData } from '@src/interfaces/login';
-import { TweetData } from '@src/interfaces/tweet';
+import { TweetData, TweetInputData } from '@src/interfaces/tweet';
 import {
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
@@ -22,6 +22,7 @@ import {
 	doc,
 	getDoc,
 	getDocs,
+	orderBy,
 	query,
 	setDoc,
 	updateDoc,
@@ -152,7 +153,7 @@ export const logOut = async (): Promise<void> => {
 	}
 };
 
-export const createTweet = async (data: TweetData): Promise<void> => {
+export const createTweet = async (data: TweetInputData): Promise<void> => {
 	try {
 		const user = auth.currentUser;
 		if (user) {
@@ -203,3 +204,38 @@ export const isOwner = (tweetOwnerId: string) =>
 	auth.currentUser?.uid === tweetOwnerId;
 
 export const getUserUid = () => auth.currentUser?.uid;
+
+export const fetchTweetsByUserIDs = async (
+	userIDs: string | string[],
+	setLoading: React.Dispatch<React.SetStateAction<boolean>>
+): Promise<TweetData[]> => {
+	try {
+		const tweetsQuery = query(
+			collection(db, 'tweets'),
+			where('user_id', 'in', userIDs),
+			orderBy('publish_time', 'desc')
+		);
+
+		setLoading(true);
+
+		const tweetDocs = await getDocs(tweetsQuery);
+		const fetchedTweets = await Promise.all(
+			tweetDocs.docs.map(async (docItem) => {
+				const tweetData = docItem.data();
+				const userDoc = await getDoc(doc(db, 'users', tweetData.user_id));
+				const userData = userDoc.exists() ? userDoc.data() : null;
+
+				return {
+					...tweetData,
+					id: docItem.id,
+					user: userData,
+				} as TweetData;
+			})
+		);
+		return fetchedTweets;
+	} catch (error) {
+		throw new Error('Failed to load tweets');
+	} finally {
+		setLoading(false);
+	}
+};
