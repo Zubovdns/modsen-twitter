@@ -168,9 +168,7 @@ export const Profile = () => {
 					</ProfileHeaderContainer>
 					{userData ? (
 						<>
-							{isCurrentUser && (
-								<TweetInput avatarUrl={userData.profile_image || ''} />
-							)}
+							{isCurrentUser && <TweetInput />}
 
 							{loading ? (
 								<Loader />
