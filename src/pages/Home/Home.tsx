@@ -1,12 +1,12 @@
 /* eslint-disable no-nested-ternary */
+import { getUserUid } from '@api/firebase/auth';
+import { deleteTweet } from '@api/firebase/firestore';
 import { Loader } from '@components/Loader';
 import { SearchPanel } from '@components/SearchPanel';
 import { ThemeSwitcher } from '@components/ThemeSwitcher';
 import { TweetInput } from '@components/TweetInput';
 import { TweetItem } from '@components/TweetItem';
 import { useUserTweets } from '@hooks/useUserTweets/useUserTweets';
-import { getUserUid } from '@src/firebaseApi/auth';
-import { deleteTweet } from '@src/firebaseApi/firestore';
 
 import { PLACEHOLDER_TEXT, PLACEHOLDER_TITLE } from './constants';
 import {

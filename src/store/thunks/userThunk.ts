@@ -1,13 +1,13 @@
-import { RegistrationData } from '@interfaces/registration';
-import { ReceivedUserData } from '@interfaces/user';
-import { AsyncThunk, createAsyncThunk } from '@reduxjs/toolkit';
 import {
 	getUserData,
 	loginViaEmail,
 	loginViaGoogle,
 	registerViaEmail,
-} from '@src/firebaseApi/auth';
-import { LoginData } from '@src/interfaces/login';
+} from '@api/firebase/auth';
+import { LoginData } from '@interfaces/login';
+import { RegistrationData } from '@interfaces/registration';
+import { ReceivedUserData } from '@interfaces/user';
+import { AsyncThunk, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { RootState } from '../types';
 
