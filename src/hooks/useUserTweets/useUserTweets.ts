@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
 import { TweetData } from '@interfaces/tweet';
-import {
-	fetchTweetsByUserIDs,
-	getUserUid,
-} from '@src/firebase/firebaseService';
+import { getUserUid } from '@src/firebaseApi/auth';
+import { fetchTweetsByUserIDs } from '@src/firebaseApi/firestore';
 import { useAppSelector } from '@store/hooks';
 import { selectUserData } from '@store/selectors/user';
 

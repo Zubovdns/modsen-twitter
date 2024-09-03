@@ -7,12 +7,8 @@ import { TweetInput } from '@components/TweetInput';
 import { TweetItem } from '@components/TweetItem';
 import { useProfileTweets } from '@hooks/useProfileTweets';
 import { UserData } from '@interfaces/user';
-import {
-	deleteTweet,
-	getUserDataByLogin,
-	getUserUid,
-	isOwner,
-} from '@src/firebase/firebaseService';
+import { getUserDataByLogin, getUserUid, isOwner } from '@src/firebaseApi/auth';
+import { deleteTweet } from '@src/firebaseApi/firestore';
 
 import {
 	BannerImage,

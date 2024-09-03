@@ -3,7 +3,7 @@ import { TweetData } from '@interfaces/tweet';
 import {
 	fetchTweetsByUserIDs,
 	getUserUidFromLogin,
-} from '@src/firebase/firebaseService';
+} from '@src/firebaseApi/firestore';
 
 import { UseProfileTweetsReturnType } from './types';
 

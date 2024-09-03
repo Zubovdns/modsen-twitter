@@ -1,7 +1,8 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { LikeButtonIcon } from '@assets/icons/Tweet/LikeButtonIcon';
 import { MoreIcon } from '@assets/icons/Tweet/MoreIcon';
-import { isOwner, likeTweet } from '@src/firebase/firebaseService';
+import { isOwner } from '@src/firebaseApi/auth';
+import { likeTweet } from '@src/firebaseApi/firestore';
 import { getRelativeTime } from '@utils/getRelativeTime';
 
 import {

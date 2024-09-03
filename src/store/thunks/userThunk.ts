@@ -6,7 +6,7 @@ import {
 	loginViaEmail,
 	loginViaGoogle,
 	registerViaEmail,
-} from '@src/firebase/firebaseService';
+} from '@src/firebaseApi/auth';
 import { LoginData } from '@src/interfaces/login';
 
 import { RootState } from '../types';

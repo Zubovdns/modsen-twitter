@@ -4,7 +4,7 @@ import DeleteImageIcon from '@assets/icons/TweetInput/DeleteImageIcon.svg';
 import SelectImageIcon from '@assets/icons/TweetInput/SelectImageIcon.svg';
 import { useNotification } from '@hooks/useNotification';
 import { TweetInputData } from '@interfaces/tweet';
-import { createTweet } from '@src/firebase/firebaseService';
+import { createTweet } from '@src/firebaseApi/firestore';
 import { useAppSelector } from '@store/hooks';
 import { selectUserData } from '@store/selectors/user';
 import { isTweetButtonDisabled } from '@utils/isTweetButtonDisabled';

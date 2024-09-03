@@ -5,7 +5,8 @@ import { ThemeSwitcher } from '@components/ThemeSwitcher';
 import { TweetInput } from '@components/TweetInput';
 import { TweetItem } from '@components/TweetItem';
 import { useUserTweets } from '@hooks/useUserTweets/useUserTweets';
-import { deleteTweet, getUserUid } from '@src/firebase/firebaseService';
+import { getUserUid } from '@src/firebaseApi/auth';
+import { deleteTweet } from '@src/firebaseApi/firestore';
 
 import { PLACEHOLDER_TEXT, PLACEHOLDER_TITLE } from './constants';
 import {
@@ -19,7 +20,7 @@ import {
 } from './styled';
 
 export const Home = () => {
-	const [ tweets, loading, setTweets] = useUserTweets();
+	const [tweets, loading, setTweets] = useUserTweets();
 
 	const handleDeleteTweet = async (tweetId: string) => {
 		try {
