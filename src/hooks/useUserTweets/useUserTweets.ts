@@ -15,7 +15,7 @@ export const useUserTweets = (): UseUserTweetsReturnType => {
 	const userData = useAppSelector(selectUserData);
 
 	useEffect(() => {
-		const fetchUserProfileAndTweets = async () => {
+		const fetchTweets = async () => {
 			try {
 				const userUid = getUserUid();
 
@@ -29,12 +29,10 @@ export const useUserTweets = (): UseUserTweetsReturnType => {
 				}
 			} catch (error) {
 				console.error(error);
-			} finally {
-				setLoading(false);
 			}
 		};
 
-		fetchUserProfileAndTweets();
+		fetchTweets();
 	}, [userData]);
 
 	return [tweets, loading, setTweets];
