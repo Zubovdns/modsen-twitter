@@ -128,7 +128,7 @@ export const Profile = () => {
 							)}
 							{isModalOpen && (
 								<Modal onClose={handleModalClose} title='Edit profile'>
-									<ModalTestPlaceholder></ModalTestPlaceholder>
+									<EditProfile userData={userData} />
 								</Modal>
 							)}
 						</EditButtonContainer>
