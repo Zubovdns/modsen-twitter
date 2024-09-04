@@ -23,7 +23,6 @@
 
 		"baseUrl": "./src",
 		"paths": {
-			"@src/*": ["*"],
 			"@api/*": ["api/*"],
 			"@assets/*": ["assets/*"],
 			"@components/*": ["components/*"],
@@ -35,7 +34,8 @@
 			"@store/*": ["store/*"],
 			"@styles/*": ["styles/*"],
 			"@types/*": ["types/*"],
-			"@utils/*": ["utils/*"]
+			"@utils/*": ["utils/*"],
+			"@src/*": ["*"]
 		}
 	},
 	"include": ["src"],
