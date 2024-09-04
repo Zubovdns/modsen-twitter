@@ -1,7 +1,5 @@
-export interface FormData {
-	password: string;
-}
+import { PasswordRegistrationData } from '@interfaces/registration';
 
 export interface PasswordFormProps {
-	onSubmit: (data: FormData) => void;
+	onSubmit: (data: PasswordRegistrationData) => void;
 }

@@ -10,14 +10,17 @@ import { createContainer, Portal } from '@components/Portal';
 
 import { MODAL_CONTAINER_ID } from './constants';
 import {
+	ModalButtonContainer,
 	ModalCloseButton,
 	ModalCloseButtonIcon,
 	ModalContent,
+	ModalHeaderContainer,
+	ModalTitle,
 	ModalWrap,
 } from './styled';
 import { ModalProps } from './types';
 
-export const Modal = ({ onClose, children }: ModalProps) => {
+export const Modal = ({ onClose, children, title, button }: ModalProps) => {
 	const [isMounted, setMounted] = useState(false);
 
 	const rootRef = useRef<HTMLDivElement>(null);
@@ -64,9 +67,13 @@ export const Modal = ({ onClose, children }: ModalProps) => {
 		<Portal id={MODAL_CONTAINER_ID}>
 			<ModalWrap ref={rootRef}>
 				<ModalContent>
-					<ModalCloseButton onClick={handleClose}>
-						<ModalCloseButtonIcon src={CloseIcon} />
-					</ModalCloseButton>
+					<ModalHeaderContainer>
+						<ModalCloseButton onClick={handleClose}>
+							<ModalCloseButtonIcon src={CloseIcon} />
+						</ModalCloseButton>
+						{title && <ModalTitle>{title}</ModalTitle>}
+						{button && <ModalButtonContainer>{button}</ModalButtonContainer>}
+					</ModalHeaderContainer>
 					{children}
 				</ModalContent>
 			</ModalWrap>

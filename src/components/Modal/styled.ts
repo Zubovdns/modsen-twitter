@@ -20,7 +20,10 @@ export const ModalContent = styled.div`
 	max-height: 80vh;
 
 	position: relative;
+
 	display: flex;
+	flex-direction: column;
+
 	background: white;
 
 	overflow-y: auto;
@@ -29,11 +32,23 @@ export const ModalContent = styled.div`
 	border-radius: 20px;
 `;
 
-export const ModalCloseButton = styled.button`
-	position: absolute;
-	top: 10px;
-	left: 10px;
+export const ModalHeaderContainer = styled.div`
+	width: 100%;
+	max-height: 60px;
+	display: flex;
+	align-items: center;
+	padding: 10px 10px;
+`;
 
+export const ModalTitle = styled.h1`
+	flex: 1;
+	font-size: 25px;
+	margin-left: 20px;
+`;
+
+export const ModalButtonContainer = styled.div``;
+
+export const ModalCloseButton = styled.button`
 	width: 30px;
 	height: 30px;
 

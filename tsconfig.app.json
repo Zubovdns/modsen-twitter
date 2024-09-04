@@ -23,17 +23,19 @@
 
 		"baseUrl": "./src",
 		"paths": {
-			"@src/*": ["*"],
+			"@api/*": ["api/*"],
 			"@assets/*": ["assets/*"],
 			"@components/*": ["components/*"],
 			"@constants/*": ["constants/*"],
 			"@hooks/*": ["hooks/*"],
+			"@interfaces/*": ["interfaces/*"],
 			"@pages/*": ["pages/*"],
 			"@routes/*": ["routes/*"],
 			"@store/*": ["store/*"],
 			"@styles/*": ["styles/*"],
 			"@types/*": ["types/*"],
-			"@utils/*": ["utils/*"]
+			"@utils/*": ["utils/*"],
+			"@src/*": ["*"]
 		}
 	},
 	"include": ["src"],

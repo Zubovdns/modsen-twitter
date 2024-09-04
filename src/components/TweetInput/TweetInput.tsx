@@ -1,11 +1,13 @@
 import { ChangeEvent, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { createTweet } from '@api/firebase/firestore';
 import DeleteImageIcon from '@assets/icons/TweetInput/DeleteImageIcon.svg';
 import SelectImageIcon from '@assets/icons/TweetInput/SelectImageIcon.svg';
 import { useNotification } from '@hooks/useNotification';
-import { auth, db } from '@src/firebase';
-import { isTweetButtonDisabled } from '@src/utils/isTweetButtonDisabled';
-import { addDoc, collection } from 'firebase/firestore';
+import { TweetInputData } from '@interfaces/tweet';
+import { useAppSelector } from '@store/hooks';
+import { selectUserData } from '@store/selectors/user';
+import { isTweetButtonDisabled } from '@utils/isTweetButtonDisabled';
 import {
 	getDownloadURL,
 	getStorage,
@@ -32,10 +34,9 @@ import {
 	UserTweetAvatarWrapper,
 	UserTweetContainer,
 } from './styled';
-import { FormData, TweetInputProps } from './types';
 
-export const TweetInput = ({ avatarUrl }: TweetInputProps) => {
-	const { control, handleSubmit, setValue, watch } = useForm<FormData>({
+export const TweetInput = () => {
+	const { control, handleSubmit, setValue, watch } = useForm<TweetInputData>({
 		defaultValues: {
 			text: '',
 			image: null,
@@ -43,6 +44,7 @@ export const TweetInput = ({ avatarUrl }: TweetInputProps) => {
 		},
 	});
 
+	const userData = useAppSelector(selectUserData);
 	const [showNotification, NotificationComponent] = useNotification();
 	const [isUploading, setIsUploading] = useState(false);
 
@@ -82,22 +84,13 @@ export const TweetInput = ({ avatarUrl }: TweetInputProps) => {
 		setIsUploading(false);
 	};
 
-	const onSubmit = async (data: FormData) => {
+	const onSubmit = async (data: TweetInputData) => {
 		try {
-			const user = auth.currentUser;
-			if (user) {
-				await addDoc(collection(db, 'tweets'), {
-					text: data.text,
-					image_url: data.imageUrl,
-					likes_user_id: [],
-					publish_time: new Date(),
-					user_id: user.uid,
-				});
+			await createTweet(data);
 
-				setValue('text', '');
-				setValue('image', null);
-				setValue('imageUrl', null);
-			}
+			setValue('text', '');
+			setValue('image', null);
+			setValue('imageUrl', null);
 		} catch (error) {
 			showNotification('Error with creating tweet');
 		}
@@ -108,7 +101,7 @@ export const TweetInput = ({ avatarUrl }: TweetInputProps) => {
 			<UserTweetContainer>
 				<UserTweetAvatarWrapper>
 					<AvatarContainer>
-						<Avatar src={avatarUrl || undefined} />
+						<Avatar src={userData?.profile_image || undefined} />
 					</AvatarContainer>
 				</UserTweetAvatarWrapper>
 
