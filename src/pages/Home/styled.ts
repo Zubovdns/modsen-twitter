@@ -6,10 +6,10 @@ export const HomeWrapper = styled.div`
 	max-width: 600px;
 	min-height: 100vh;
 
-	border-right: 2px solid #eff3f4;
+	border-right: 2px solid ${({ theme }) => theme.itemsBorder};
 
 	& > * > * {
-		border-bottom: 2px solid #eff3f4;
+		border-bottom: 2px solid ${({ theme }) => theme.itemsBorder};
 	}
 `;
 
@@ -28,12 +28,15 @@ export const HeaderContainer = styled.header`
 `;
 
 export const Title = styled.h1`
+	color: ${({ theme }) => theme.normalText};
 	font-size: 20px;
 `;
 
 export const PlaceholderContainer = styled.div`
 	width: 100%;
 	height: 600px;
+
+	color: ${({ theme }) => theme.normalText};
 
 	display: flex;
 	flex-direction: column;

@@ -5,5 +5,19 @@ export const darkTheme = {
 
 	bodyBg: '#000',
 
+	itemsBorder: '#2F3336',
+	normalText: '#fff',
+
+	themeSwitcherBg: '#fff',
+	themeSwitcher: '#000',
+
+	tweetInputOptionsHover: '#061019',
+	tweetButtonHoverDisable: '#124E78',
+	imagePreview: '#212327',
+
+	tweetSubtext: '#71767A',
+	likeBg: '#210C14',
+	like: '#71767A',
+
 	footerLinkText: '#FFF',
 };

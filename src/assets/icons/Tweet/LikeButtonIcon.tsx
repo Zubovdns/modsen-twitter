@@ -6,7 +6,7 @@ type Props = {
 
 const Svg = styled.svg<{ liked: boolean }>`
 	transition: fill 0.1s ease-in-out;
-	fill: ${({ liked }) => (liked ? '#F91980' : 'black')};
+	fill: ${({ liked, theme }) => (liked ? theme.likedLike : theme.like)};
 `;
 
 export const LikeButtonIcon = ({ liked }: Props) => (

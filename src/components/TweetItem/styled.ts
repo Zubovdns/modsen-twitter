@@ -16,7 +16,7 @@ export const AvatarWrapper = styled.div`
 export const AvatarContainer = styled.div`
 	width: 40px;
 	height: 40px;
-	background-color: #cccccc;
+	background-color: ${({ theme }) => theme.avatarContainer};
 	overflow: hidden;
 	display: flex;
 	justify-content: center;
@@ -53,25 +53,27 @@ export const HeaderDataContainer = styled.div`
 
 	& > *:not(:last-child)::after {
 		content: '·';
-		color: #536471;
+		color: ${({ theme }) => theme.tweetSubtext};
 		margin-left: 3px;
 		margin-right: 3px;
 	}
 `;
 
 export const TweetUser = styled.h2`
+	color: ${({ theme }) => theme.normalText};
+
 	font-weight: bold;
 	font-size: 18px;
 `;
 
 export const TweetUserLogin = styled.p`
 	font-size: 18px;
-	color: #536471;
+	color: ${({ theme }) => theme.tweetSubtext};
 `;
 
 export const TweetDate = styled.p`
 	font-size: 18px;
-	color: #536471;
+	color: ${({ theme }) => theme.tweetSubtext};
 `;
 
 export const TextContainer = styled.div`
@@ -84,6 +86,8 @@ export const Text = styled.p`
 	font-size: 18px;
 	word-break: break-word;
 	overflow-wrap: break-word;
+
+	color: ${({ theme }) => theme.normalText};
 `;
 
 export const ImageContainer = styled.div`
@@ -95,7 +99,7 @@ export const ImageContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	position: relative;
-	background-color: #f0f0f0;
+	background-color: ${({ theme }) => theme.imagePreview};
 	overflow: hidden;
 	border-radius: 20px;
 `;
@@ -116,7 +120,7 @@ export const Options = styled.div`
 export const LikesCount = styled.span`
 	margin-left: 8px;
 	font-size: 16px;
-	color: #536471;
+	color: ${({ theme }) => theme.likesCount};
 	transition: color 0.2s ease;
 `;
 
@@ -146,12 +150,11 @@ export const LikesContainer = styled.div`
 	transition: box-shadow 0.2s ease, color 0.2s ease;
 
 	&:hover ${LikeButton} {
-		box-shadow: 0 0 20px rgba(249, 227, 235, 0.7);
-		background-color: #f9e3eb;
+		background-color: ${({ theme }) => theme.likeBg};
 	}
 
 	&:hover ${LikesCount} {
-		color: red;
+		color: ${({ theme }) => theme.likedLikeCount};
 	}
 `;
 

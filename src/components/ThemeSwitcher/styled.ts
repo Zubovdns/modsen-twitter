@@ -4,7 +4,7 @@ export const Switch = styled.div<{ checked: boolean }>`
 	width: 50px;
 	height: 25px;
 	border-radius: 25px;
-	background-color: ${({ checked }) => (checked ? 'black' : 'lightgray')};
+	background-color: ${({ theme }) => theme.themeSwitcherBg};
 	position: relative;
 	cursor: pointer;
 	transition: background-color 0.3s ease;
@@ -17,7 +17,7 @@ export const Switch = styled.div<{ checked: boolean }>`
 		width: 21px;
 		height: 21px;
 		border-radius: 50%;
-		background-color: white;
+		background-color: ${({ theme }) => theme.themeSwitcher};
 		transition: left 0.3s ease;
 	}
 `;
