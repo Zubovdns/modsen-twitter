@@ -1,10 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import GoogleIcon from '@assets/icons/GoogleIcon.svg';
 import TwitterLogo from '@assets/icons/TwitterLogo.svg';
-import { auth, db, googleProvider } from '@src/firebase';
 import { LOGIN_ROUTE, REGISTRATION_ROUTE, SIGN_UP_ROUTE } from '@src/routes';
-import { signInWithPopup } from 'firebase/auth';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { useAppDispatch } from '@src/store/hooks';
+import { fetchUserDataWithLoginViaGoogle } from '@src/store/thunks/userThunk';
 
 import {
 	ALREADY_HAVE_AN_ACCOUNT,
@@ -30,36 +29,11 @@ import {
 } from './styled';
 
 const SignUpOptions = () => {
+	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 
 	const handleGoogleSignUpClick = async () => {
-		try {
-			const result = await signInWithPopup(auth, googleProvider);
-			const user = result.user;
-
-			const userDocRef = doc(db, 'users', user.uid);
-			const userDocSnap = await getDoc(userDocRef);
-
-			if (!userDocSnap.exists()) {
-				try {
-					await setDoc(userDocRef, {
-						name: user.displayName || null,
-						phone_number: user.phoneNumber || null,
-						birth_date: null,
-						email: user.email || null,
-						profile_image: null,
-						background_profile_image: null,
-						login_name: user.uid,
-						followers: [],
-						following: [],
-					});
-				} catch (error) {
-					console.error('Error saving user data: ', error);
-				}
-			}
-		} catch (error) {
-			console.error('Error signing up with Google: ', error);
-		}
+		dispatch(fetchUserDataWithLoginViaGoogle());
 	};
 
 	const handleEmailSignUpClick = () => {

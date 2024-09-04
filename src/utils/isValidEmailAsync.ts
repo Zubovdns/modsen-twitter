@@ -1,4 +1,4 @@
-import { db } from '@src/firebase';
+import { db } from '@api/firebase/config';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 
 import { isValidEmail } from './isValidEmail';

@@ -6,16 +6,13 @@ import { ThemeSwitcher } from '@components/ThemeSwitcher';
 import { TweetInput } from '@components/TweetInput';
 import { TweetItem } from '@components/TweetItem';
 import { useProfileTweets } from '@hooks/useProfileTweets';
-import { auth, db } from '@src/firebase';
-import { onAuthStateChanged } from 'firebase/auth';
+import { UserData } from '@interfaces/user';
 import {
-	collection,
-	deleteDoc,
-	doc,
-	getDocs,
-	query,
-	where,
-} from 'firebase/firestore';
+	getUserDataByLogin,
+	getUserUid,
+	isOwner,
+} from '@src/api/firebase/auth';
+import { deleteTweet } from '@src/api/firebase/firestore';
 
 import {
 	BannerImage,
@@ -44,7 +41,6 @@ import {
 	Username,
 	UsernameContainer,
 } from './styled';
-import { UserData } from './types';
 
 export const Profile = () => {
 	const login_name = window.location.pathname.substring(1);
@@ -58,24 +54,11 @@ export const Profile = () => {
 	useEffect(() => {
 		const fetchUserData = async () => {
 			try {
-				const usersRef = collection(db, 'users');
-				const q = query(usersRef, where('login_name', '==', login_name));
-				const querySnapshot = await getDocs(q);
-
-				if (!querySnapshot.empty) {
-					const userDoc = querySnapshot.docs[0];
-					const userData = userDoc.data() as UserData;
-					setUserData(userData);
-
-					onAuthStateChanged(auth, (currentUser) => {
-						if (currentUser && currentUser.uid === userDoc.id) {
-							setIsCurrentUser(true);
-						} else {
-							setIsCurrentUser(false);
-						}
-					});
-				} else {
-					setUserData(null);
+				const fetchedUserData = await getUserDataByLogin(login_name);
+				if (fetchedUserData) {
+					const fetchedIsCurrentUser = isOwner(fetchedUserData.id);
+					setUserData(fetchedUserData);
+					setIsCurrentUser(fetchedIsCurrentUser);
 				}
 			} catch (error) {
 				console.error('Ошибка при получении данных пользователя:', error);
@@ -88,12 +71,12 @@ export const Profile = () => {
 
 	const handleDeleteTweet = async (tweetId: string) => {
 		try {
-			await deleteDoc(doc(db, 'tweets', tweetId));
+			await deleteTweet(tweetId);
 			setTweets((prevTweets) =>
 				prevTweets.filter((tweet) => tweet.id !== tweetId)
 			);
 		} catch (error) {
-			console.error('Failed to delete tweet: ', error);
+			console.error(error);
 		}
 	};
 
@@ -153,24 +136,25 @@ export const Profile = () => {
 						<TextContainer>
 							<UsernameContainer>
 								<Name>{userData ? userData.name : '@' + login_name}</Name>
-								{userData && <Username>@{login_name}</Username>}
+								{userData && <Username>@{userData.login_name}</Username>}
 							</UsernameContainer>
 							{userData && (
 								<>
-									<Bio>Mock</Bio>
+									<Bio>{userData.bio}</Bio>
 									{userData.birth_date && (
-										<Info>Date of birth {userData.birth_date}</Info>
+										<Info>
+											{'Date of birth: ' +
+												userData.birth_date.toDate().toISOString()}
+										</Info>
 									)}
-									<FollowInfo>11 Following | 11 Followers</FollowInfo>
+									<FollowInfo>{`${userData.following.length} Following | ${userData.followers.length} Followers`}</FollowInfo>
 								</>
 							)}
 						</TextContainer>
 					</ProfileHeaderContainer>
 					{userData ? (
 						<>
-							{isCurrentUser && (
-								<TweetInput avatarUrl={userData.profile_image || ''} />
-							)}
+							{isCurrentUser && <TweetInput />}
 
 							{loading ? (
 								<Loader />
@@ -193,8 +177,7 @@ export const Profile = () => {
 											userName={userData.name || ''}
 											likesAmount={likes_user_id?.length || 0}
 											liked={
-												likes_user_id?.includes(auth.currentUser?.uid || '') ||
-												false
+												likes_user_id?.includes(getUserUid() || '') || false
 											}
 											userLogin={`@${userData.login_name || ''}`}
 											image={image_url}

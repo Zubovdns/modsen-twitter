@@ -1,12 +1,12 @@
 /* eslint-disable no-nested-ternary */
+import { getUserUid } from '@api/firebase/auth';
+import { deleteTweet } from '@api/firebase/firestore';
+import { Loader } from '@components/Loader';
+import { SearchPanel } from '@components/SearchPanel';
 import { ThemeSwitcher } from '@components/ThemeSwitcher';
 import { TweetInput } from '@components/TweetInput';
 import { TweetItem } from '@components/TweetItem';
-import { Loader } from '@src/components/Loader';
-import { SearchPanel } from '@src/components/SearchPanel';
-import { auth, db } from '@src/firebase';
-import { useUserTweets } from '@src/hooks/useUserTweets/useUserTweets';
-import { deleteDoc, doc } from 'firebase/firestore';
+import { useUserTweets } from '@hooks/useUserTweets/useUserTweets';
 
 import { PLACEHOLDER_TEXT, PLACEHOLDER_TITLE } from './constants';
 import {
@@ -20,20 +20,18 @@ import {
 } from './styled';
 
 export const Home = () => {
-	const [avatarUrl, tweets, loading, setTweets] = useUserTweets();
+	const [tweets, loading, setTweets] = useUserTweets();
 
 	const handleDeleteTweet = async (tweetId: string) => {
 		try {
-			await deleteDoc(doc(db, 'tweets', tweetId));
+			await deleteTweet(tweetId);
 			setTweets((prevTweets) =>
 				prevTweets.filter((tweet) => tweet.id !== tweetId)
 			);
 		} catch (error) {
-			console.error('Failed to delete tweet: ', error);
+			console.error(error);
 		}
 	};
-
-	console.log(tweets, loading);
 
 	return (
 		<>
@@ -43,7 +41,7 @@ export const Home = () => {
 						<Title>Home</Title>
 						<ThemeSwitcher />
 					</HeaderContainer>
-					<TweetInput avatarUrl={avatarUrl} />
+					<TweetInput />
 					{loading ? (
 						<Loader />
 					) : tweets.length > 0 ? (
@@ -56,8 +54,7 @@ export const Home = () => {
 								userName={tweet.user?.name || ''}
 								likesAmount={tweet.likes_user_id?.length || 0}
 								liked={
-									tweet.likes_user_id?.includes(auth.currentUser?.uid || '') ||
-									false
+									tweet.likes_user_id?.includes(getUserUid() || '') || false
 								}
 								userLogin={`@${tweet.user?.login_name || ''}`}
 								image={tweet.image_url}

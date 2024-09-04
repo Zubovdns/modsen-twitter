@@ -1,73 +1,37 @@
 import { useEffect, useState } from 'react';
-import { auth, db } from '@src/firebase';
-import {
-	collection,
-	doc,
-	getDoc,
-	getDocs,
-	orderBy,
-	query,
-	where,
-} from 'firebase/firestore';
+import { getUserUid } from '@api/firebase/auth';
+import { TweetData } from '@interfaces/tweet';
+import { fetchTweetsByUserIDs } from '@src/api/firebase/firestore';
+import { useAppSelector } from '@store/hooks';
+import { selectUserData } from '@store/selectors/user';
 
-import { Tweet, UseUserTweetsReturnType } from './types';
+import { UseUserTweetsReturnType } from './types';
 
 export const useUserTweets = (): UseUserTweetsReturnType => {
-	const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
-	const [tweets, setTweets] = useState<Tweet[]>([]);
+	const [tweets, setTweets] = useState<TweetData[]>([]);
 	const [loading, setLoading] = useState(true);
+	const userData = useAppSelector(selectUserData);
 
 	useEffect(() => {
-		const fetchUserProfileAndTweets = async () => {
+		const fetchTweets = async () => {
 			try {
-				const user = auth.currentUser;
-				if (user) {
-					const userDoc = await getDoc(doc(db, 'users', user.uid));
+				const userUid = getUserUid();
 
-					if (userDoc.exists()) {
-						const userData = userDoc.data();
-						setAvatarUrl(userData.profile_image);
-
-						const following = userData.following || [];
-						const userIds = [...following, user.uid];
-
-						setLoading(true);
-
-						const tweetsQuery = query(
-							collection(db, 'tweets'),
-							where('user_id', 'in', userIds),
-							orderBy('publish_time', 'desc')
-						);
-
-						const tweetDocs = await getDocs(tweetsQuery);
-						const fetchedTweets = await Promise.all(
-							tweetDocs.docs.map(async (docs) => {
-								const tweetData = docs.data();
-								const userDoc = await getDoc(
-									doc(db, 'users', tweetData.user_id)
-								);
-								const userData = userDoc.exists() ? userDoc.data() : null;
-
-								return {
-									...tweetData,
-									id: docs.id,
-									user: userData,
-								} as Tweet;
-							})
-						);
-
-						setTweets(fetchedTweets);
-					}
+				if (userData && userUid) {
+					const following = [...userData.following, userUid];
+					const fetchedTweets = await fetchTweetsByUserIDs(
+						following,
+						setLoading
+					);
+					setTweets(fetchedTweets);
 				}
 			} catch (error) {
-				console.error('Failed to load user data or tweets: ', error);
-			} finally {
-				setLoading(false);
+				console.error(error);
 			}
 		};
 
-		fetchUserProfileAndTweets();
-	}, []);
+		fetchTweets();
+	}, [userData]);
 
-	return [avatarUrl, tweets, loading, setTweets];
+	return [tweets, loading, setTweets];
 };
