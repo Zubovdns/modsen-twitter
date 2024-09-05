@@ -1,4 +1,5 @@
 import { FormProvider, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import ChangeImageIcon from '@assets/icons/EditProfile/ChangeImageIcon.svg';
 import { Loader } from '@components/Loader';
 import { useImageUploader } from '@hooks/useImageUploader';
@@ -34,6 +35,7 @@ import { EditProfileFormType, EditProfileProps } from './types';
 export const EditProfile = ({ onClose }: EditProfileProps) => {
 	const dispatch = useAppDispatch();
 	const userData = useAppSelector(selectUserData);
+	const navigate = useNavigate();
 
 	const {
 		image: avatar,
@@ -69,12 +71,10 @@ export const EditProfile = ({ onClose }: EditProfileProps) => {
 	} = methods;
 
 	const onSubmit = (data: EditProfileFormType) => {
-		try {
-			dispatch(updateUserData(data));
+		dispatch(updateUserData(data)).then(() => {
 			onClose();
-		} catch (error) {
-			console.log('trash');
-		}
+			navigate(data.login_name);
+		});
 	};
 
 	const isUploading = isAvatarUploading || isBannerUploading;
