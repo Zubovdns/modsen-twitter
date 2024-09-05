@@ -1,9 +1,11 @@
 import { useCallback, useMemo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import ChangeImageIcon from '@assets/icons/EditProfile/ChangeImageIcon.svg';
-import { Loader } from '@src/components/Loader';
-import { useImageUploader } from '@src/hooks/useImageUploader';
-import { isValidLoginName } from '@src/utils/isValidLoginName';
+import { Loader } from '@components/Loader';
+import { useImageUploader } from '@hooks/useImageUploader';
+import { useAppSelector } from '@store/hooks';
+import { selectUserData } from '@store/selectors/user';
+import { isValidLoginName } from '@utils/isValidLoginName';
 import { isValidName } from '@utils/isValidName';
 
 import { FloatingLabelInputField } from '../FloatingLabelInputField';
@@ -27,9 +29,11 @@ import {
 	SubmitButton,
 	TextInformationContainer,
 } from './styled';
-import { EditingProfileTypes, FormData } from './types';
+import { EditProfileFormType } from './types';
 
-export const EditProfile = ({ userData }: EditingProfileTypes) => {
+export const EditProfile = () => {
+	const userData = useAppSelector(selectUserData);
+
 	const {
 		image: avatar,
 		isUploading: isAvatarUploading,
@@ -41,17 +45,17 @@ export const EditProfile = ({ userData }: EditingProfileTypes) => {
 		handleImageChange: handleBannerChange,
 	} = useImageUploader(userData?.background_profile_image || null);
 
-	const methods = useForm<FormData>({
+	const methods = useForm<EditProfileFormType>({
 		defaultValues: useMemo(
 			() => ({
 				avatar: userData?.profile_image,
 				banner: userData?.background_profile_image,
 				name: userData?.name,
 				loginName: userData?.login_name,
-				bio: userData?.bio || '',
-				month: '',
-				day: '',
-				year: 0,
+				bio: userData?.bio,
+				month: userData?.birth_date?.toDate().getMonth(),
+				day: userData?.birth_date?.toDate().getDay(),
+				year: userData?.birth_date?.toDate().getFullYear(),
 			}),
 			[userData]
 		),
@@ -66,7 +70,7 @@ export const EditProfile = ({ userData }: EditingProfileTypes) => {
 		formState: { errors },
 	} = methods;
 
-	const onSubmit = useCallback((data: FormData) => {
+	const onSubmit = useCallback((data: EditProfileFormType) => {
 		console.log(data);
 	}, []);
 
@@ -134,7 +138,7 @@ export const EditProfile = ({ userData }: EditingProfileTypes) => {
 						type='text'
 						placeholder='Enter your login'
 						register={register}
-						error={errors.loginName}
+						error={errors.login_name}
 						validationRules={{
 							required: LOGIN_NAME_VALIDATION_ERROR,
 							validate: isValidLoginName,

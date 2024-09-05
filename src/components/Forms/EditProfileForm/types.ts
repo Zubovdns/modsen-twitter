@@ -1,8 +1,4 @@
-import { UserData } from '../../../pages/Profile/types';
-
-export type EditingProfileTypes = {
-	userData: UserData | null;
-};
+import { UserData } from '@interfaces/user';
 
 export interface FormData {
 	avatar: string | null;
@@ -14,3 +10,17 @@ export interface FormData {
 	day: string;
 	year: number;
 }
+
+export type EditProfileFormType = Pick<
+	UserData,
+	| 'name'
+	| 'email'
+	| 'bio'
+	| 'login_name'
+	| 'profile_image'
+	| 'background_profile_image'
+> & {
+	month: number;
+	day: number;
+	year: number;
+};
