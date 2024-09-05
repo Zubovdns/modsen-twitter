@@ -1,8 +1,10 @@
 import {
+	followUser,
 	getUserData,
 	loginViaEmail,
 	loginViaGoogle,
 	registerViaEmail,
+	unfollowUser,
 } from '@api/firebase/auth';
 import { LoginData } from '@interfaces/login';
 import { RegistrationData } from '@interfaces/registration';
@@ -57,3 +59,17 @@ export const logOut: AsyncThunk<void, void, { state: RootState }> =
 	createAsyncThunk('user/logOut', async () => {
 		logOut();
 	});
+
+export const follow: AsyncThunk<
+	ReceivedUserData | null,
+	{ login_name: string; isFollowed: boolean },
+	{ state: RootState }
+> = createAsyncThunk('user/follow', async ({ login_name, isFollowed }) => {
+	if (isFollowed) {
+		await unfollowUser(login_name);
+	} else {
+		await followUser(login_name);
+	}
+	const userData = await getUserData();
+	return userData;
+});
