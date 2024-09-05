@@ -1,10 +1,10 @@
-import { useCallback, useMemo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import ChangeImageIcon from '@assets/icons/EditProfile/ChangeImageIcon.svg';
 import { Loader } from '@components/Loader';
 import { useImageUploader } from '@hooks/useImageUploader';
-import { useAppSelector } from '@store/hooks';
+import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { selectUserData } from '@store/selectors/user';
+import { updateUserData } from '@store/thunks/userThunk';
 import { isValidLoginName } from '@utils/isValidLoginName';
 import { isValidName } from '@utils/isValidName';
 
@@ -29,9 +29,10 @@ import {
 	SubmitButton,
 	TextInformationContainer,
 } from './styled';
-import { EditProfileFormType } from './types';
+import { EditProfileFormType, EditProfileProps } from './types';
 
-export const EditProfile = () => {
+export const EditProfile = ({ onClose }: EditProfileProps) => {
+	const dispatch = useAppDispatch();
 	const userData = useAppSelector(selectUserData);
 
 	const {
@@ -46,19 +47,16 @@ export const EditProfile = () => {
 	} = useImageUploader(userData?.background_profile_image || null);
 
 	const methods = useForm<EditProfileFormType>({
-		defaultValues: useMemo(
-			() => ({
-				avatar: userData?.profile_image,
-				banner: userData?.background_profile_image,
-				name: userData?.name,
-				loginName: userData?.login_name,
-				bio: userData?.bio,
-				month: userData?.birth_date?.toDate().getMonth(),
-				day: userData?.birth_date?.toDate().getDay(),
-				year: userData?.birth_date?.toDate().getFullYear(),
-			}),
-			[userData]
-		),
+		defaultValues: {
+			profile_image: userData?.profile_image,
+			background_profile_image: userData?.background_profile_image,
+			name: userData?.name,
+			login_name: userData?.login_name,
+			bio: userData?.bio,
+			month: userData?.birth_date?.toDate().getMonth(),
+			day: userData?.birth_date?.toDate().getDay(),
+			year: userData?.birth_date?.toDate().getFullYear(),
+		},
 	});
 
 	const {
@@ -70,9 +68,14 @@ export const EditProfile = () => {
 		formState: { errors },
 	} = methods;
 
-	const onSubmit = useCallback((data: EditProfileFormType) => {
-		console.log(data);
-	}, []);
+	const onSubmit = (data: EditProfileFormType) => {
+		try {
+			dispatch(updateUserData(data));
+			onClose();
+		} catch (error) {
+			console.log('trash');
+		}
+	};
 
 	const isUploading = isAvatarUploading || isBannerUploading;
 
@@ -91,7 +94,9 @@ export const EditProfile = () => {
 								<EditImageIcon src={ChangeImageIcon} />
 								<HiddenFileInput
 									id='banner-input'
-									onChange={(e) => handleBannerChange(e, 'banner', setValue)}
+									onChange={(e) =>
+										handleBannerChange(e, 'background_profile_image', setValue)
+									}
 								/>
 							</EditImageButton>
 						)}
@@ -108,7 +113,9 @@ export const EditProfile = () => {
 								<EditImageIcon src={ChangeImageIcon} />
 								<HiddenFileInput
 									id='avatar-input'
-									onChange={(e) => handleAvatarChange(e, 'avatar', setValue)}
+									onChange={(e) =>
+										handleAvatarChange(e, 'profile_image', setValue)
+									}
 								/>
 							</EditImageButton>
 						)}
@@ -133,7 +140,7 @@ export const EditProfile = () => {
 					/>
 
 					<FloatingLabelInputField
-						id='loginName'
+						id='login_name'
 						label='Login name'
 						type='text'
 						placeholder='Enter your login'

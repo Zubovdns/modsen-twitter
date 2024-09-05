@@ -3,7 +3,9 @@ import {
 	loginViaEmail,
 	loginViaGoogle,
 	registerViaEmail,
+	updateUserDataWithAnotherData,
 } from '@api/firebase/auth';
+import { EditProfileFormType } from '@components/Forms/EditProfileForm/types';
 import { LoginData } from '@interfaces/login';
 import { RegistrationData } from '@interfaces/registration';
 import { ReceivedUserData } from '@interfaces/user';
@@ -57,3 +59,13 @@ export const logOut: AsyncThunk<void, void, { state: RootState }> =
 	createAsyncThunk('user/logOut', async () => {
 		logOut();
 	});
+
+export const updateUserData: AsyncThunk<
+	ReceivedUserData | null,
+	EditProfileFormType,
+	{ state: RootState }
+> = createAsyncThunk('user/updateUserData', async (data) => {
+	await updateUserDataWithAnotherData(data);
+	const userData = await getUserData();
+	return userData;
+});
