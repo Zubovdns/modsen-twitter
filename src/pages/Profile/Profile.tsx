@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { getUserDataByLogin, getUserUid, isOwner } from '@api/firebase/auth';
+import { deleteTweet } from '@api/firebase/firestore';
 import { EditProfile } from '@components/Forms/EditProfileForm';
 import { Loader } from '@components/Loader';
 import { Modal } from '@components/Modal';
@@ -8,12 +10,6 @@ import { TweetInput } from '@components/TweetInput';
 import { TweetItem } from '@components/TweetItem';
 import { useProfileTweets } from '@hooks/useProfileTweets';
 import { UserData } from '@interfaces/user';
-import {
-	getUserDataByLogin,
-	getUserUid,
-	isOwner,
-} from '@src/api/firebase/auth';
-import { deleteTweet } from '@src/api/firebase/firestore';
 
 import {
 	BannerImage,
@@ -128,7 +124,7 @@ export const Profile = () => {
 							)}
 							{isModalOpen && (
 								<Modal onClose={handleModalClose} title='Edit profile'>
-									<EditProfile userData={userData} />
+									<EditProfile />
 								</Modal>
 							)}
 						</EditButtonContainer>
