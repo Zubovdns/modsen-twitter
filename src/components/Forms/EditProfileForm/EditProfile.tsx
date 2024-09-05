@@ -6,7 +6,7 @@ import { useImageUploader } from '@hooks/useImageUploader';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { selectUserData } from '@store/selectors/user';
 import { updateUserData } from '@store/thunks/userThunk';
-import { isValidLoginName } from '@utils/isValidLoginName';
+import { isValidLoginNameAsync } from '@utils/isValidLoginNameAsync';
 import { isValidName } from '@utils/isValidName';
 
 import { FloatingLabelInputField } from '../FloatingLabelInputField';
@@ -68,6 +68,7 @@ export const EditProfile = ({ onClose }: EditProfileProps) => {
 		setError,
 		clearErrors,
 		formState: { errors },
+		getValues,
 	} = methods;
 
 	const onSubmit = (data: EditProfileFormType) => {
@@ -76,6 +77,11 @@ export const EditProfile = ({ onClose }: EditProfileProps) => {
 			navigate(data.login_name);
 		});
 	};
+
+	const isSameLogin = () =>
+		getValues('login_name') === userData?.login_name
+			? () => true
+			: isValidLoginNameAsync;
 
 	const isUploading = isAvatarUploading || isBannerUploading;
 
@@ -148,7 +154,7 @@ export const EditProfile = ({ onClose }: EditProfileProps) => {
 						error={errors.login_name}
 						validationRules={{
 							required: LOGIN_NAME_VALIDATION_ERROR,
-							validate: isValidLoginName,
+							validate: isSameLogin(),
 						}}
 						setValue={setValue}
 						setError={setError}
