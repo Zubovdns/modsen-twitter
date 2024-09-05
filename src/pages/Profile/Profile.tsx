@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { getUserDataByLogin, getUserUid, isOwner } from '@api/firebase/auth';
+import { deleteTweet } from '@api/firebase/firestore';
 import { Loader } from '@components/Loader';
 import { Modal } from '@components/Modal';
 import { SearchPanel } from '@components/SearchPanel';
@@ -7,12 +9,6 @@ import { TweetInput } from '@components/TweetInput';
 import { TweetItem } from '@components/TweetItem';
 import { useProfileTweets } from '@hooks/useProfileTweets';
 import { UserData } from '@interfaces/user';
-import {
-	getUserDataByLogin,
-	getUserUid,
-	isOwner,
-} from '@src/api/firebase/auth';
-import { deleteTweet } from '@src/api/firebase/firestore';
 
 import {
 	BannerImage,
@@ -24,6 +20,7 @@ import {
 	DontExistTitle,
 	EditButton,
 	EditButtonContainer,
+	FollowButton,
 	FollowInfo,
 	HeaderContainer,
 	Info,
@@ -50,6 +47,7 @@ export const Profile = () => {
 	const [tweets, loading, setTweets] = useProfileTweets(login_name);
 	const [userData, setUserData] = useState<UserData | null>(null);
 	const [isCurrentUser, setIsCurrentUser] = useState(false);
+	const [isFollowed, setIsFollowed] = useState(true);
 
 	useEffect(() => {
 		const fetchUserData = async () => {
@@ -125,6 +123,11 @@ export const Profile = () => {
 						<EditButtonContainer>
 							{isCurrentUser && (
 								<EditButton onClick={handleModalOpen}>Edit profile</EditButton>
+							)}
+							{!isCurrentUser && (
+								<FollowButton followed={isFollowed}>
+									{isFollowed ? 'Unfollow' : 'Follow'}
+								</FollowButton>
 							)}
 							{isModalOpen && (
 								<Modal onClose={handleModalClose} title='Edit profile'>

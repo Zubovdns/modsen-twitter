@@ -120,8 +120,32 @@ export const EditButton = styled.button`
 	border-radius: 30px;
 	cursor: pointer;
 
+	transition: background-color 0.2s ease;
+
 	&:hover {
 		background-color: #d4d9dd;
+	}
+`;
+
+export const FollowButton = styled.button<{ followed: boolean }>`
+	padding: 6px 14px;
+	font-size: 16px;
+	left: 1000px;
+	color: #333;
+	font-weight: bold;
+
+	background-color: inherit;
+	border: 1px solid #ccc;
+	border-radius: 30px;
+	cursor: pointer;
+
+	transition: background-color 0.2s ease, border-color 0.2s ease,
+		color 0.2s ease;
+
+	&:hover {
+		color: ${({ followed }) => (!followed ? '#333' : 'red')};
+		border-color: ${({ followed }) => (!followed ? '#ccc' : 'red')};
+		background-color: ${({ followed }) => (!followed ? '#d4d9dd' : 'inherit')};
 	}
 `;
 
