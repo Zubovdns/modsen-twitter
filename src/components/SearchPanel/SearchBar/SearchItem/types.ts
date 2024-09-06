@@ -1,5 +1,5 @@
 export type SearchItemProps = {
-	avatarUrl: string | undefined;
+	avatarUrl: string | null | undefined;
 	name: string;
 	loginName: string;
 };
