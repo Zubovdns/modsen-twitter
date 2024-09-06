@@ -1,11 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import {
-	getUserDataByLogin,
-	getUserUid,
-	isFollowing,
-	isOwner,
-} from '@api/firebase/auth';
+import { getUserDataByLogin, isFollowing, isOwner } from '@api/firebase/auth';
 import { deleteTweet } from '@api/firebase/firestore';
 import { EditProfile } from '@components/Forms/EditProfileForm';
 import { Loader } from '@components/Loader';
@@ -191,17 +186,15 @@ export const Profile = () => {
 									}) => (
 										<TweetItem
 											text={text}
-											avatarUrl={userData.profile_image || ''}
+											avatarUrl={userData.profile_image}
 											key={id}
 											id={id}
-											userName={userData.name || ''}
-											likesAmount={likes_user_id?.length || 0}
-											liked={
-												likes_user_id?.includes(getUserUid() || '') || false
-											}
-											userLogin={`@${userData.login_name || ''}`}
+											userName={userData.name}
+											likesAmount={likes_user_id?.length}
+											likesArray={likes_user_id}
+											userLogin={userData.login_name}
 											image={image_url}
-											publishDate={new Date(publish_time.seconds * 1000)}
+											publishDate={publish_time}
 											userId={user_id}
 											onDeleteTweet={handleDeleteTweet}
 										/>

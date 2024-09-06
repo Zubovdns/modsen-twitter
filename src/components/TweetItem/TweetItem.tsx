@@ -1,5 +1,5 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { isOwner } from '@api/firebase/auth';
+import { getUserUid, isOwner } from '@api/firebase/auth';
 import { likeTweet } from '@api/firebase/firestore';
 import { LikeButtonIcon } from '@assets/icons/Tweet/LikeButtonIcon';
 import { MoreIcon } from '@assets/icons/Tweet/MoreIcon';
@@ -37,19 +37,21 @@ export const TweetItem = memo(
 		userName,
 		userLogin,
 		publishDate,
-		liked,
+		likesArray,
 		image,
 		likesAmount,
 		userId,
 		id,
 		onDeleteTweet,
 	}: TweetItemProps) => {
-		const [isLiked, setIsLiked] = useState(liked);
+		const [isLiked, setIsLiked] = useState(() =>
+			likesArray.includes(getUserUid() || '')
+		);
 		const [likes, setLikes] = useState(likesAmount);
 		const [menuOpen, setMenuOpen] = useState(false);
 		const menuRef = useRef<HTMLDivElement | null>(null);
 		const relativeTime = useMemo(
-			() => getRelativeTime(publishDate),
+			() => getRelativeTime(new Date(publishDate.seconds * 1000)),
 			[publishDate]
 		);
 
@@ -113,7 +115,7 @@ export const TweetItem = memo(
 					<HeaderContainer>
 						<HeaderDataContainer>
 							<TweetUser>{userName}</TweetUser>
-							<TweetUserLogin>{userLogin}</TweetUserLogin>
+							<TweetUserLogin>{'@' + userLogin}</TweetUserLogin>
 							<TweetDate>{relativeTime}</TweetDate>
 						</HeaderDataContainer>
 						<MoreButton onClick={handleMoreClick}>
@@ -122,16 +124,16 @@ export const TweetItem = memo(
 						{menuOpen && (
 							<MoreMenu ref={menuRef}>
 								<MoreMenuItem onClick={handleMenuItemClick}>
-									{'Go to ' + userLogin + ' profile'}
+									{'Go to ' + '@' + userLogin + ' profile'}
 								</MoreMenuItem>
 								<MoreMenuItem onClick={handleMenuItemClick}>
-									{'Follow ' + userLogin}
+									{'Follow ' + '@' + userLogin}
 								</MoreMenuItem>
 								<MoreMenuItem onClick={handleMenuItemClick}>
-									{'Mute ' + userLogin}
+									{'Mute ' + '@' + userLogin}
 								</MoreMenuItem>
 								<MoreMenuItem onClick={handleMenuItemClick}>
-									{'Block ' + userLogin}
+									{'Block ' + '@' + userLogin}
 								</MoreMenuItem>
 								{isOwner(userId) && (
 									<MoreMenuItem onClick={handleDeleteClick}>
