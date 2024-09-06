@@ -1,5 +1,4 @@
 /* eslint-disable no-nested-ternary */
-import { getUserUid } from '@api/firebase/auth';
 import { deleteTweet } from '@api/firebase/firestore';
 import { Loader } from '@components/Loader';
 import { SearchPanel } from '@components/SearchPanel';
@@ -45,24 +44,32 @@ export const Home = () => {
 					{loading ? (
 						<Loader />
 					) : tweets.length > 0 ? (
-						tweets.map((tweet) => (
-							<TweetItem
-								text={tweet.text}
-								avatarUrl={tweet.user?.profile_image || ''}
-								key={tweet.id}
-								id={tweet.id}
-								userName={tweet.user?.name || ''}
-								likesAmount={tweet.likes_user_id?.length || 0}
-								liked={
-									tweet.likes_user_id?.includes(getUserUid() || '') || false
-								}
-								userLogin={`@${tweet.user?.login_name || ''}`}
-								image={tweet.image_url}
-								publishDate={new Date(tweet.publish_time.seconds * 1000)}
-								userId={tweet.user_id}
-								onDeleteTweet={handleDeleteTweet}
-							/>
-						))
+						tweets.map(
+							({
+								text,
+								id,
+								image_url,
+								likes_user_id,
+								publish_time,
+								user,
+								user_id,
+							}) => (
+								<TweetItem
+									text={text}
+									avatarUrl={user.profile_image}
+									key={id}
+									id={id}
+									userName={user.name}
+									likesAmount={likes_user_id.length}
+									likesArray={likes_user_id}
+									userLogin={user.login_name}
+									image={image_url}
+									publishDate={publish_time}
+									userId={user_id}
+									onDeleteTweet={handleDeleteTweet}
+								/>
+							)
+						)
 					) : (
 						<PlaceholderContainer>
 							<PlaceholderTitle>{PLACEHOLDER_TITLE}</PlaceholderTitle>
