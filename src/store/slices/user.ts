@@ -6,6 +6,7 @@ import {
 	fetchUserDataWithRegistrationViaEmail,
 	follow,
 	logOut,
+	updateUserData,
 } from '@store/thunks/userThunk';
 
 import { UserInitialState } from './types';
@@ -104,6 +105,17 @@ const userSlice = createSlice({
 				state.data = action.payload;
 			})
 			.addCase(follow.rejected, (state, action) => {
+				state.status = 'failed';
+				state.error = action.error.message || 'Failed to fetch user data';
+			})
+			.addCase(updateUserData.pending, (state) => {
+				state.status = 'loading';
+			})
+			.addCase(updateUserData.fulfilled, (state, action) => {
+				state.status = 'succeeded';
+				state.data = action.payload;
+			})
+			.addCase(updateUserData.rejected, (state, action) => {
 				state.status = 'failed';
 				state.error = action.error.message || 'Failed to fetch user data';
 			});

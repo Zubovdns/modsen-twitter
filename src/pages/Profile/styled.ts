@@ -203,9 +203,3 @@ export const DontExistContainer = styled.div`
 export const DontExistTitle = styled.h2``;
 
 export const DontExistText = styled.p``;
-
-export const ModalTestPlaceholder = styled.div`
-	background-color: white;
-	width: 600px;
-	height: 600px;
-`;

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import {
 	getUserDataByLogin,
 	getUserUid,
@@ -6,6 +7,7 @@ import {
 	isOwner,
 } from '@api/firebase/auth';
 import { deleteTweet } from '@api/firebase/firestore';
+import { EditProfile } from '@components/Forms/EditProfileForm';
 import { Loader } from '@components/Loader';
 import { Modal } from '@components/Modal';
 import { SearchPanel } from '@components/SearchPanel';
@@ -31,7 +33,6 @@ import {
 	FollowInfo,
 	HeaderContainer,
 	Info,
-	ModalTestPlaceholder,
 	Name,
 	NumberOfPosts,
 	ProfileContainer,
@@ -47,7 +48,8 @@ import {
 } from './styled';
 
 export const Profile = () => {
-	const login_name = window.location.pathname.substring(1);
+	const location = useLocation();
+	const login_name = location.pathname.substring(1);
 
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -146,7 +148,7 @@ export const Profile = () => {
 							)}
 							{isModalOpen && (
 								<Modal onClose={handleModalClose} title='Edit profile'>
-									<ModalTestPlaceholder></ModalTestPlaceholder>
+									<EditProfile onClose={handleModalClose} />
 								</Modal>
 							)}
 						</EditButtonContainer>

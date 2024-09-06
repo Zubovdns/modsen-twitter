@@ -111,3 +111,17 @@ export const fetchTweetsByUserIDs = async (
 		setLoading(false);
 	}
 };
+
+export const isFieldWithDataExistsInCollection = async (
+	collectionName: 'users' | 'tweets',
+	field: string,
+	data: string
+): Promise<boolean> => {
+	try {
+		const q = query(collection(db, collectionName), where(field, '==', data));
+		const querySnapshot = await getDocs(q);
+		return !querySnapshot.empty;
+	} catch (error) {
+		throw new Error('Error checking field in Firestore');
+	}
+};

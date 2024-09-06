@@ -1,3 +1,4 @@
+import { EditProfileFormType } from '@components/Forms/EditProfileForm/types';
 import { RegistrationData } from '@interfaces/registration';
 import { ReceivedUserData, UserData } from '@interfaces/user';
 import {
@@ -179,6 +180,38 @@ export const logOut = async (): Promise<void> => {
 		await signOut(auth).then();
 	} catch (error) {
 		throw new Error(LOG_OUT_ERROR_MESSAGE);
+	}
+};
+
+export const updateUserDataWithAnotherData = async (
+	data: EditProfileFormType
+): Promise<void> => {
+	try {
+		const user = auth.currentUser;
+
+		if (!user) {
+			throw new Error('User not authenticated');
+		}
+
+		const userDocRef = doc(db, 'users', user.uid);
+
+		const birth_date = Timestamp.fromDate(
+			new Date(Date.UTC(data.year!, data.month!, data.day!, 0, 0, 0, 0))
+		);
+
+		console.log(data);
+
+		await updateDoc(userDocRef, {
+			name: data.name,
+			bio: data.bio,
+			login_name: data.login_name,
+			profile_image: data.profile_image || null,
+			background_profile_image: data.background_profile_image || null,
+			birth_date: birth_date,
+		});
+	} catch (error) {
+		console.error(error);
+		throw new Error("Can't update user data");
 	}
 };
 
