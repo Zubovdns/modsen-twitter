@@ -4,6 +4,7 @@ import {
 	fetchUserDataWithLoginViaEmail,
 	fetchUserDataWithLoginViaGoogle,
 	fetchUserDataWithRegistrationViaEmail,
+	follow,
 	logOut,
 } from '@store/thunks/userThunk';
 
@@ -23,6 +24,13 @@ const userSlice = createSlice({
 			state.data = null;
 			state.status = 'idle';
 			state.error = null;
+		},
+		updateUserData: (state, action) => {
+			if (state.data) {
+				state.data = { ...state.data, ...action.payload };
+			} else {
+				state.data = action.payload;
+			}
 		},
 	},
 	extraReducers: (builder) => {
@@ -85,6 +93,17 @@ const userSlice = createSlice({
 				state.data = null;
 			})
 			.addCase(logOut.rejected, (state, action) => {
+				state.status = 'failed';
+				state.error = action.error.message || 'Failed to fetch user data';
+			})
+			.addCase(follow.pending, (state) => {
+				state.status = 'loading';
+			})
+			.addCase(follow.fulfilled, (state, action) => {
+				state.status = 'succeeded';
+				state.data = action.payload;
+			})
+			.addCase(follow.rejected, (state, action) => {
 				state.status = 'failed';
 				state.error = action.error.message || 'Failed to fetch user data';
 			});
