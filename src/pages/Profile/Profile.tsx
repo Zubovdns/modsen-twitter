@@ -61,6 +61,10 @@ export const Profile = () => {
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
+		setUserData(null);
+		setTweets([]);
+		setIsFollowed(null!);
+
 		const fetchUserData = async () => {
 			try {
 				const fetchedUserData = await getUserDataByLogin(login_name);
@@ -78,7 +82,9 @@ export const Profile = () => {
 		};
 
 		fetchUserData();
-	}, [login_name]);
+	}, [login_name, setTweets]);
+
+	console.log(login_name);
 
 	const handleDeleteTweet = async (tweetId: string) => {
 		try {
