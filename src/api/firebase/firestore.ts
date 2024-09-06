@@ -1,3 +1,4 @@
+import { UserData } from '@interfaces/user';
 import { TweetData, TweetInputData } from '@src/interfaces/tweet';
 import {
 	addDoc,
@@ -8,6 +9,7 @@ import {
 	doc,
 	getDoc,
 	getDocs,
+	limit,
 	orderBy,
 	query,
 	updateDoc,
@@ -123,5 +125,51 @@ export const isFieldWithDataExistsInCollection = async (
 		return !querySnapshot.empty;
 	} catch (error) {
 		throw new Error('Error checking field in Firestore');
+	}
+};
+
+export const MAX_RESULTS = 9;
+
+export const fetchSearchUsers = async (
+	queryText: string
+): Promise<UserData[]> => {
+	if (!queryText) {
+		return [];
+	}
+	try {
+		const usersRef = collection(db, 'users');
+
+		const loginQuery = query(
+			usersRef,
+			where('login_name', '>=', queryText),
+			where('login_name', '<=', queryText + '\uf8ff'),
+			limit(MAX_RESULTS)
+		);
+
+		const nameQuery = query(
+			usersRef,
+			where('name', '>=', queryText),
+			where('name', '<=', queryText + '\uf8ff'),
+			limit(MAX_RESULTS)
+		);
+
+		const [loginSnapshot, nameSnapshot] = await Promise.all([
+			getDocs(loginQuery),
+			getDocs(nameQuery),
+		]);
+
+		const users: UserData[] = [
+			...loginSnapshot.docs.map((doc) => doc.data() as UserData),
+			...nameSnapshot.docs.map((doc) => doc.data() as UserData),
+		];
+
+		const uniqueUsers = Array.from(
+			new Map(users.map((user) => [user.login_name, user])).values()
+		);
+
+		return uniqueUsers.slice(0, MAX_RESULTS);
+	} catch (error) {
+		console.error('Ошибка поиска пользователей: ', error);
+		return [];
 	}
 };
