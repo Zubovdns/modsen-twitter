@@ -2,6 +2,7 @@ import MoreIcon from '@assets/icons/NavBar/Simple/MoreIcon.svg';
 import ProfileIcon from '@assets/icons/NavBar/Simple/ProfileIcon.svg';
 import TwitterLogo from '@assets/icons/TwitterLogo.svg';
 import { Modal } from '@components/Modal';
+import { TweetInput } from '@components/TweetInput';
 import { useModal } from '@hooks/useModal';
 import { MORE_ROUTE } from '@src/routes';
 import { useAppSelector } from '@src/store/hooks';
@@ -14,8 +15,8 @@ import {
 	ItemContainer,
 	Logo,
 	NavBarContainer,
-	TestPlaceholder,
 	TweetButton,
+	TweetInputWrapper,
 } from './styled';
 
 export const NavBar = () => {
@@ -44,8 +45,10 @@ export const NavBar = () => {
 					<TweetButton onClick={handleModalOpen}>{TWEET_BUTTON}</TweetButton>
 				)}
 				{isModalOpen && (
-					<Modal onClose={handleModalClose} title='Edit profile'>
-						<TestPlaceholder />
+					<Modal onClose={handleModalClose} title='Tweet'>
+						<TweetInputWrapper>
+							<TweetInput />
+						</TweetInputWrapper>
 					</Modal>
 				)}
 			</ItemContainer>

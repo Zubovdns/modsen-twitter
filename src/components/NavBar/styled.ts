@@ -55,7 +55,8 @@ export const TweetButton = styled.button`
 	}
 `;
 
-export const TestPlaceholder = styled.div`
-	width: 500px;
-	height: 600px;
+export const TweetInputWrapper = styled.div`
+	width: 600px;
+
+	padding: 0 10px 10px 10px;
 `;
