@@ -84,3 +84,4 @@ export const updateUserData: AsyncThunk<
 	await updateUserDataWithAnotherData(data);
 	const userData = await getUserData();
 	return userData;
+});
