@@ -1,17 +1,17 @@
 import styled from 'styled-components';
 
-type Props = {
+type LikeButtonProps = {
 	liked: boolean;
 };
 
-const Svg = styled.svg<{ liked: boolean }>`
+const Svg = styled.svg<{ $liked: boolean }>`
 	transition: fill 0.1s ease-in-out;
-	fill: ${({ liked }) => (liked ? '#F91980' : 'black')};
+	fill: ${({ $liked }) => ($liked ? '#F91980' : 'black')};
 `;
 
-export const LikeButtonIcon = ({ liked }: Props) => (
+export const LikeButtonIcon = ({ liked }: LikeButtonProps) => (
 	<Svg
-		liked={liked}
+		$liked={liked}
 		width='21'
 		height='19'
 		viewBox='0 0 21 19'

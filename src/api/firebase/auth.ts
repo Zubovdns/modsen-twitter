@@ -175,7 +175,7 @@ export const loginViaEmail = async (data: LoginData): Promise<void> => {
 	}
 };
 
-export const logOut = async (): Promise<void> => {
+export const logOutCurrentUser = async (): Promise<void> => {
 	try {
 		await signOut(auth).then();
 	} catch (error) {

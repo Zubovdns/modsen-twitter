@@ -3,6 +3,7 @@ import {
 	getUserData,
 	loginViaEmail,
 	loginViaGoogle,
+	logOutCurrentUser,
 	registerViaEmail,
 	unfollowUser,
 	updateUserDataWithAnotherData,
@@ -59,7 +60,7 @@ export const fetchUserDataWithLoginViaEmail: AsyncThunk<
 
 export const logOut: AsyncThunk<void, void, { state: RootState }> =
 	createAsyncThunk('user/logOut', async () => {
-		logOut();
+		await logOutCurrentUser();
 	});
 
 export const follow: AsyncThunk<
