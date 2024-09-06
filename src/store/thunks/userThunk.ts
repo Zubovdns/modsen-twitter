@@ -2,6 +2,7 @@ import {
 	getUserData,
 	loginViaEmail,
 	loginViaGoogle,
+	logOutCurrentUser,
 	registerViaEmail,
 } from '@api/firebase/auth';
 import { LoginData } from '@interfaces/login';
@@ -55,5 +56,5 @@ export const fetchUserDataWithLoginViaEmail: AsyncThunk<
 
 export const logOut: AsyncThunk<void, void, { state: RootState }> =
 	createAsyncThunk('user/logOut', async () => {
-		logOut();
+		await logOutCurrentUser();
 	});
