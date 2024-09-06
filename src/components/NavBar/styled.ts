@@ -54,3 +54,8 @@ export const TweetButton = styled.button`
 		background-color: #198cd8;
 	}
 `;
+
+export const TestPlaceholder = styled.div`
+	width: 500px;
+	height: 600px;
+`;

@@ -1,6 +1,8 @@
 import MoreIcon from '@assets/icons/NavBar/Simple/MoreIcon.svg';
 import ProfileIcon from '@assets/icons/NavBar/Simple/ProfileIcon.svg';
 import TwitterLogo from '@assets/icons/TwitterLogo.svg';
+import { Modal } from '@components/Modal';
+import { useModal } from '@hooks/useModal';
 import { MORE_ROUTE } from '@src/routes';
 import { useAppSelector } from '@src/store/hooks';
 import { selectUserData } from '@src/store/selectors/user';
@@ -8,10 +10,18 @@ import { selectUserData } from '@src/store/selectors/user';
 import { navBarList, TWEET_BUTTON } from './constants';
 import { Item } from './Item';
 import { MiniProfile } from './MiniProfile';
-import { ItemContainer, Logo, NavBarContainer, TweetButton } from './styled';
+import {
+	ItemContainer,
+	Logo,
+	NavBarContainer,
+	TestPlaceholder,
+	TweetButton,
+} from './styled';
 
 export const NavBar = () => {
 	const userData = useAppSelector(selectUserData);
+
+	const { isModalOpen, handleModalOpen, handleModalClose } = useModal();
 
 	return (
 		<NavBarContainer>
@@ -30,7 +40,14 @@ export const NavBar = () => {
 					</>
 				)}
 				<Item text={'More'} icon={MoreIcon} to={MORE_ROUTE} />
-				{userData && <TweetButton>{TWEET_BUTTON}</TweetButton>}
+				{userData && (
+					<TweetButton onClick={handleModalOpen}>{TWEET_BUTTON}</TweetButton>
+				)}
+				{isModalOpen && (
+					<Modal onClose={handleModalClose} title='Edit profile'>
+						<TestPlaceholder />
+					</Modal>
+				)}
 			</ItemContainer>
 			{userData && <MiniProfile userData={userData} />}
 		</NavBarContainer>
