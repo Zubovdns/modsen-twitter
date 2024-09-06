@@ -1,8 +1,10 @@
 import {
+	followUser,
 	getUserData,
 	loginViaEmail,
 	loginViaGoogle,
 	registerViaEmail,
+	unfollowUser,
 	updateUserDataWithAnotherData,
 } from '@api/firebase/auth';
 import { EditProfileFormType } from '@components/Forms/EditProfileForm/types';
@@ -60,6 +62,20 @@ export const logOut: AsyncThunk<void, void, { state: RootState }> =
 		logOut();
 	});
 
+export const follow: AsyncThunk<
+	ReceivedUserData | null,
+	{ login_name: string; isFollowed: boolean },
+	{ state: RootState }
+> = createAsyncThunk('user/follow', async ({ login_name, isFollowed }) => {
+	if (isFollowed) {
+		await unfollowUser(login_name);
+	} else {
+		await followUser(login_name);
+	}
+	const userData = await getUserData();
+	return userData;
+});
+
 export const updateUserData: AsyncThunk<
 	ReceivedUserData | null,
 	EditProfileFormType,
@@ -68,4 +84,3 @@ export const updateUserData: AsyncThunk<
 	await updateUserDataWithAnotherData(data);
 	const userData = await getUserData();
 	return userData;
-});

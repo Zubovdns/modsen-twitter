@@ -15,6 +15,8 @@ import {
 } from 'firebase/auth';
 import { onAuthStateChanged } from 'firebase/auth';
 import {
+	arrayRemove,
+	arrayUnion,
 	collection,
 	doc,
 	getDoc,
@@ -217,3 +219,101 @@ export const isOwner = (tweetOwnerId: string) =>
 	auth.currentUser?.uid === tweetOwnerId;
 
 export const getUserUid = () => auth.currentUser?.uid;
+
+export const followUser = async (userLogin: string): Promise<void> => {
+	try {
+		const currentUser = auth.currentUser;
+		if (!currentUser) {
+			throw new Error('User not authenticated');
+		}
+		const currentUserUID = currentUser.uid;
+
+		const q = query(
+			collection(db, 'users'),
+			where('login_name', '==', userLogin)
+		);
+		const userDoc = (await getDocs(q)).docs[0];
+		if (!userDoc) {
+			throw new Error('User not found');
+		}
+		const userUID = userDoc.id;
+
+		const userRef = doc(db, 'users', userUID);
+		await updateDoc(userRef, {
+			followers: arrayUnion(currentUserUID),
+		});
+
+		const currentUserRef = doc(db, 'users', currentUserUID);
+		await updateDoc(currentUserRef, {
+			following: arrayUnion(userUID),
+		});
+	} catch (error) {
+		throw new Error(`Error following user`);
+	}
+};
+
+export const unfollowUser = async (userLogin: string): Promise<void> => {
+	try {
+		const currentUser = auth.currentUser;
+		if (!currentUser) {
+			throw new Error('User not authenticated');
+		}
+		const currentUserUID = currentUser.uid;
+
+		const q = query(
+			collection(db, 'users'),
+			where('login_name', '==', userLogin)
+		);
+		const userDoc = (await getDocs(q)).docs[0];
+		if (!userDoc) {
+			throw new Error('User not found');
+		}
+		const userUID = userDoc.id;
+
+		const userRef = doc(db, 'users', userUID);
+		await updateDoc(userRef, {
+			followers: arrayRemove(currentUserUID),
+		});
+
+		const currentUserRef = doc(db, 'users', currentUserUID);
+		await updateDoc(currentUserRef, {
+			following: arrayRemove(userUID),
+		});
+	} catch (error) {
+		throw new Error(`Error unfollowing user`);
+	}
+};
+
+export const isFollowing = async (userLogin: string): Promise<boolean> => {
+	try {
+		const currentUser = auth.currentUser;
+		if (!currentUser) {
+			throw new Error('User not authenticated');
+		}
+		const currentUserUID = currentUser.uid;
+
+		const q = query(
+			collection(db, 'users'),
+			where('login_name', '==', userLogin)
+		);
+		const userDoc = (await getDocs(q)).docs[0];
+		if (!userDoc) {
+			throw new Error('User not found');
+		}
+		const userUID = userDoc.id;
+
+		const currentUserRef = doc(db, 'users', currentUserUID);
+		const currentUserDoc = await getDoc(currentUserRef);
+
+		if (!currentUserDoc.exists()) {
+			throw new Error('Current user document not found');
+		}
+
+		const currentUserData = currentUserDoc.data();
+		const isFollowingUser = currentUserData.following?.includes(userUID);
+
+		return !!isFollowingUser;
+	} catch (error) {
+		throw new Error(`Error checking following status`);
+	}
+};

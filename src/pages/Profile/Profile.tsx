@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { getUserDataByLogin, getUserUid, isOwner } from '@api/firebase/auth';
+import {
+	getUserDataByLogin,
+	getUserUid,
+	isFollowing,
+	isOwner,
+} from '@api/firebase/auth';
 import { deleteTweet } from '@api/firebase/firestore';
 import { EditProfile } from '@components/Forms/EditProfileForm';
 import { Loader } from '@components/Loader';
@@ -11,6 +16,8 @@ import { TweetInput } from '@components/TweetInput';
 import { TweetItem } from '@components/TweetItem';
 import { useProfileTweets } from '@hooks/useProfileTweets';
 import { UserData } from '@interfaces/user';
+import { useAppDispatch } from '@store/hooks';
+import { follow } from '@store/thunks/userThunk';
 
 import {
 	BannerImage,
@@ -22,6 +29,7 @@ import {
 	DontExistTitle,
 	EditButton,
 	EditButtonContainer,
+	FollowButton,
 	FollowInfo,
 	HeaderContainer,
 	Info,
@@ -48,6 +56,9 @@ export const Profile = () => {
 	const [tweets, loading, setTweets] = useProfileTweets(login_name);
 	const [userData, setUserData] = useState<UserData | null>(null);
 	const [isCurrentUser, setIsCurrentUser] = useState(false);
+	const [isFollowed, setIsFollowed] = useState<boolean>(null!);
+
+	const dispatch = useAppDispatch();
 
 	useEffect(() => {
 		const fetchUserData = async () => {
@@ -55,8 +66,10 @@ export const Profile = () => {
 				const fetchedUserData = await getUserDataByLogin(login_name);
 				if (fetchedUserData) {
 					const fetchedIsCurrentUser = isOwner(fetchedUserData.id);
+					const fetchedIsFollowed = await isFollowing(login_name);
 					setUserData(fetchedUserData);
 					setIsCurrentUser(fetchedIsCurrentUser);
+					setIsFollowed(fetchedIsFollowed);
 				}
 			} catch (error) {
 				console.error('Ошибка при получении данных пользователя:', error);
@@ -84,6 +97,10 @@ export const Profile = () => {
 
 	const handleModalClose = () => {
 		setIsModalOpen(false);
+	};
+
+	const onFollowClick = async () => {
+		dispatch(follow({ login_name, isFollowed }));
 	};
 
 	return (
@@ -123,6 +140,11 @@ export const Profile = () => {
 						<EditButtonContainer>
 							{isCurrentUser && (
 								<EditButton onClick={handleModalOpen}>Edit profile</EditButton>
+							)}
+							{!isCurrentUser && (
+								<FollowButton followed={isFollowed} onClick={onFollowClick}>
+									{isFollowed ? 'Unfollow' : 'Follow'}
+								</FollowButton>
 							)}
 							{isModalOpen && (
 								<Modal onClose={handleModalClose} title='Edit profile'>
