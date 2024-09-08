@@ -34,8 +34,9 @@ import {
 	UserTweetAvatarWrapper,
 	UserTweetContainer,
 } from './styled';
+import { TweetInputProps } from './types';
 
-export const TweetInput = () => {
+export const TweetInput = ({ onTweetClick }: TweetInputProps) => {
 	const { control, handleSubmit, setValue, watch } = useForm<TweetInputData>({
 		defaultValues: {
 			text: '',
@@ -87,6 +88,8 @@ export const TweetInput = () => {
 	const onSubmit = async (data: TweetInputData) => {
 		try {
 			await createTweet(data);
+
+			if (onTweetClick) onTweetClick();
 
 			setValue('text', '');
 			setValue('image', null);

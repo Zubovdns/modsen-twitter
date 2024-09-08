@@ -47,7 +47,7 @@ export const NavBar = () => {
 				{isModalOpen && (
 					<Modal onClose={handleModalClose} title='Tweet'>
 						<TweetInputWrapper>
-							<TweetInput />
+							<TweetInput onTweetClick={handleModalClose} />
 						</TweetInputWrapper>
 					</Modal>
 				)}
