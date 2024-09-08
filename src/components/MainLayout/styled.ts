@@ -10,5 +10,5 @@ export const MainLayoutContainer = styled.main`
 	display: flex;
 	gap: 40px;
 
-	flex: 2;
+	flex: 2.5;
 `;

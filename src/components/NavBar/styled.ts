@@ -1,3 +1,4 @@
+import { device } from '@constants/breakpoints';
 import { styled } from 'styled-components';
 
 export const NavBarContainer = styled.div`
@@ -14,13 +15,13 @@ export const NavBarContainer = styled.div`
 	height: 100vh;
 
 	flex: 1;
+
+	@media ${device.lg} {
+		padding-right: 10px;
+	}
 `;
 
 export const ItemContainer = styled.div`
-	width: 250px;
-
-	padding-right: 30px;
-
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -32,7 +33,7 @@ export const Logo = styled.img`
 `;
 
 export const TweetButton = styled.button`
-	width: 100%;
+	width: 230px;
 	height: 50px;
 
 	border: none;
@@ -52,5 +53,15 @@ export const TweetButton = styled.button`
 
 	&:hover {
 		background-color: #198cd8;
+	}
+
+	@media ${device.lg} {
+		width: 50px;
+		height: 50px;
+
+		margin: 0;
+		padding: 0;
+
+		font-size: 10px;
 	}
 `;
