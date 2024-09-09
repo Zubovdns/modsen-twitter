@@ -16,8 +16,10 @@ export const NavBarContainer = styled.div`
 
 	flex: 1;
 
+	padding: 0 5px;
+
 	@media ${device.lg} {
-		padding-right: 10px;
+		flex: 0;
 	}
 `;
 
