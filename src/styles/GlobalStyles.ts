@@ -36,6 +36,7 @@ export const GlobalStyles = createGlobalStyle`
         line-height: 1.5;
 
         font-family: "Roboto", sans-serif;
+        color: ${({ theme }) => theme.normalText};
 
         background-color: ${({ theme }) => theme.bodyBg};
     }

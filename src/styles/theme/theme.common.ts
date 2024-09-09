@@ -15,4 +15,10 @@ export const commonTheme = {
 	likesCountHover: '#536471',
 	likedLikeCount: '#F91980',
 	likedLike: '#F91980',
+
+	errorRed: '#F00',
+	focusInput: '#1da1f2',
+	borderInput: '#ccc',
+	placeholder: '#999',
+	dateSelectorDescription: '#555',
 };

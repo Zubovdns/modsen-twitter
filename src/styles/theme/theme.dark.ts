@@ -20,4 +20,7 @@ export const darkTheme = {
 	like: '#71767A',
 
 	footerLinkText: '#FFF',
+
+	FLIFBg: '#000',
+	DateSelectorBg: '#000',
 };

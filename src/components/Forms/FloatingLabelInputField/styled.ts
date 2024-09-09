@@ -8,11 +8,16 @@ export const FloatingLabelInputWrapper = styled.div`
 export const FloatingLabelInput = styled.input<{ $error: boolean }>`
 	padding: 18px;
 	font-size: 16px;
-	border: 1px solid ${({ $error }) => ($error ? '#F00' : '#ccc')};
+	border: 1px solid
+		${({ $error, theme }) => ($error ? theme.errorRed : theme.borderInput)};
 	border-radius: 4px;
 	width: 100%;
 	outline: none;
 	box-sizing: border-box;
+
+	color: ${({ theme }) => theme.normalText};
+
+	background-color: ${({ theme }) => theme.bodyBg};
 
 	&::placeholder {
 		opacity: 0;
@@ -24,8 +29,10 @@ export const FloatingLabelInput = styled.input<{ $error: boolean }>`
 	}
 
 	&:focus {
-		border-color: ${({ $error }) => ($error ? '#F00' : '#1da1f2')};
-		box-shadow: 0 0 0 1px ${({ $error }) => ($error ? '#F00' : '#1da1f2')};
+		border-color: ${({ $error, theme }) =>
+			$error ? theme.errorRed : theme.focusInput};
+		box-shadow: 0 0 0 1px
+			${({ $error, theme }) => ($error ? theme.errorRed : theme.focusInput)};
 	}
 
 	&:focus + label,
@@ -33,8 +40,9 @@ export const FloatingLabelInput = styled.input<{ $error: boolean }>`
 		top: -1px;
 		left: 10px;
 		font-size: 12px;
-		color: ${({ $error }) => ($error ? '#F00' : '#1da1f2')};
-		background: white;
+		color: ${({ $error, theme }) =>
+			$error ? theme.errorRed : theme.focusInput};
+		background: ${({ theme }) => theme.bodyBg};
 		padding: 0 5px;
 	}
 `;
@@ -46,13 +54,13 @@ export const FloatingLabel = styled.label`
 	transform: translateY(-50%);
 	transition: all 0.2s;
 	pointer-events: none;
-	color: #999;
+	color: ${({ theme }) => theme.placeholder};
 	background: transparent;
 	padding: 0 5px;
 `;
 
 export const ValidationError = styled.p`
-	color: #f00;
+	color: ${({ theme }) => theme.errorRed};
 	position: absolute;
 	top: 100%;
 	left: 0;
