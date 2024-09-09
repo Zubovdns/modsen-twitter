@@ -21,4 +21,6 @@ export const commonTheme = {
 	borderInput: '#ccc',
 	placeholder: '#999',
 	dateSelectorDescription: '#555',
+
+	submitButtonHover: '#0d8ddb',
 };

@@ -3,8 +3,8 @@ import { styled } from 'styled-components';
 export const Button = styled.button`
 	padding: 10px;
 	margin: 20px 0;
-	background-color: #1da1f2;
-	color: white;
+	background-color: ${({ theme }) => theme.focusInput};
+	color: ${({ theme }) => theme.normalText};
 	font-size: 16px;
 	border: none;
 	border-radius: 20px;
@@ -17,6 +17,6 @@ export const Button = styled.button`
 	align-items: center;
 
 	&:hover {
-		background-color: #0d8ddb;
+		background-color: ${({ theme }) => theme.submitButtonHover};
 	}
 `;
