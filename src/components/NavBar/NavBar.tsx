@@ -41,7 +41,7 @@ export const NavBar = () => {
 					</>
 				)}
 				<Item text={'More'} icon={MoreIcon} to={MORE_ROUTE} />
-				{userData && (
+				{!!userData && (
 					<TweetButton onClick={handleModalOpen}>{TWEET_BUTTON}</TweetButton>
 				)}
 				{isModalOpen && (

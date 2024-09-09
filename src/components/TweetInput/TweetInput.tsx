@@ -89,7 +89,7 @@ export const TweetInput = ({ onTweetClick }: TweetInputProps) => {
 		try {
 			await createTweet(data);
 
-			if (onTweetClick) onTweetClick();
+			onTweetClick?.();
 
 			setValue('text', '');
 			setValue('image', null);
