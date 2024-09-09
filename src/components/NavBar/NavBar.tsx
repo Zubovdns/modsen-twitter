@@ -28,7 +28,7 @@ export const NavBar = () => {
 		<NavBarContainer>
 			<ItemContainer>
 				<Logo src={TwitterLogo} alt={TwitterLogo} />
-				{userData && (
+				{!!userData && (
 					<>
 						{navBarList.map(({ name, to, icon }, index) => (
 							<Item text={name} to={to} icon={icon} key={'item-$' + index} />
@@ -52,7 +52,7 @@ export const NavBar = () => {
 					</Modal>
 				)}
 			</ItemContainer>
-			{userData && <MiniProfile userData={userData} />}
+			{!!userData && <MiniProfile userData={userData} />}
 		</NavBarContainer>
 	);
 };
