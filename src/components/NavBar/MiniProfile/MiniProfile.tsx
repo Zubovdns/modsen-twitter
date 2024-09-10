@@ -8,6 +8,7 @@ import { logOut } from '@store/thunks/userThunk';
 
 import { Avatar } from './Avatar';
 import {
+	ExitImage,
 	ProfileWrapper,
 	TextContainer,
 	UserLoginName,
@@ -42,7 +43,9 @@ export const MiniProfile = ({ userData }: MiniProfileProps) => {
 					<UserName>{userData.name}</UserName>
 					<UserLoginName>{'@' + userData.login_name}</UserLoginName>
 				</TextContainer>
-				<ExitIcon />
+				<ExitImage>
+					<ExitIcon />
+				</ExitImage>
 			</ProfileWrapper>
 			<NotificationComponent />
 		</>

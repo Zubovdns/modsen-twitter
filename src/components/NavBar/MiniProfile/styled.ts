@@ -62,9 +62,13 @@ export const UserName = styled(UserLoginName)`
 	font-weight: bold;
 `;
 
-export const ExitImage = styled.img`
+export const ExitImage = styled.div`
 	background-color: inherit;
 	border: none;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
 
 	flex: 0 1 auto;
 	width: 30px;
