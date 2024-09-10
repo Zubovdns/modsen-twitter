@@ -19,7 +19,7 @@ import {
 } from './styled';
 
 export const Home = () => {
-	const [tweets, loading, setTweets] = useUserTweets();
+	const [tweets, loading, setTweets, refreshTweets] = useUserTweets();
 
 	const handleDeleteTweet = async (tweetId: string) => {
 		try {
@@ -40,7 +40,7 @@ export const Home = () => {
 						<Title>Home</Title>
 						<ThemeSwitcher />
 					</HeaderContainer>
-					<TweetInput />
+					<TweetInput setTweets={refreshTweets} />
 					{loading ? (
 						<Loader />
 					) : tweets.length > 0 ? (
