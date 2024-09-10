@@ -6,4 +6,6 @@ export const RegistrationContainer = styled.div`
 	justify-content: center;
 	width: 100%;
 	height: 100vh;
+
+	padding: 30px;
 `;
