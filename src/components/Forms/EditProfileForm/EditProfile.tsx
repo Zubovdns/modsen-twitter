@@ -181,11 +181,10 @@ export const EditProfile = ({ onClose }: EditProfileProps) => {
 						dayError={errors.day?.message}
 						yearError={errors.year?.message}
 					/>
+					<SubmitButton type='submit' disabled={isUploading}>
+						Save
+					</SubmitButton>
 				</TextInformationContainer>
-
-				<SubmitButton type='submit' disabled={isUploading}>
-					Save
-				</SubmitButton>
 			</EditProfileContainer>
 		</FormProvider>
 	);

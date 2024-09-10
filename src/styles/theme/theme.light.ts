@@ -26,4 +26,5 @@ export const lightTheme = {
 	navBarItemHoverBg: '#e7e7e7',
 
 	editButtonHoverBg: '#d4d9dd',
+	submitEditHoverBg: '#181919',
 };

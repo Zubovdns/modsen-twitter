@@ -26,4 +26,5 @@ export const darkTheme = {
 	navBarItemHoverBg: '#181818',
 
 	editButtonHoverBg: '#181919',
+	submitEditHoverBg: '#d4d9dd',
 };
