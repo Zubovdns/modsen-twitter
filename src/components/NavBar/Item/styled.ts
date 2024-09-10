@@ -17,7 +17,7 @@ export const ItemContainer = styled(Link)<{ $isActive: boolean }>`
 	transition: background-color 0.2s ease;
 
 	&:hover {
-		background-color: #e7e7e7;
+		background-color: ${({ theme }) => theme.navBarItemHoverBg};
 	}
 `;
 
@@ -27,7 +27,7 @@ export const Icon = styled.img`
 `;
 
 export const Text = styled.span<{ $isActive: boolean }>`
-	color: black;
+	color: ${({ theme }) => theme.normalText};
 	font-weight: ${({ $isActive }) => ($isActive ? 'bold' : '400')};
 	font-size: 20px;
 	margin: 0 20px;

@@ -22,4 +22,6 @@ export const darkTheme = {
 	footerLinkText: '#FFF',
 
 	searchBarBg: '#212327',
+
+	navBarItemHoverBg: '#181818',
 };

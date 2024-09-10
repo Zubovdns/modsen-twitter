@@ -1,5 +1,5 @@
-import MoreIcon from '@assets/icons/NavBar/Simple/MoreIcon.svg';
-import ProfileIcon from '@assets/icons/NavBar/Simple/ProfileIcon.svg';
+import { MoreIcon } from '@assets/icons/NavBar/Simple/MoreIcon';
+import { ProfileIcon } from '@assets/icons/NavBar/Simple/ProfileIcon';
 import TwitterLogo from '@assets/icons/TwitterLogo.svg';
 import { MORE_ROUTE } from '@src/routes';
 import { useAppSelector } from '@src/store/hooks';
@@ -20,16 +20,16 @@ export const NavBar = () => {
 				{userData && (
 					<>
 						{navBarList.map(({ name, to, icon }, index) => (
-							<Item text={name} to={to} icon={icon} key={'item-$' + index} />
+							<Item text={name} to={to} Icon={icon} key={'item-$' + index} />
 						))}
 						<Item
 							text={'Profile'}
-							icon={ProfileIcon}
+							Icon={ProfileIcon}
 							to={'/' + userData?.login_name}
 						/>
 					</>
 				)}
-				<Item text={'More'} icon={MoreIcon} to={MORE_ROUTE} />
+				<Item text={'More'} Icon={MoreIcon} to={MORE_ROUTE} />
 				{userData && <TweetButton>{TWEET_BUTTON}</TweetButton>}
 			</ItemContainer>
 			{userData && <MiniProfile userData={userData} />}

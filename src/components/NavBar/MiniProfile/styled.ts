@@ -18,7 +18,7 @@ export const ProfileWrapper = styled.div`
 	transition: background-color 0.2s ease;
 
 	&:hover {
-		background-color: #e7e7e7;
+		background-color: ${({ theme }) => theme.navBarItemHoverBg};
 	}
 `;
 

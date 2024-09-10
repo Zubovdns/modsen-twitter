@@ -1,9 +1,9 @@
-import BookmarksIcon from '@assets/icons/NavBar/Simple/BookmarksIcon.svg';
-import ExploreIcon from '@assets/icons/NavBar/Simple/ExploreIcon.svg';
-import HomeIcon from '@assets/icons/NavBar/Simple/HomeIcon.svg';
-import ListsIcon from '@assets/icons/NavBar/Simple/ListsIcon.svg';
-import MessagesIcon from '@assets/icons/NavBar/Simple/MessagesIcon.svg';
-import NotificationsIcon from '@assets/icons/NavBar/Simple/NotificationsIcon.svg';
+import { BookmarkIcon } from '@assets/icons/NavBar/Simple/BookmarkIcon';
+import { ExploreIcon } from '@assets/icons/NavBar/Simple/ExploreIcon';
+import { HomeIcon } from '@assets/icons/NavBar/Simple/HomeIcon';
+import { ListIcon } from '@assets/icons/NavBar/Simple/ListIcon';
+import { MessageIcon } from '@assets/icons/NavBar/Simple/MessageIcon';
+import { NotificationIcon } from '@assets/icons/NavBar/Simple/NotificationIcon';
 import {
 	BOOKMARKS_ROUTE,
 	EXPLORE_ROUTE,
@@ -29,21 +29,21 @@ export const navBarList = [
 	{
 		name: 'Notification',
 		to: NOTIFICATIONS_ROUTE,
-		icon: NotificationsIcon,
+		icon: NotificationIcon,
 	},
 	{
 		name: 'Messages',
 		to: MESSAGES_ROUTE,
-		icon: MessagesIcon,
+		icon: MessageIcon,
 	},
 	{
 		name: 'Bookmarks',
 		to: BOOKMARKS_ROUTE,
-		icon: BookmarksIcon,
+		icon: BookmarkIcon,
 	},
 	{
 		name: 'Lists',
 		to: LISTS_ROUTE,
-		icon: ListsIcon,
+		icon: ListIcon,
 	},
 ];

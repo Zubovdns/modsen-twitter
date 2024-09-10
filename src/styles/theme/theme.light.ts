@@ -22,4 +22,6 @@ export const lightTheme = {
 	footerLinkText: '#000',
 
 	searchBarBg: '#f1f4f6',
+
+	navBarItemHoverBg: '#e7e7e7',
 };
