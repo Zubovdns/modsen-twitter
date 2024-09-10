@@ -13,7 +13,6 @@ export const lightTheme = {
 
 	tweetInputOptionsHover: '#ebf5fe',
 	tweetButtonHoverDisable: '#99CDF8',
-
 	imagePreview: '#f0f0f0',
 
 	tweetSubtext: '#536471',
@@ -21,4 +20,6 @@ export const lightTheme = {
 	like: '#536471',
 
 	footerLinkText: '#000',
+
+	searchBarBg: '#f1f4f6',
 };

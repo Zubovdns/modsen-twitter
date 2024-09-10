@@ -8,7 +8,7 @@ export const DropdownItem = styled.div`
 	transition: background-color 0.2s;
 
 	&:hover {
-		background-color: #f1f4f6;
+		background-color: ${({ theme }) => theme.searchBarBg};
 	}
 `;
 
@@ -18,7 +18,7 @@ export const ItemImageContainer = styled.div`
 	height: 40px;
 	margin-right: 10px;
 
-	background-color: #ccc;
+	background-color: ${({ theme }) => theme.avatarContainer};
 	overflow: hidden;
 `;
 
@@ -40,11 +40,5 @@ export const ItemName = styled.span`
 
 export const ItemLogin = styled.span`
 	font-size: 14px;
-	color: #6e7a82;
-`;
-
-export const EmptyMessage = styled.div`
-	padding: 10px;
-	text-align: center;
-	color: #6e7a82;
+	color: ${({ theme }) => theme.tweetSubtext};
 `;

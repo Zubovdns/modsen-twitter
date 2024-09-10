@@ -21,6 +21,5 @@ export const darkTheme = {
 
 	footerLinkText: '#FFF',
 
-	FLIFBg: '#000',
-	DateSelectorBg: '#000',
+	searchBarBg: '#212327',
 };
