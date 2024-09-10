@@ -1,5 +1,19 @@
 import { Link } from 'react-router-dom';
+import { device } from '@constants/breakpoints';
 import styled from 'styled-components';
+
+export const ItemWrapper = styled.div`
+	width: 250px;
+	height: auto;
+
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+
+	@media ${device.lg} {
+		width: auto;
+	}
+`;
 
 export const ItemContainer = styled(Link)<{ $isActive: boolean }>`
 	width: auto;
@@ -10,6 +24,7 @@ export const ItemContainer = styled(Link)<{ $isActive: boolean }>`
 	justify-content: flex-start;
 
 	padding: 12px;
+	margin: 2px 0;
 
 	border-radius: 30px;
 	text-decoration: none;
@@ -31,4 +46,8 @@ export const Text = styled.span<{ $isActive: boolean }>`
 	font-weight: ${({ $isActive }) => ($isActive ? 'bold' : '400')};
 	font-size: 20px;
 	margin: 0 20px;
+
+	@media ${device.lg} {
+		display: none;
+	}
 `;

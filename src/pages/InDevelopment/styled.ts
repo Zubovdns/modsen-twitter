@@ -6,13 +6,15 @@ export const InDevelopmentContainer = styled.div`
 	justify-content: center;
 	flex-direction: column;
 
-	width: 100%;
+	min-width: 400px;
+	padding: 30px;
 	height: 100vh;
 `;
 
 export const Title = styled.h2`
 	font-size: 50px;
 `;
+
 export const Description = styled.p`
 	font-size: 20px;
 `;

@@ -1,3 +1,4 @@
+import { device } from '@constants/breakpoints';
 import { styled } from 'styled-components';
 
 export const SearchPanelWrapper = styled.div`
@@ -10,6 +11,12 @@ export const SearchPanelWrapper = styled.div`
 	position: sticky;
 	top: 0px;
 	align-self: start;
+
+	margin-right: 10px;
+
+	@media ${device.lg} {
+		display: none;
+	}
 `;
 export const ContentContainer = styled.div`
 	width: 350px;

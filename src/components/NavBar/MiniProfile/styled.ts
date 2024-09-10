@@ -1,3 +1,4 @@
+import { device } from '@constants/breakpoints';
 import styled from 'styled-components';
 
 export const ProfileWrapper = styled.div`
@@ -20,6 +21,12 @@ export const ProfileWrapper = styled.div`
 	&:hover {
 		background-color: ${({ theme }) => theme.backgroundMainHover};
 	}
+
+	@media ${device.lg} {
+		width: auto;
+		margin: 10px 0;
+		padding: 0;
+	}
 `;
 
 export const TextContainer = styled.div`
@@ -33,6 +40,10 @@ export const TextContainer = styled.div`
 	flex: 1;
 
 	padding: 0 10px;
+
+	@media ${device.lg} {
+		display: none;
+	}
 `;
 
 export const UserLoginName = styled.p`
@@ -57,4 +68,8 @@ export const ExitImage = styled.img`
 
 	flex: 0 1 auto;
 	width: 30px;
+
+	@media ${device.lg} {
+		display: none;
+	}
 `;
