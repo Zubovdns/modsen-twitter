@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { getUserUid } from '@api/firebase/auth';
 import { TweetData } from '@interfaces/tweet';
 import { fetchTweetsByUserIDs } from '@src/api/firebase/firestore';
@@ -12,26 +12,23 @@ export const useUserTweets = (): UseUserTweetsReturnType => {
 	const [loading, setLoading] = useState(true);
 	const userData = useAppSelector(selectUserData);
 
-	useEffect(() => {
-		const fetchTweets = async () => {
-			try {
-				const userUid = getUserUid();
+	const fetchTweets = useCallback(async () => {
+		try {
+			const userUid = getUserUid();
 
-				if (userData && userUid) {
-					const following = [...userData.following, userUid];
-					const fetchedTweets = await fetchTweetsByUserIDs(
-						following,
-						setLoading
-					);
-					setTweets(fetchedTweets);
-				}
-			} catch (error) {
-				console.error(error);
+			if (userData && userUid) {
+				const following = [...userData.following, userUid];
+				const fetchedTweets = await fetchTweetsByUserIDs(following, setLoading);
+				setTweets(fetchedTweets);
 			}
-		};
-
-		fetchTweets();
+		} catch (error) {
+			console.error(error);
+		}
 	}, [userData]);
 
-	return [tweets, loading, setTweets];
+	useEffect(() => {
+		fetchTweets();
+	}, [fetchTweets]);
+
+	return [tweets, loading, setTweets, fetchTweets];
 };
