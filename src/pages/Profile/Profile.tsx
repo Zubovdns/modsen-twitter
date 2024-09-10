@@ -9,6 +9,7 @@ import { SearchPanel } from '@components/SearchPanel';
 import { ThemeSwitcher } from '@components/ThemeSwitcher';
 import { TweetInput } from '@components/TweetInput';
 import { TweetItem } from '@components/TweetItem';
+import { useModal } from '@hooks/useModal';
 import { useProfileTweets } from '@hooks/useProfileTweets';
 import { UserData } from '@interfaces/user';
 import { useAppDispatch } from '@store/hooks';
@@ -46,12 +47,12 @@ export const Profile = () => {
 	const location = useLocation();
 	const login_name = location.pathname.substring(1);
 
-	const [isModalOpen, setIsModalOpen] = useState(false);
-
 	const [tweets, loading, setTweets] = useProfileTweets(login_name);
 	const [userData, setUserData] = useState<UserData | null>(null);
 	const [isCurrentUser, setIsCurrentUser] = useState(false);
 	const [isFollowed, setIsFollowed] = useState<boolean>(null!);
+
+	const { isModalOpen, handleModalOpen, handleModalClose } = useModal();
 
 	const dispatch = useAppDispatch();
 
@@ -79,8 +80,6 @@ export const Profile = () => {
 		fetchUserData();
 	}, [login_name, setTweets]);
 
-	console.log(login_name);
-
 	const handleDeleteTweet = async (tweetId: string) => {
 		try {
 			await deleteTweet(tweetId);
@@ -90,14 +89,6 @@ export const Profile = () => {
 		} catch (error) {
 			console.error(error);
 		}
-	};
-
-	const handleModalOpen = () => {
-		setIsModalOpen(true);
-	};
-
-	const handleModalClose = () => {
-		setIsModalOpen(false);
 	};
 
 	const onFollowClick = async () => {

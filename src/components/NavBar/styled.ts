@@ -54,3 +54,9 @@ export const TweetButton = styled.button`
 		background-color: #198cd8;
 	}
 `;
+
+export const TweetInputWrapper = styled.div`
+	width: 600px;
+
+	padding: 0 10px 10px 10px;
+`;
