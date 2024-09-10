@@ -6,10 +6,10 @@ export const ProfileWrapper = styled.div`
 	max-width: 600px;
 	min-height: 100vh;
 
-	border-right: 2px solid #eff3f4;
+	border-right: 2px solid ${({ theme }) => theme.itemsBorder};
 
 	& > * > * {
-		border-bottom: 2px solid #eff3f4;
+		border-bottom: 2px solid ${({ theme }) => theme.itemsBorder};
 	}
 `;
 
@@ -39,7 +39,7 @@ export const Title = styled.h1`
 `;
 
 export const NumberOfPosts = styled.p`
-	color: #536471;
+	color: ${({ theme }) => theme.tweetSubtext};
 	font-size: 13px;
 `;
 
@@ -56,7 +56,7 @@ export const BannerWrapper = styled.div`
 export const BannerImageContainer = styled.div`
 	width: 100%;
 	height: 100%;
-	background-color: #cfd9de;
+	background-color: ${({ theme }) => theme.bannerContainer};
 	overflow: hidden;
 	display: flex;
 	align-items: center;
@@ -80,7 +80,7 @@ export const ProfileImageContainer = styled.div`
 
 	border-radius: 50%;
 
-	background-color: #f7f9f9;
+	background-color: ${({ theme }) => theme.avatarContainer};
 
 	display: flex;
 	align-items: center;
@@ -88,7 +88,7 @@ export const ProfileImageContainer = styled.div`
 
 	overflow: hidden;
 
-	border: 3px solid #fff;
+	border: 3px solid ${({ theme }) => theme.bodyBg};
 `;
 
 export const ProfileImage = styled.img`
@@ -108,44 +108,36 @@ export const EditButtonContainer = styled.div`
 	padding: 10px 10px;
 `;
 
-export const EditButton = styled.button`
+const BaseButton = styled.button`
 	padding: 6px 14px;
 	font-size: 16px;
 	left: 1000px;
-	color: #333;
+	color: ${({ theme }) => theme.normalText};
 	font-weight: bold;
 
 	background-color: inherit;
-	border: 1px solid #ccc;
-	border-radius: 30px;
-	cursor: pointer;
-
-	transition: background-color 0.2s ease;
-
-	&:hover {
-		background-color: #d4d9dd;
-	}
-`;
-
-export const FollowButton = styled.button<{ followed: boolean }>`
-	padding: 6px 14px;
-	font-size: 16px;
-	left: 1000px;
-	color: #333;
-	font-weight: bold;
-
-	background-color: inherit;
-	border: 1px solid #ccc;
+	border: 1px solid ${({ theme }) => theme.borderInput};
 	border-radius: 30px;
 	cursor: pointer;
 
 	transition: background-color 0.2s ease, border-color 0.2s ease,
 		color 0.2s ease;
+`;
 
+export const EditButton = styled(BaseButton)`
 	&:hover {
-		color: ${({ followed }) => (!followed ? '#333' : 'red')};
-		border-color: ${({ followed }) => (!followed ? '#ccc' : 'red')};
-		background-color: ${({ followed }) => (!followed ? '#d4d9dd' : 'inherit')};
+		background-color: ${({ theme }) => theme.editButtonHoverBg};
+	}
+`;
+
+export const FollowButton = styled(BaseButton)<{ followed: boolean }>`
+	&:hover {
+		color: ${({ followed, theme }) =>
+			!followed ? theme.normalText : theme.errorRed};
+		border-color: ${({ followed, theme }) =>
+			!followed ? theme.borderInput : theme.errorRed};
+		background-color: ${({ followed, theme }) =>
+			!followed ? theme.editButtonHoverBg : 'inherit'};
 	}
 `;
 
@@ -174,7 +166,7 @@ export const Name = styled.h2`
 
 export const Username = styled.p`
 	font-size: 15px;
-	color: #536471;
+	color: ${({ theme }) => theme.tweetSubtext};
 `;
 
 export const Bio = styled.p`
@@ -183,7 +175,7 @@ export const Bio = styled.p`
 
 export const Info = styled.p`
 	font-size: 15px;
-	color: #536471;
+	color: ${({ theme }) => theme.tweetSubtext};
 `;
 
 export const FollowInfo = styled.p`

@@ -24,4 +24,6 @@ export const darkTheme = {
 	searchBarBg: '#212327',
 
 	navBarItemHoverBg: '#181818',
+
+	editButtonHoverBg: '#181919',
 };

@@ -24,4 +24,6 @@ export const lightTheme = {
 	searchBarBg: '#f1f4f6',
 
 	navBarItemHoverBg: '#e7e7e7',
+
+	editButtonHoverBg: '#d4d9dd',
 };

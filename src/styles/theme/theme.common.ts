@@ -5,6 +5,7 @@ export const commonTheme = {
 	signUpButtonHoverBg: '#e6e6e6',
 
 	avatarContainer: '#cccccc',
+	bannerContainer: '#cfd9de',
 	textPlaceholder: '#6e7a82',
 
 	tweetButton: '#fff',
