@@ -1,14 +1,7 @@
-export type Tweet = {
-	id: string;
-	text: string;
-	image_url: string | undefined;
-	publish_time: { seconds: number };
-	user_id: string;
-	likes_user_id: string[];
-};
+import { TweetData } from '@src/interfaces/tweet';
 
 export type UseProfileTweetsReturnType = [
-	Tweet[],
+	TweetData[],
 	boolean,
-	React.Dispatch<React.SetStateAction<Tweet[]>>
+	React.Dispatch<React.SetStateAction<TweetData[]>>
 ];

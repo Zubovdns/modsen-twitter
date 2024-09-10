@@ -1,9 +1,9 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { LikeButtonIcon } from '@src/assets/icons/Tweet/LikeButtonIcon';
-import { MoreIcon } from '@src/assets/icons/Tweet/MoreIcon';
-import { auth, db } from '@src/firebase';
-import { getRelativeTime } from '@src/utils/getRelativeTime';
-import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore';
+import { getUserUid, isOwner } from '@api/firebase/auth';
+import { likeTweet } from '@api/firebase/firestore';
+import { LikeButtonIcon } from '@assets/icons/Tweet/LikeButtonIcon';
+import { MoreIcon } from '@assets/icons/Tweet/MoreIcon';
+import { getRelativeTime } from '@utils/getRelativeTime';
 
 import {
 	Avatar,
@@ -37,50 +37,41 @@ export const TweetItem = memo(
 		userName,
 		userLogin,
 		publishDate,
-		liked,
+		likesArray,
 		image,
 		likesAmount,
 		userId,
 		id,
 		onDeleteTweet,
 	}: TweetItemProps) => {
-		const [isLiked, setIsLiked] = useState(liked);
+		const [isLiked, setIsLiked] = useState(() =>
+			likesArray.includes(getUserUid() || '')
+		);
 		const [likes, setLikes] = useState(likesAmount);
 		const [menuOpen, setMenuOpen] = useState(false);
 		const menuRef = useRef<HTMLDivElement | null>(null);
 		const relativeTime = useMemo(
-			() => getRelativeTime(publishDate),
+			() => getRelativeTime(new Date(publishDate.seconds * 1000)),
 			[publishDate]
 		);
 
-		const handleLikeClick = useCallback(async () => {
+		const handleLikeClick = async () => {
 			setIsLiked((prev) => !prev);
 			setLikes((prev) => (isLiked ? prev - 1 : prev + 1));
 
 			try {
-				const tweetDocRef = doc(db, 'tweets', id);
-				const userId = auth.currentUser?.uid;
-
-				if (isLiked) {
-					await updateDoc(tweetDocRef, {
-						likes_user_id: arrayRemove(userId),
-					});
-				} else {
-					await updateDoc(tweetDocRef, {
-						likes_user_id: arrayUnion(userId),
-					});
-				}
+				likeTweet(id, isLiked);
 			} catch (error) {
-				console.error('Ошибка при обновлении лайка: ', error);
+				console.error(error);
 				setIsLiked((prev) => !prev);
 				setLikes((prev) => (isLiked ? prev + 1 : prev - 1));
 			}
-		}, [isLiked, id]);
+		};
 
-		const handleMoreClick = useCallback((event: React.MouseEvent) => {
+		const handleMoreClick = (event: React.MouseEvent) => {
 			event.stopPropagation();
 			setMenuOpen((prev) => !prev);
-		}, []);
+		};
 
 		const handleClickOutside = useCallback(
 			(event: MouseEvent) => {
@@ -102,17 +93,15 @@ export const TweetItem = memo(
 			};
 		}, [handleClickOutside]);
 
-		const handleMenuItemClick = useCallback(() => {
+		const handleMenuItemClick = () => {
 			setMenuOpen(false);
-		}, []);
+		};
 
-		const handleDeleteClick = useCallback(() => {
-			if (auth.currentUser?.uid) {
+		const handleDeleteClick = () => {
+			if (isOwner(userId)) {
 				onDeleteTweet(id);
 			}
-		}, [id, onDeleteTweet]);
-
-		const isOwner = auth.currentUser?.uid === userId;
+		};
 
 		return (
 			<TweetItemContainer>
@@ -126,7 +115,7 @@ export const TweetItem = memo(
 					<HeaderContainer>
 						<HeaderDataContainer>
 							<TweetUser>{userName}</TweetUser>
-							<TweetUserLogin>{userLogin}</TweetUserLogin>
+							<TweetUserLogin>{'@' + userLogin}</TweetUserLogin>
 							<TweetDate>{relativeTime}</TweetDate>
 						</HeaderDataContainer>
 						<MoreButton onClick={handleMoreClick}>
@@ -135,18 +124,18 @@ export const TweetItem = memo(
 						{menuOpen && (
 							<MoreMenu ref={menuRef}>
 								<MoreMenuItem onClick={handleMenuItemClick}>
-									{'Go to ' + userLogin + ' profile'}
+									{'Go to ' + '@' + userLogin + ' profile'}
 								</MoreMenuItem>
 								<MoreMenuItem onClick={handleMenuItemClick}>
-									{'Follow ' + userLogin}
+									{'Follow ' + '@' + userLogin}
 								</MoreMenuItem>
 								<MoreMenuItem onClick={handleMenuItemClick}>
-									{'Mute ' + userLogin}
+									{'Mute ' + '@' + userLogin}
 								</MoreMenuItem>
 								<MoreMenuItem onClick={handleMenuItemClick}>
-									{'Block ' + userLogin}
+									{'Block ' + '@' + userLogin}
 								</MoreMenuItem>
-								{isOwner && (
+								{isOwner(userId) && (
 									<MoreMenuItem onClick={handleDeleteClick}>
 										Delete Tweet
 									</MoreMenuItem>

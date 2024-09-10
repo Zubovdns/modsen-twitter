@@ -1,12 +1,11 @@
 /* eslint-disable no-nested-ternary */
+import { deleteTweet } from '@api/firebase/firestore';
+import { Loader } from '@components/Loader';
+import { SearchPanel } from '@components/SearchPanel';
 import { ThemeSwitcher } from '@components/ThemeSwitcher';
 import { TweetInput } from '@components/TweetInput';
 import { TweetItem } from '@components/TweetItem';
-import { Loader } from '@src/components/Loader';
-import { SearchPanel } from '@src/components/SearchPanel';
-import { auth, db } from '@src/firebase';
-import { useUserTweets } from '@src/hooks/useUserTweets/useUserTweets';
-import { deleteDoc, doc } from 'firebase/firestore';
+import { useUserTweets } from '@hooks/useUserTweets/useUserTweets';
 
 import { PLACEHOLDER_TEXT, PLACEHOLDER_TITLE } from './constants';
 import {
@@ -20,20 +19,18 @@ import {
 } from './styled';
 
 export const Home = () => {
-	const [avatarUrl, tweets, loading, setTweets] = useUserTweets();
+	const [tweets, loading, setTweets] = useUserTweets();
 
 	const handleDeleteTweet = async (tweetId: string) => {
 		try {
-			await deleteDoc(doc(db, 'tweets', tweetId));
+			await deleteTweet(tweetId);
 			setTweets((prevTweets) =>
 				prevTweets.filter((tweet) => tweet.id !== tweetId)
 			);
 		} catch (error) {
-			console.error('Failed to delete tweet: ', error);
+			console.error(error);
 		}
 	};
-
-	console.log(tweets, loading);
 
 	return (
 		<>
@@ -43,29 +40,36 @@ export const Home = () => {
 						<Title>Home</Title>
 						<ThemeSwitcher />
 					</HeaderContainer>
-					<TweetInput avatarUrl={avatarUrl} />
+					<TweetInput />
 					{loading ? (
 						<Loader />
 					) : tweets.length > 0 ? (
-						tweets.map((tweet) => (
-							<TweetItem
-								text={tweet.text}
-								avatarUrl={tweet.user?.profile_image || ''}
-								key={tweet.id}
-								id={tweet.id}
-								userName={tweet.user?.name || ''}
-								likesAmount={tweet.likes_user_id?.length || 0}
-								liked={
-									tweet.likes_user_id?.includes(auth.currentUser?.uid || '') ||
-									false
-								}
-								userLogin={`@${tweet.user?.login_name || ''}`}
-								image={tweet.image_url}
-								publishDate={new Date(tweet.publish_time.seconds * 1000)}
-								userId={tweet.user_id}
-								onDeleteTweet={handleDeleteTweet}
-							/>
-						))
+						tweets.map(
+							({
+								text,
+								id,
+								image_url,
+								likes_user_id,
+								publish_time,
+								user,
+								user_id,
+							}) => (
+								<TweetItem
+									text={text}
+									avatarUrl={user.profile_image}
+									key={id}
+									id={id}
+									userName={user.name}
+									likesAmount={likes_user_id.length}
+									likesArray={likes_user_id}
+									userLogin={user.login_name}
+									image={image_url}
+									publishDate={publish_time}
+									userId={user_id}
+									onDeleteTweet={handleDeleteTweet}
+								/>
+							)
+						)
 					) : (
 						<PlaceholderContainer>
 							<PlaceholderTitle>{PLACEHOLDER_TITLE}</PlaceholderTitle>

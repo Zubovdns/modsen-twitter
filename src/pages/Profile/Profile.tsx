@@ -1,4 +1,8 @@
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { getUserDataByLogin, isFollowing, isOwner } from '@api/firebase/auth';
+import { deleteTweet } from '@api/firebase/firestore';
+import { EditProfile } from '@components/Forms/EditProfileForm';
 import { Loader } from '@components/Loader';
 import { Modal } from '@components/Modal';
 import { SearchPanel } from '@components/SearchPanel';
@@ -6,16 +10,9 @@ import { ThemeSwitcher } from '@components/ThemeSwitcher';
 import { TweetInput } from '@components/TweetInput';
 import { TweetItem } from '@components/TweetItem';
 import { useProfileTweets } from '@hooks/useProfileTweets';
-import { auth, db } from '@src/firebase';
-import { onAuthStateChanged } from 'firebase/auth';
-import {
-	collection,
-	deleteDoc,
-	doc,
-	getDocs,
-	query,
-	where,
-} from 'firebase/firestore';
+import { UserData } from '@interfaces/user';
+import { useAppDispatch } from '@store/hooks';
+import { follow } from '@store/thunks/userThunk';
 
 import {
 	BannerImage,
@@ -27,10 +24,10 @@ import {
 	DontExistTitle,
 	EditButton,
 	EditButtonContainer,
+	FollowButton,
 	FollowInfo,
 	HeaderContainer,
 	Info,
-	ModalTestPlaceholder,
 	Name,
 	NumberOfPosts,
 	ProfileContainer,
@@ -44,38 +41,34 @@ import {
 	Username,
 	UsernameContainer,
 } from './styled';
-import { UserData } from './types';
 
 export const Profile = () => {
-	const login_name = window.location.pathname.substring(1);
+	const location = useLocation();
+	const login_name = location.pathname.substring(1);
 
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const [tweets, loading, setTweets] = useProfileTweets(login_name);
 	const [userData, setUserData] = useState<UserData | null>(null);
 	const [isCurrentUser, setIsCurrentUser] = useState(false);
+	const [isFollowed, setIsFollowed] = useState<boolean>(null!);
+
+	const dispatch = useAppDispatch();
 
 	useEffect(() => {
+		setUserData(null);
+		setTweets([]);
+		setIsFollowed(null!);
+
 		const fetchUserData = async () => {
 			try {
-				const usersRef = collection(db, 'users');
-				const q = query(usersRef, where('login_name', '==', login_name));
-				const querySnapshot = await getDocs(q);
-
-				if (!querySnapshot.empty) {
-					const userDoc = querySnapshot.docs[0];
-					const userData = userDoc.data() as UserData;
-					setUserData(userData);
-
-					onAuthStateChanged(auth, (currentUser) => {
-						if (currentUser && currentUser.uid === userDoc.id) {
-							setIsCurrentUser(true);
-						} else {
-							setIsCurrentUser(false);
-						}
-					});
-				} else {
-					setUserData(null);
+				const fetchedUserData = await getUserDataByLogin(login_name);
+				if (fetchedUserData) {
+					const fetchedIsCurrentUser = isOwner(fetchedUserData.id);
+					const fetchedIsFollowed = await isFollowing(login_name);
+					setUserData(fetchedUserData);
+					setIsCurrentUser(fetchedIsCurrentUser);
+					setIsFollowed(fetchedIsFollowed);
 				}
 			} catch (error) {
 				console.error('Ошибка при получении данных пользователя:', error);
@@ -84,16 +77,18 @@ export const Profile = () => {
 		};
 
 		fetchUserData();
-	}, [login_name]);
+	}, [login_name, setTweets]);
+
+	console.log(login_name);
 
 	const handleDeleteTweet = async (tweetId: string) => {
 		try {
-			await deleteDoc(doc(db, 'tweets', tweetId));
+			await deleteTweet(tweetId);
 			setTweets((prevTweets) =>
 				prevTweets.filter((tweet) => tweet.id !== tweetId)
 			);
 		} catch (error) {
-			console.error('Failed to delete tweet: ', error);
+			console.error(error);
 		}
 	};
 
@@ -103,6 +98,10 @@ export const Profile = () => {
 
 	const handleModalClose = () => {
 		setIsModalOpen(false);
+	};
+
+	const onFollowClick = async () => {
+		dispatch(follow({ login_name, isFollowed }));
 	};
 
 	return (
@@ -143,9 +142,14 @@ export const Profile = () => {
 							{isCurrentUser && (
 								<EditButton onClick={handleModalOpen}>Edit profile</EditButton>
 							)}
+							{!isCurrentUser && (
+								<FollowButton followed={isFollowed} onClick={onFollowClick}>
+									{isFollowed ? 'Unfollow' : 'Follow'}
+								</FollowButton>
+							)}
 							{isModalOpen && (
 								<Modal onClose={handleModalClose} title='Edit profile'>
-									<ModalTestPlaceholder></ModalTestPlaceholder>
+									<EditProfile onClose={handleModalClose} />
 								</Modal>
 							)}
 						</EditButtonContainer>
@@ -153,24 +157,25 @@ export const Profile = () => {
 						<TextContainer>
 							<UsernameContainer>
 								<Name>{userData ? userData.name : '@' + login_name}</Name>
-								{userData && <Username>@{login_name}</Username>}
+								{userData && <Username>@{userData.login_name}</Username>}
 							</UsernameContainer>
 							{userData && (
 								<>
-									<Bio>Mock</Bio>
+									<Bio>{userData.bio}</Bio>
 									{userData.birth_date && (
-										<Info>Date of birth {userData.birth_date}</Info>
+										<Info>
+											{'Date of birth: ' +
+												userData.birth_date.toDate().toISOString()}
+										</Info>
 									)}
-									<FollowInfo>11 Following | 11 Followers</FollowInfo>
+									<FollowInfo>{`${userData.following.length} Following | ${userData.followers.length} Followers`}</FollowInfo>
 								</>
 							)}
 						</TextContainer>
 					</ProfileHeaderContainer>
 					{userData ? (
 						<>
-							{isCurrentUser && (
-								<TweetInput avatarUrl={userData.profile_image || ''} />
-							)}
+							{isCurrentUser && <TweetInput />}
 
 							{loading ? (
 								<Loader />
@@ -187,18 +192,15 @@ export const Profile = () => {
 									}) => (
 										<TweetItem
 											text={text}
-											avatarUrl={userData.profile_image || ''}
+											avatarUrl={userData.profile_image}
 											key={id}
 											id={id}
-											userName={userData.name || ''}
-											likesAmount={likes_user_id?.length || 0}
-											liked={
-												likes_user_id?.includes(auth.currentUser?.uid || '') ||
-												false
-											}
-											userLogin={`@${userData.login_name || ''}`}
+											userName={userData.name}
+											likesAmount={likes_user_id?.length}
+											likesArray={likes_user_id}
+											userLogin={userData.login_name}
 											image={image_url}
-											publishDate={new Date(publish_time.seconds * 1000)}
+											publishDate={publish_time}
 											userId={user_id}
 											onDeleteTweet={handleDeleteTweet}
 										/>

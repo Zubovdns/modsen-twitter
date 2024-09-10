@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
+import { fetchSearchUsers } from '@api/firebase/firestore';
 import SearchIcon from '@assets/icons/SearchPanel/SearchIcon.svg';
+import { UserData } from '@interfaces/user';
 
-import { mockResults, NO_RESULT } from './constants';
+import { DEBOUNCE_DELAY, NO_RESULT, SEARCH_PLACEHOLDER } from './constants';
 import { SearchItem } from './SearchItem';
 import {
 	DropdownList,
@@ -10,14 +12,13 @@ import {
 	SearchImage,
 	SearchInput,
 } from './styled';
-import { SearchItemType } from './types';
 
 export const SearchBar = () => {
 	const [isFocused, setIsFocused] = useState(false);
-	const [searchResults, setSearchResults] =
-		useState<SearchItemType[]>(mockResults);
-
+	const [searchResults, setSearchResults] = useState<UserData[]>([]);
+	const [searchQuery, setSearchQuery] = useState('');
 	const searchRef = useRef<HTMLDivElement>(null);
+	const debounceTimeoutRef = useRef<number | null>(null);
 
 	const handleFocus = () => {
 		setIsFocused(true);
@@ -36,6 +37,27 @@ export const SearchBar = () => {
 		}
 	};
 
+	const fetchUsers = async (queryText: string) => {
+		const users = await fetchSearchUsers(queryText);
+		setSearchResults(users);
+	};
+
+	useEffect(() => {
+		if (debounceTimeoutRef.current) {
+			clearTimeout(debounceTimeoutRef.current);
+		}
+
+		debounceTimeoutRef.current = window.setTimeout(() => {
+			fetchUsers(searchQuery);
+		}, DEBOUNCE_DELAY);
+
+		return () => {
+			if (debounceTimeoutRef.current) {
+				clearTimeout(debounceTimeoutRef.current);
+			}
+		};
+	}, [searchQuery]);
+
 	useEffect(() => {
 		document.addEventListener('mousedown', handleClickOutside);
 
@@ -49,21 +71,23 @@ export const SearchBar = () => {
 			<SearchImage src={SearchIcon} alt='Search icon' />
 			<SearchInput
 				type='text'
-				placeholder='Поиск'
+				placeholder={SEARCH_PLACEHOLDER}
 				onFocus={handleFocus}
 				onBlur={handleBlur}
+				value={searchQuery}
+				onChange={(e) => setSearchQuery(e.target.value)}
 			/>
 			{isFocused && (
 				<DropdownList>
 					{searchResults.length === 0 ? (
 						<EmptyMessage>{NO_RESULT}</EmptyMessage>
 					) : (
-						searchResults.map(({ avatarUrl, name, loginName }) => (
+						searchResults.map(({ profile_image, name, login_name }) => (
 							<SearchItem
-								key={loginName}
-								avatarUrl={avatarUrl}
+								key={login_name}
+								avatarUrl={profile_image}
 								name={name}
-								loginName={loginName}
+								loginName={login_name}
 							/>
 						))
 					)}

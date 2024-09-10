@@ -1,12 +1,5 @@
-export interface FormData {
-	name: string;
-	phone: string;
-	email: string;
-	month: number | null;
-	day: number | null;
-	year: number;
-}
+import { DetailsRegistrationData } from '@interfaces/registration';
 
 export interface DetailsFormProps {
-	onSubmit: (data: FormData) => void;
+	onSubmit: (data: DetailsRegistrationData) => void;
 }
