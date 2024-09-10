@@ -3,28 +3,24 @@ import { commonTheme } from './theme.common';
 export const lightTheme = {
 	...commonTheme,
 
-	bodyBg: '#FFF',
+	backgroundMain: '#FFF',
+	backgroundAlternative: '#000',
 
-	itemsBorder: '#eff3f4',
-	normalText: '#000',
+	backgroundMainHover: '#d4d9dd',
+	backgroundAlternativeHover: '#181919',
 
-	themeSwitcherBg: '#D3D3D3',
-	themeSwitcher: '#fff',
+	textMain: '#000',
+	textAlternative: '#FFF',
+
+	subtext: '#536471',
+
+	itemBorder: '#eff3f4',
 
 	tweetInputOptionsHover: '#ebf5fe',
 	tweetButtonHoverDisable: '#99CDF8',
 	imagePreview: '#f0f0f0',
 
-	tweetSubtext: '#536471',
 	likeBg: '#F9E3EB',
-	like: '#536471',
-
-	footerLinkText: '#000',
 
 	searchBarBg: '#f1f4f6',
-
-	navBarItemHoverBg: '#e7e7e7',
-
-	editButtonHoverBg: '#d4d9dd',
-	submitEditHoverBg: '#181919',
 };

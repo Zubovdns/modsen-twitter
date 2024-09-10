@@ -17,7 +17,7 @@ export const commonTheme = {
 	likedLikeCount: '#F91980',
 	likedLike: '#F91980',
 
-	errorRed: '#F00',
+	error: '#F00',
 	focusInput: '#1da1f2',
 	borderInput: '#ccc',
 	placeholder: '#999',

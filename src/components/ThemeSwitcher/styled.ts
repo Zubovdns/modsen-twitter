@@ -4,7 +4,7 @@ export const Switch = styled.div<{ checked: boolean }>`
 	width: 50px;
 	height: 25px;
 	border-radius: 25px;
-	background-color: ${({ theme }) => theme.themeSwitcherBg};
+	background-color: ${({ theme }) => theme.backgroundAlternative};
 	position: relative;
 	cursor: pointer;
 	transition: background-color 0.3s ease;
@@ -17,7 +17,7 @@ export const Switch = styled.div<{ checked: boolean }>`
 		width: 21px;
 		height: 21px;
 		border-radius: 50%;
-		background-color: ${({ theme }) => theme.themeSwitcher};
+		background-color: ${({ theme }) => theme.textAlternative};
 		transition: left 0.3s ease;
 	}
 `;

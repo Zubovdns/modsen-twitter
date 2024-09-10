@@ -9,7 +9,7 @@ export const EditProfileContainer = styled.form`
 	align-items: center;
 	justify-content: flex-start;
 
-	background-color: ${({ theme }) => theme.bodyBg};
+	background-color: ${({ theme }) => theme.backgroundMain};
 `;
 
 export const EditHeaderContainer = styled.div`
@@ -58,7 +58,7 @@ export const EditProfileImageContainer = styled.div`
 
 	overflow: hidden;
 
-	border: 3px solid ${({ theme }) => theme.bodyBg};
+	border: 3px solid ${({ theme }) => theme.backgroundMain};
 
 	position: relative;
 `;
@@ -110,12 +110,12 @@ export const TextInformationContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 
-	background-color: ${({ theme }) => theme.bodyBg};
+	background-color: ${({ theme }) => theme.backgroundMain};
 `;
 
 export const SubmitButton = styled.button`
-	color: ${({ theme }) => theme.bodyBg};
-	background-color: ${({ theme }) => theme.normalText};
+	color: ${({ theme }) => theme.backgroundMain};
+	background-color: ${({ theme }) => theme.textMain};
 
 	border: none;
 	border-radius: 20px;
@@ -129,6 +129,6 @@ export const SubmitButton = styled.button`
 	transition: background-color 0.2s ease;
 
 	&:hover {
-		background-color: ${({ theme }) => theme.submitEditHoverBg};
+		background-color: ${({ theme }) => theme.backgroundAlternativeHover};
 	}
 `;

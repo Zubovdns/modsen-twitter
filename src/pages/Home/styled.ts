@@ -6,10 +6,10 @@ export const HomeWrapper = styled.div`
 	max-width: 600px;
 	min-height: 100vh;
 
-	border-right: 2px solid ${({ theme }) => theme.itemsBorder};
+	border-right: 2px solid ${({ theme }) => theme.itemBorder};
 
 	& > * > * {
-		border-bottom: 2px solid ${({ theme }) => theme.itemsBorder};
+		border-bottom: 2px solid ${({ theme }) => theme.itemBorder};
 	}
 `;
 
@@ -28,7 +28,7 @@ export const HeaderContainer = styled.header`
 `;
 
 export const Title = styled.h1`
-	color: ${({ theme }) => theme.normalText};
+	color: ${({ theme }) => theme.textMain};
 	font-size: 20px;
 `;
 
@@ -36,7 +36,7 @@ export const PlaceholderContainer = styled.div`
 	width: 100%;
 	height: 600px;
 
-	color: ${({ theme }) => theme.normalText};
+	color: ${({ theme }) => theme.textMain};
 
 	display: flex;
 	flex-direction: column;

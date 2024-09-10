@@ -4,7 +4,7 @@ export const Button = styled.button`
 	padding: 10px;
 	margin: 20px 0;
 	background-color: ${({ theme }) => theme.focusInput};
-	color: ${({ theme }) => theme.normalText};
+	color: ${({ theme }) => theme.textMain};
 	font-size: 16px;
 	border: none;
 	border-radius: 20px;

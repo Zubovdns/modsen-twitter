@@ -9,15 +9,15 @@ export const FloatingLabelInput = styled.input<{ $error: boolean }>`
 	padding: 18px;
 	font-size: 16px;
 	border: 1px solid
-		${({ $error, theme }) => ($error ? theme.errorRed : theme.borderInput)};
+		${({ $error, theme }) => ($error ? theme.error : theme.borderInput)};
 	border-radius: 4px;
 	width: 100%;
 	outline: none;
 	box-sizing: border-box;
 
-	color: ${({ theme }) => theme.normalText};
+	color: ${({ theme }) => theme.textMain};
 
-	background-color: ${({ theme }) => theme.bodyBg};
+	background-color: ${({ theme }) => theme.backgroundMain};
 
 	&::placeholder {
 		opacity: 0;
@@ -30,9 +30,9 @@ export const FloatingLabelInput = styled.input<{ $error: boolean }>`
 
 	&:focus {
 		border-color: ${({ $error, theme }) =>
-			$error ? theme.errorRed : theme.focusInput};
+			$error ? theme.error : theme.focusInput};
 		box-shadow: 0 0 0 1px
-			${({ $error, theme }) => ($error ? theme.errorRed : theme.focusInput)};
+			${({ $error, theme }) => ($error ? theme.error : theme.focusInput)};
 	}
 
 	&:focus + label,
@@ -40,9 +40,8 @@ export const FloatingLabelInput = styled.input<{ $error: boolean }>`
 		top: -1px;
 		left: 10px;
 		font-size: 12px;
-		color: ${({ $error, theme }) =>
-			$error ? theme.errorRed : theme.focusInput};
-		background: ${({ theme }) => theme.bodyBg};
+		color: ${({ $error, theme }) => ($error ? theme.error : theme.focusInput)};
+		background: ${({ theme }) => theme.backgroundMain};
 		padding: 0 5px;
 	}
 `;
@@ -60,7 +59,7 @@ export const FloatingLabel = styled.label`
 `;
 
 export const ValidationError = styled.p`
-	color: ${({ theme }) => theme.errorRed};
+	color: ${({ theme }) => theme.error};
 	position: absolute;
 	top: 100%;
 	left: 0;

@@ -46,7 +46,7 @@ export const Input = styled.input`
 
 	border: none;
 	background-color: transparent;
-	color: ${({ theme }) => theme.normalText};
+	color: ${({ theme }) => theme.textMain};
 	outline: none;
 
 	font-size: 24px;

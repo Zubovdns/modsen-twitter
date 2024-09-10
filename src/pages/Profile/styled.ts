@@ -6,10 +6,10 @@ export const ProfileWrapper = styled.div`
 	max-width: 600px;
 	min-height: 100vh;
 
-	border-right: 2px solid ${({ theme }) => theme.itemsBorder};
+	border-right: 2px solid ${({ theme }) => theme.itemBorder};
 
 	& > * > * {
-		border-bottom: 2px solid ${({ theme }) => theme.itemsBorder};
+		border-bottom: 2px solid ${({ theme }) => theme.itemBorder};
 	}
 `;
 
@@ -39,7 +39,7 @@ export const Title = styled.h1`
 `;
 
 export const NumberOfPosts = styled.p`
-	color: ${({ theme }) => theme.tweetSubtext};
+	color: ${({ theme }) => theme.subtext};
 	font-size: 13px;
 `;
 
@@ -88,7 +88,7 @@ export const ProfileImageContainer = styled.div`
 
 	overflow: hidden;
 
-	border: 3px solid ${({ theme }) => theme.bodyBg};
+	border: 3px solid ${({ theme }) => theme.backgroundMain};
 `;
 
 export const ProfileImage = styled.img`
@@ -112,7 +112,7 @@ const BaseButton = styled.button`
 	padding: 6px 14px;
 	font-size: 16px;
 	left: 1000px;
-	color: ${({ theme }) => theme.normalText};
+	color: ${({ theme }) => theme.textMain};
 	font-weight: bold;
 
 	background-color: inherit;
@@ -126,18 +126,18 @@ const BaseButton = styled.button`
 
 export const EditButton = styled(BaseButton)`
 	&:hover {
-		background-color: ${({ theme }) => theme.editButtonHoverBg};
+		background-color: ${({ theme }) => theme.backgroundMainHover};
 	}
 `;
 
 export const FollowButton = styled(BaseButton)<{ followed: boolean }>`
 	&:hover {
 		color: ${({ followed, theme }) =>
-			!followed ? theme.normalText : theme.errorRed};
+			!followed ? theme.textMain : theme.error};
 		border-color: ${({ followed, theme }) =>
-			!followed ? theme.borderInput : theme.errorRed};
+			!followed ? theme.borderInput : theme.error};
 		background-color: ${({ followed, theme }) =>
-			!followed ? theme.editButtonHoverBg : 'inherit'};
+			!followed ? theme.backgroundMainHover : 'inherit'};
 	}
 `;
 
@@ -166,7 +166,7 @@ export const Name = styled.h2`
 
 export const Username = styled.p`
 	font-size: 15px;
-	color: ${({ theme }) => theme.tweetSubtext};
+	color: ${({ theme }) => theme.subtext};
 `;
 
 export const Bio = styled.p`
@@ -175,7 +175,7 @@ export const Bio = styled.p`
 
 export const Info = styled.p`
 	font-size: 15px;
-	color: ${({ theme }) => theme.tweetSubtext};
+	color: ${({ theme }) => theme.subtext};
 `;
 
 export const FollowInfo = styled.p`

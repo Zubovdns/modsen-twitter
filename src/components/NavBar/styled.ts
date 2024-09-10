@@ -9,7 +9,7 @@ export const NavBarContainer = styled.div`
 	position: sticky;
 	top: 0px;
 
-	border-right: 2px solid ${({ theme }) => theme.itemsBorder};
+	border-right: 2px solid ${({ theme }) => theme.itemBorder};
 
 	height: 100vh;
 

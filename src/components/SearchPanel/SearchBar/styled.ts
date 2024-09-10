@@ -19,7 +19,7 @@ export const SearchImage = styled.img`
 export const SearchInput = styled.input`
 	border: none;
 	background-color: transparent;
-	color: ${({ theme }) => theme.normalText};
+	color: ${({ theme }) => theme.textMain};
 	font-size: 16px;
 	width: 100%;
 	outline: none;
@@ -34,7 +34,7 @@ export const DropdownList = styled.div`
 	top: 100%;
 	left: 0;
 	right: 0;
-	background-color: ${({ theme }) => theme.bodyBg};
+	background-color: ${({ theme }) => theme.backgroundMain};
 	box-shadow: 0px 0px 4px gray;
 	border-radius: 10px;
 	margin-top: 8px;
@@ -46,5 +46,5 @@ export const DropdownList = styled.div`
 export const EmptyMessage = styled.div`
 	padding: 10px;
 	text-align: center;
-	color: ${({ theme }) => theme.tweetSubtext};
+	color: ${({ theme }) => theme.subtext};
 `;

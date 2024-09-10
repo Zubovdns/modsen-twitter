@@ -53,14 +53,14 @@ export const HeaderDataContainer = styled.div`
 
 	& > *:not(:last-child)::after {
 		content: '·';
-		color: ${({ theme }) => theme.tweetSubtext};
+		color: ${({ theme }) => theme.subtext};
 		margin-left: 3px;
 		margin-right: 3px;
 	}
 `;
 
 export const TweetUser = styled.h2`
-	color: ${({ theme }) => theme.normalText};
+	color: ${({ theme }) => theme.textMain};
 
 	font-weight: bold;
 	font-size: 18px;
@@ -68,12 +68,12 @@ export const TweetUser = styled.h2`
 
 export const TweetUserLogin = styled.p`
 	font-size: 18px;
-	color: ${({ theme }) => theme.tweetSubtext};
+	color: ${({ theme }) => theme.subtext};
 `;
 
 export const TweetDate = styled.p`
 	font-size: 18px;
-	color: ${({ theme }) => theme.tweetSubtext};
+	color: ${({ theme }) => theme.subtext};
 `;
 
 export const TextContainer = styled.div`
@@ -87,7 +87,7 @@ export const Text = styled.p`
 	word-break: break-word;
 	overflow-wrap: break-word;
 
-	color: ${({ theme }) => theme.normalText};
+	color: ${({ theme }) => theme.textMain};
 `;
 
 export const ImageContainer = styled.div`

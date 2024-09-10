@@ -40,5 +40,5 @@ export const ItemName = styled.span`
 
 export const ItemLogin = styled.span`
 	font-size: 14px;
-	color: ${({ theme }) => theme.tweetSubtext};
+	color: ${({ theme }) => theme.subtext};
 `;

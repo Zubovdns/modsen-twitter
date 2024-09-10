@@ -26,7 +26,7 @@ export const Logo = styled.img`
 `;
 
 export const ValidationError = styled.p`
-	color: ${({ theme }) => theme.errorRed};
+	color: ${({ theme }) => theme.error};
 	position: absolute;
 	top: 100%;
 	left: 0;
