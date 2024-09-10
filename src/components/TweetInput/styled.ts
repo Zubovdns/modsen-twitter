@@ -19,7 +19,7 @@ export const UserTweetAvatarWrapper = styled.div`
 export const AvatarContainer = styled.div`
 	width: 44px;
 	height: 44px;
-	background-color: #cccccc;
+	background-color: ${({ theme }) => theme.avatarContainer};
 	overflow: hidden;
 	display: flex;
 	justify-content: center;
@@ -46,13 +46,13 @@ export const Input = styled.input`
 
 	border: none;
 	background-color: transparent;
-	color: #16202c;
+	color: ${({ theme }) => theme.textMain};
 	outline: none;
 
 	font-size: 24px;
 
 	&::placeholder {
-		color: #6e7a82;
+		color: ${({ theme }) => theme.textPlaceholder};
 	}
 `;
 
@@ -89,7 +89,7 @@ export const OptionButton = styled.button`
 	transition: background-color 0.2s ease;
 
 	&:hover {
-		background-color: #ebf5fe;
+		background-color: ${({ theme }) => theme.tweetInputOptionsHover};
 	}
 `;
 
@@ -99,8 +99,9 @@ export const OptionIcon = styled.img`
 `;
 
 export const TweetButton = styled.button<{ disabled: boolean }>`
-	background-color: ${({ disabled }) => (disabled ? '#99CDF8' : '#1da1f2')};
-	color: white;
+	background-color: ${({ disabled, theme }) =>
+		disabled ? theme.tweetButtonHoverDisable : theme.tweetButtonBg};
+	color: ${({ theme }) => theme.tweetButton};
 	border: none;
 	padding: 8px 30px;
 	border-radius: 20px;
@@ -110,7 +111,8 @@ export const TweetButton = styled.button<{ disabled: boolean }>`
 	transition: background-color 0.3s ease;
 
 	&:hover {
-		background-color: ${({ disabled }) => (disabled ? '#99CDF8' : '#1991da')};
+		background-color: ${({ disabled, theme }) =>
+			disabled ? theme.tweetButtonHoverDisable : theme.tweetButtonHover};
 	}
 `;
 
@@ -124,7 +126,7 @@ export const ImageContainer = styled.div`
 	align-items: center;
 
 	position: relative;
-	background-color: #f0f0f0;
+	background-color: ${({ theme }) => theme.imagePreview};
 
 	overflow: hidden;
 

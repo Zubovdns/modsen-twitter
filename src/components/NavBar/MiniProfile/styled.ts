@@ -19,7 +19,7 @@ export const ProfileWrapper = styled.div`
 	transition: background-color 0.2s ease;
 
 	&:hover {
-		background-color: #e7e7e7;
+		background-color: ${({ theme }) => theme.backgroundMainHover};
 	}
 
 	@media ${device.lg} {
@@ -62,9 +62,13 @@ export const UserName = styled(UserLoginName)`
 	font-weight: bold;
 `;
 
-export const ExitImage = styled.img`
+export const ExitImage = styled.div`
 	background-color: inherit;
 	border: none;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
 
 	flex: 0 1 auto;
 	width: 30px;

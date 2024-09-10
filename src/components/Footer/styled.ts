@@ -13,7 +13,7 @@ export const FooterContainer = styled.div`
 
 export const FooterLink = styled(Link)`
 	text-decoration: none;
-	color: ${({ theme }) => theme.footerLinkText};
+	color: ${({ theme }) => theme.textMain};
 	font-size: 13px;
 	font-weight: 300;
 

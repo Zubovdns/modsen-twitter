@@ -24,8 +24,6 @@ export const ModalContent = styled.div`
 	display: flex;
 	flex-direction: column;
 
-	background: white;
-
 	overflow-y: auto;
 	overflow-x: hidden;
 
@@ -38,12 +36,16 @@ export const ModalHeaderContainer = styled.div`
 	display: flex;
 	align-items: center;
 	padding: 10px 10px;
+
+	background-color: ${({ theme }) => theme.backgroundMain};
 `;
 
 export const ModalTitle = styled.h1`
 	flex: 1;
 	font-size: 25px;
 	margin-left: 20px;
+
+	color: ${({ theme }) => theme.textMain};
 `;
 
 export const ModalButtonContainer = styled.div``;
@@ -67,7 +69,7 @@ export const ModalCloseButton = styled.button`
 	transition: background-color 0.3s ease;
 
 	&:hover {
-		background-color: #e6e7e7;
+		background-color: ${({ theme }) => theme.backgroundMainHover};
 	}
 `;
 

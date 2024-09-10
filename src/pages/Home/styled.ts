@@ -8,10 +8,10 @@ export const HomeWrapper = styled.div`
 
 	min-height: 100vh;
 
-	border-right: 2px solid #eff3f4;
+	border-right: 2px solid ${({ theme }) => theme.itemBorder};
 
 	& > * > * {
-		border-bottom: 2px solid #eff3f4;
+		border-bottom: 2px solid ${({ theme }) => theme.itemBorder};
 	}
 
 	@media ${device.md} {
@@ -34,12 +34,15 @@ export const HeaderContainer = styled.header`
 `;
 
 export const Title = styled.h1`
+	color: ${({ theme }) => theme.textMain};
 	font-size: 20px;
 `;
 
 export const PlaceholderContainer = styled.div`
 	width: 100%;
 	height: 600px;
+
+	color: ${({ theme }) => theme.textMain};
 
 	display: flex;
 	flex-direction: column;

@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import ExitIcon from '@assets/icons/NavBar/ExitIcon.svg';
+import { ExitIcon } from '@assets/icons/NavBar/Simple/ExitIcon';
 import { useNotification } from '@hooks/useNotification';
 import { SIGN_UP_ROUTE } from '@src/routes';
 import { selectUserError, selectUserStatus } from '@src/store/selectors/user';
@@ -43,7 +43,9 @@ export const MiniProfile = ({ userData }: MiniProfileProps) => {
 					<UserName>{userData.name}</UserName>
 					<UserLoginName>{'@' + userData.login_name}</UserLoginName>
 				</TextContainer>
-				<ExitImage src={ExitIcon} alt='Exit icon' />
+				<ExitImage>
+					<ExitIcon />
+				</ExitImage>
 			</ProfileWrapper>
 			<NotificationComponent />
 		</>

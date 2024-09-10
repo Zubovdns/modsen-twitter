@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { App } from '@components/App';
-import { LIGHT } from '@constants/theme';
+import { DARK, LIGHT } from '@constants/theme';
 import { useAppSelector } from '@store/hooks';
 import { store } from '@store/index';
 import { themeMode } from '@store/selectors/theme';
@@ -16,7 +16,7 @@ const MainComponent = () => {
 	const theme = useAppSelector(themeMode);
 
 	return (
-		<ThemeProvider theme={theme === LIGHT ? lightTheme : darkTheme}>
+		<ThemeProvider theme={theme === DARK ? lightTheme : darkTheme}>
 			<GlobalStyles />
 			<App />
 		</ThemeProvider>

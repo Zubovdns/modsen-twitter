@@ -5,14 +5,13 @@ import {
 	useRef,
 	useState,
 } from 'react';
-import CloseIcon from '@assets/icons/Modal/CloseIcon.svg';
+import { CloseIcon } from '@assets/icons/Modal/CloseIcon';
 import { createContainer, Portal } from '@components/Portal';
 
 import { MODAL_CONTAINER_ID } from './constants';
 import {
 	ModalButtonContainer,
 	ModalCloseButton,
-	ModalCloseButtonIcon,
 	ModalContent,
 	ModalHeaderContainer,
 	ModalTitle,
@@ -69,7 +68,7 @@ export const Modal = ({ onClose, children, title, button }: ModalProps) => {
 				<ModalContent>
 					<ModalHeaderContainer>
 						<ModalCloseButton onClick={handleClose}>
-							<ModalCloseButtonIcon src={CloseIcon} />
+							<CloseIcon />
 						</ModalCloseButton>
 						{title && <ModalTitle>{title}</ModalTitle>}
 						{button && <ModalButtonContainer>{button}</ModalButtonContainer>}

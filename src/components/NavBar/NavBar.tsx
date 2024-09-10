@@ -1,5 +1,5 @@
-import MoreIcon from '@assets/icons/NavBar/Simple/MoreIcon.svg';
-import ProfileIcon from '@assets/icons/NavBar/Simple/ProfileIcon.svg';
+import { MoreIcon } from '@assets/icons/NavBar/Simple/MoreIcon';
+import { ProfileIcon } from '@assets/icons/NavBar/Simple/ProfileIcon';
 import TwitterLogo from '@assets/icons/TwitterLogo.svg';
 import { Modal } from '@components/Modal';
 import { TweetInput } from '@components/TweetInput';
@@ -31,16 +31,16 @@ export const NavBar = () => {
 				{!!userData && (
 					<>
 						{navBarList.map(({ name, to, icon }, index) => (
-							<Item text={name} to={to} icon={icon} key={'item-$' + index} />
+							<Item text={name} to={to} Icon={icon} key={'item-$' + index} />
 						))}
 						<Item
 							text={'Profile'}
-							icon={ProfileIcon}
+							Icon={ProfileIcon}
 							to={'/' + userData?.login_name}
 						/>
 					</>
 				)}
-				<Item text={'More'} icon={MoreIcon} to={MORE_ROUTE} />
+				<Item text={'More'} Icon={MoreIcon} to={MORE_ROUTE} />
 				{!!userData && (
 					<TweetButton onClick={handleModalOpen}>{TWEET_BUTTON}</TweetButton>
 				)}

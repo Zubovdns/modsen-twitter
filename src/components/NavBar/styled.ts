@@ -10,7 +10,7 @@ export const NavBarContainer = styled.div`
 	position: sticky;
 	top: 0px;
 
-	border-right: 2px solid #eff3f4;
+	border-right: 2px solid ${({ theme }) => theme.itemBorder};
 
 	height: 100vh;
 
@@ -43,8 +43,9 @@ export const TweetButton = styled.button`
 
 	margin: 15px 0;
 
-	color: white;
-	background-color: #1d9bf0;
+	color: ${({ theme }) => theme.tweetButton};
+
+	background-color: ${({ theme }) => theme.tweetButtonBg};
 
 	cursor: pointer;
 
@@ -54,7 +55,7 @@ export const TweetButton = styled.button`
 	transition: background-color 0.2s ease;
 
 	&:hover {
-		background-color: #198cd8;
+		background-color: ${({ theme }) => theme.tweetButtonHover};
 	}
 
 	@media ${device.lg} {
