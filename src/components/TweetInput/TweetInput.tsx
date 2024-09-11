@@ -102,7 +102,7 @@ export const TweetInput = ({ onTweetClick, setTweets }: TweetInputProps) => {
 
 	return (
 		<>
-			<UserTweetContainer>
+			<UserTweetContainer id='tweet-input-container'>
 				<UserTweetAvatarWrapper>
 					<AvatarContainer>
 						<Avatar src={userData?.profile_image || undefined} />
