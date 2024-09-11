@@ -21,6 +21,8 @@
 		"noUnusedParameters": true,
 		"noFallthroughCasesInSwitch": true,
 
+		"esModuleInterop": true,
+
 		"baseUrl": "./src",
 		"paths": {
 			"@api/*": ["api/*"],
@@ -40,5 +42,5 @@
 	},
 	"include": ["src"],
 	"exclude": ["node_modules", "dist", "*.config.js"],
-	"types": ["node"]
+	"types": ["jest", "node", "cypress"]
 }
