@@ -38,7 +38,7 @@ export const MiniProfile = ({ userData }: MiniProfileProps) => {
 	return (
 		<>
 			<ProfileWrapper onClick={handleLogOut}>
-				<Avatar src={userData.profile_image} alt='Avatar image' />
+				<Avatar src={userData.profile_image} alt='Mini profile image' />
 				<TextContainer>
 					<UserName>{userData.name}</UserName>
 					<UserLoginName>{'@' + userData.login_name}</UserLoginName>

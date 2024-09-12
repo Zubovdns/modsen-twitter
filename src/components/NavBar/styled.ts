@@ -1,7 +1,7 @@
 import { device } from '@constants/breakpoints';
 import { styled } from 'styled-components';
 
-export const NavBarContainer = styled.div`
+export const NavBarContainer = styled.nav`
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;

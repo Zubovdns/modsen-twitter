@@ -34,8 +34,8 @@ export const Home = () => {
 
 	return (
 		<>
-			<HomeWrapper>
-				<HomeContainer>
+			<HomeWrapper id='home-page'>
+				<HomeContainer id='tweet-list-container'>
 					<HeaderContainer>
 						<Title>Home</Title>
 						<ThemeSwitcher />
