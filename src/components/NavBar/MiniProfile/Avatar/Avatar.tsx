@@ -3,6 +3,6 @@ import { AvatarProps } from './types';
 
 export const Avatar = ({ src, alt }: AvatarProps) => (
 	<AvatarContainer>
-		<AvatarImage src={src || ''} alt={alt} />
+		{src && <AvatarImage src={src} alt={alt} />}
 	</AvatarContainer>
 );

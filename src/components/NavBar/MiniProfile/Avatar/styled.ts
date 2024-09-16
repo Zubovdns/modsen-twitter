@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 export const AvatarContainer = styled.div`
 	width: 46px;
 	height: 46px;
-	background-color: #cccccc;
+	background-color: ${({ theme }) => theme.avatarContainer};
 	overflow: hidden;
 	display: flex;
 	justify-content: center;
