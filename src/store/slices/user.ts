@@ -98,7 +98,7 @@ const userSlice = createSlice({
 				state.error = action.error.message || 'Failed to fetch user data';
 			})
 			.addCase(follow.pending, (state) => {
-				state.status = 'loading';
+				state.status = 'lazy-loading';
 			})
 			.addCase(follow.fulfilled, (state, action) => {
 				state.status = 'succeeded';

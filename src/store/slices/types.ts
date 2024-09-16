@@ -6,6 +6,6 @@ export interface ThemeInitialState {
 
 export interface UserInitialState {
 	data: ReceivedUserData | null;
-	status: 'idle' | 'loading' | 'succeeded' | 'failed';
+	status: 'idle' | 'loading' | 'lazy-loading' | 'succeeded' | 'failed';
 	error: string | null;
 }

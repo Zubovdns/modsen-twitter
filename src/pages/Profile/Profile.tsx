@@ -12,7 +12,8 @@ import { TweetItem } from '@components/TweetItem';
 import { useModal } from '@hooks/useModal';
 import { useProfileTweets } from '@hooks/useProfileTweets';
 import { UserData } from '@interfaces/user';
-import { useAppDispatch } from '@store/hooks';
+import { useAppDispatch, useAppSelector } from '@store/hooks';
+import { selectUserData, selectUserStatus } from '@store/selectors/user';
 import { follow } from '@store/thunks/userThunk';
 
 import {
@@ -55,6 +56,8 @@ export const Profile = () => {
 	const { isModalOpen, handleModalOpen, handleModalClose } = useModal();
 
 	const dispatch = useAppDispatch();
+	const currentUserData = useAppSelector(selectUserData);
+	const status = useAppSelector(selectUserStatus); // Получаем статус
 
 	useEffect(() => {
 		setUserData(null);
@@ -92,7 +95,29 @@ export const Profile = () => {
 	};
 
 	const onFollowClick = async () => {
-		dispatch(follow({ login_name, isFollowed }));
+		await dispatch(follow({ login_name, isFollowed }));
+		setIsFollowed((prev) => !prev);
+		if (!isFollowed) {
+			setUserData((prev) => {
+				if (!prev) return null;
+
+				return {
+					...prev,
+					followers: [...prev.followers, currentUserData!.id],
+				};
+			});
+		} else {
+			setUserData((prev) => {
+				if (!prev) return null;
+
+				return {
+					...prev,
+					followers: prev.followers.filter(
+						(item) => item !== currentUserData!.id
+					),
+				};
+			});
+		}
 	};
 
 	if (!userData) return <Loader />;
@@ -136,8 +161,16 @@ export const Profile = () => {
 								<EditButton onClick={handleModalOpen}>Edit profile</EditButton>
 							)}
 							{!isCurrentUser && (
-								<FollowButton followed={isFollowed} onClick={onFollowClick}>
-									{isFollowed ? 'Unfollow' : 'Follow'}
+								<FollowButton
+									followed={isFollowed}
+									onClick={onFollowClick}
+									disabled={status === 'lazy-loading'}
+								>
+									{status === 'lazy-loading'
+										? 'Loading...'
+										: isFollowed
+										? 'Unfollow'
+										: 'Follow'}
 								</FollowButton>
 							)}
 							{isModalOpen && (
