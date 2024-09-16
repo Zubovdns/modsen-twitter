@@ -95,6 +95,8 @@ export const Profile = () => {
 		dispatch(follow({ login_name, isFollowed }));
 	};
 
+	if (!userData) return <Loader />;
+
 	return (
 		<>
 			<ProfileWrapper>
