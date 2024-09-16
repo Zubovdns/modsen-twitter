@@ -4,6 +4,7 @@ import { SIGN_UP_ROUTE } from '@src/routes';
 import { useAppDispatch, useAppSelector } from '@src/store/hooks';
 import { selectUserData, selectUserStatus } from '@src/store/selectors/user';
 import { fetchUserData } from '@src/store/thunks/userThunk';
+import { status } from '@store/slices/types';
 
 import { Loader } from '../Loader';
 
@@ -16,14 +17,14 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
 	const userStatus = useAppSelector(selectUserStatus);
 
 	useEffect(() => {
-		if (userStatus === 'idle') {
+		if (userStatus === status.IDLE) {
 			dispatch(fetchUserData());
-		} else if (userStatus === 'succeeded' && !userData) {
+		} else if (userStatus === status.SUCCEEDED && !userData) {
 			navigate(SIGN_UP_ROUTE);
 		}
 	}, [dispatch, navigate, userStatus, userData]);
 
-	if (userStatus === 'loading') {
+	if (userStatus === status.LOADING) {
 		return <Loader />;
 	}
 

@@ -4,6 +4,7 @@ import { useNotification } from '@hooks/useNotification';
 import { SIGN_UP_ROUTE } from '@src/routes';
 import { selectUserError, selectUserStatus } from '@src/store/selectors/user';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
+import { status } from '@store/slices/types';
 import { logOut } from '@store/thunks/userThunk';
 
 import { Avatar } from './Avatar';
@@ -27,7 +28,7 @@ export const MiniProfile = ({ userData }: MiniProfileProps) => {
 
 	const handleLogOut = async () => {
 		dispatch(logOut()).then(() => {
-			if (userStatus !== 'failed') {
+			if (userStatus !== status.FAILED) {
 				navigate(SIGN_UP_ROUTE);
 			} else {
 				showNotification(userError || '');
