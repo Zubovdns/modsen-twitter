@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+
 import { fetchSearchUsers } from '@api/firebase/firestore';
 import SearchIcon from '@assets/icons/SearchPanel/SearchIcon.svg';
 import { UserData } from '@interfaces/user';

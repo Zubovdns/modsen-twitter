@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+
 import { useAppDispatch, useAppSelector } from '@src/store/hooks';
 import { selectUserStatus } from '@src/store/selectors/user';
 import { fetchUserData } from '@src/store/thunks/userThunk';

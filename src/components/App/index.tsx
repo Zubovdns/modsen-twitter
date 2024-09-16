@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
+
 import Profile from '@src/pages/Profile';
 import {
 	authenticatedRoutes,

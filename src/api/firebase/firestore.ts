@@ -1,5 +1,3 @@
-import { UserData } from '@interfaces/user';
-import { TweetData, TweetInputData } from '@src/interfaces/tweet';
 import {
 	addDoc,
 	arrayRemove,
@@ -15,6 +13,9 @@ import {
 	updateDoc,
 	where,
 } from 'firebase/firestore';
+
+import { UserData } from '@interfaces/user';
+import { TweetData, TweetInputData } from '@src/interfaces/tweet';
 
 import { auth, db } from './config';
 

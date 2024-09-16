@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+
 import { ExitIcon } from '@assets/icons/NavBar/Simple/ExitIcon';
 import { useNotification } from '@hooks/useNotification';
 import { SIGN_UP_ROUTE } from '@src/routes';

@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+
 import { Notification } from '@components/Notification';
 
 import { NotificationHook } from './types';
