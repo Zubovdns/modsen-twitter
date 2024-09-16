@@ -110,7 +110,7 @@ export const EditProfile = ({ onClose }: EditProfileProps) => {
 					</EditBannerImageContainer>
 
 					<EditProfileImageContainer>
-						{avatar && <EditImage src={avatar} alt='Profile image' />}
+						{!!avatar && <EditImage src={avatar} alt='Profile image' />}
 						{isAvatarUploading ? (
 							<LoaderContainer>
 								<Loader />
