@@ -6,6 +6,14 @@ export interface ThemeInitialState {
 
 export interface UserInitialState {
 	data: ReceivedUserData | null;
-	status: 'idle' | 'loading' | 'lazy-loading' | 'succeeded' | 'failed';
+	status: status;
 	error: string | null;
+}
+
+export enum status {
+	IDLE = 'idle',
+	LOADING = 'loading',
+	LAZY_LOADING = 'lazy-loading',
+	SUCCEEDED = 'succeeded',
+	FAILED = 'failed',
 }
