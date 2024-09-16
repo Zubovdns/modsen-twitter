@@ -28,6 +28,8 @@ export const ModalContent = styled.div`
 	overflow-x: hidden;
 
 	border-radius: 20px;
+
+	background-color: ${({ theme }) => theme.backgroundMain};
 `;
 
 export const ModalHeaderContainer = styled.div`
