@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ThemeProvider } from 'styled-components';
-import { ThemeProvider } from 'styled-components';
 
 import { App } from '@components/App';
 import { DARK } from '@constants/theme';
