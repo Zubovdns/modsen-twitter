@@ -21,5 +21,7 @@ export const AuthenticatedRoute = ({ children }: AuthenticatedRouteProps) => {
 		return <Loader />;
 	}
 
-	return userStatus === 'succeeded' && children;
+	return (
+		(userStatus === 'succeeded' || userStatus === 'lazy-loading') && children
+	);
 };
