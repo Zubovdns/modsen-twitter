@@ -15,6 +15,7 @@ import { UserData } from '@interfaces/user';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { selectUserData, selectUserStatus } from '@store/selectors/user';
 import { follow } from '@store/thunks/userThunk';
+import { formattedDate } from '@utils/formatDate';
 
 import {
 	BannerImage,
@@ -191,8 +192,7 @@ export const Profile = () => {
 									<Bio>{userData.bio}</Bio>
 									{userData.birth_date && (
 										<Info>
-											{'Date of birth: ' +
-												userData.birth_date.toDate().toISOString()}
+											{'Date of birth: ' + formattedDate(userData.birth_date)}
 										</Info>
 									)}
 									<FollowInfo>{`${userData.following.length} Following | ${userData.followers.length} Followers`}</FollowInfo>
