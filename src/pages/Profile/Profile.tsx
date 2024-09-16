@@ -47,7 +47,8 @@ export const Profile = () => {
 	const location = useLocation();
 	const login_name = location.pathname.substring(1);
 
-	const [tweets, loading, setTweets] = useProfileTweets(login_name);
+	const [tweets, loading, setTweets, refreshTweets] =
+		useProfileTweets(login_name);
 	const [userData, setUserData] = useState<UserData | null>(null);
 	const [isCurrentUser, setIsCurrentUser] = useState(false);
 	const [isFollowed, setIsFollowed] = useState<boolean>(null!);
@@ -168,12 +169,11 @@ export const Profile = () => {
 					</ProfileHeaderContainer>
 					{userData ? (
 						<>
-							{isCurrentUser && <TweetInput />}
+							{isCurrentUser && <TweetInput setTweets={refreshTweets} />}
 
 							{loading ? (
 								<Loader />
 							) : (
-								tweets.length > 0 &&
 								tweets.map(
 									({
 										text,
