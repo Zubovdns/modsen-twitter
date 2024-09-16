@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { SIGN_UP_ROUTE } from '@src/routes';
 import { useAppDispatch, useAppSelector } from '@src/store/hooks';
 import { selectUserData, selectUserStatus } from '@src/store/selectors/user';

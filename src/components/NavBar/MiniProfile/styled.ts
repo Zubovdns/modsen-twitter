@@ -1,5 +1,6 @@
-import { device } from '@constants/breakpoints';
 import styled from 'styled-components';
+
+import { device } from '@constants/breakpoints';
 
 export const ProfileWrapper = styled.div`
 	width: 240px;

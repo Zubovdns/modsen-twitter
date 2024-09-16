@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+
 import { getUserDataByLogin, isFollowing, isOwner } from '@api/firebase/auth';
 import { deleteTweet } from '@api/firebase/firestore';
 import { EditProfile } from '@components/Forms/EditProfileForm';

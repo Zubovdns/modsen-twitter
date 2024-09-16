@@ -1,5 +1,6 @@
-import { device } from '@constants/breakpoints';
 import { styled } from 'styled-components';
+
+import { device } from '@constants/breakpoints';
 
 export const HomeWrapper = styled.div`
 	max-width: 600px;

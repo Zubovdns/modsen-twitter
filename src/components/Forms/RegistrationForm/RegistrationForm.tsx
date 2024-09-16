@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import TwitterLogo from '@assets/icons/TwitterLogo.svg';
 import {
 	DetailsRegistrationData,

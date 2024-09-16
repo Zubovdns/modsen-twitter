@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
-import { device } from '@constants/breakpoints';
 import styled from 'styled-components';
+
+import { device } from '@constants/breakpoints';
 
 export const ItemWrapper = styled.div`
 	width: 250px;

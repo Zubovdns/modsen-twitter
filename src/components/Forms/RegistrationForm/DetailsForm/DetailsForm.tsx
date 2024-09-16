@@ -1,4 +1,5 @@
 import { FormProvider, useForm } from 'react-hook-form';
+
 import { DetailsRegistrationData } from '@interfaces/registration';
 import { isValidEmailAsync } from '@utils/isValidEmailAsync';
 import { isValidName } from '@utils/isValidName';

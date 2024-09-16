@@ -1,12 +1,3 @@
-import { EditProfileFormType } from '@components/Forms/EditProfileForm/types';
-import { RegistrationData } from '@interfaces/registration';
-import { ReceivedUserData, UserData } from '@interfaces/user';
-import {
-	INCORRECT_LOGIN_INFORMATION_MESSAGE,
-	USER_NOT_FOUND_MESSAGE,
-} from '@src/components/Forms/LoginForm/constants';
-import { LOG_OUT_ERROR_MESSAGE } from '@src/components/NavBar/MiniProfile/constants';
-import { LoginData } from '@src/interfaces/login';
 import {
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
@@ -27,6 +18,16 @@ import {
 	updateDoc,
 	where,
 } from 'firebase/firestore';
+
+import { EditProfileFormType } from '@components/Forms/EditProfileForm/types';
+import { RegistrationData } from '@interfaces/registration';
+import { ReceivedUserData, UserData } from '@interfaces/user';
+import {
+	INCORRECT_LOGIN_INFORMATION_MESSAGE,
+	USER_NOT_FOUND_MESSAGE,
+} from '@src/components/Forms/LoginForm/constants';
+import { LOG_OUT_ERROR_MESSAGE } from '@src/components/NavBar/MiniProfile/constants';
+import { LoginData } from '@src/interfaces/login';
 
 import { auth, db, googleProvider } from './config';
 

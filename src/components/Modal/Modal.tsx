@@ -5,6 +5,7 @@ import {
 	useRef,
 	useState,
 } from 'react';
+
 import { CloseIcon } from '@assets/icons/Modal/CloseIcon';
 import { createContainer, Portal } from '@components/Portal';
 

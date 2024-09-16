@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+
 import GoogleIcon from '@assets/icons/GoogleIcon.svg';
 import TwitterLogo from '@assets/icons/TwitterLogo.svg';
 import { LOGIN_ROUTE, REGISTRATION_ROUTE, SIGN_UP_ROUTE } from '@src/routes';
