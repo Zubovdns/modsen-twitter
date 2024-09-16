@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import {
 	fetchTweetsByUserIDs,
@@ -14,26 +14,26 @@ export const useProfileTweets = (
 	const [tweets, setTweets] = useState<TweetData[]>([]);
 	const [loading, setLoading] = useState(true);
 
-	useEffect(() => {
-		const fetchTweets = async () => {
-			try {
-				if (login_name) {
-					const userUid = await getUserUidFromLogin(login_name);
-					if (userUid) {
-						const fetchedTweets = await fetchTweetsByUserIDs(
-							[userUid],
-							setLoading
-						);
-						setTweets(fetchedTweets);
-					}
+	const fetchTweets = useCallback(async () => {
+		try {
+			if (login_name) {
+				const userUid = await getUserUidFromLogin(login_name);
+				if (userUid) {
+					const fetchedTweets = await fetchTweetsByUserIDs(
+						[userUid],
+						setLoading
+					);
+					setTweets(fetchedTweets);
 				}
-			} catch (error) {
-				console.error(error);
 			}
-		};
-
-		fetchTweets();
+		} catch (error) {
+			console.error(error);
+		}
 	}, [login_name]);
 
-	return [tweets, loading, setTweets];
+	useEffect(() => {
+		fetchTweets();
+	}, [fetchTweets]);
+
+	return [tweets, loading, setTweets, fetchTweets];
 };

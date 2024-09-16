@@ -8,6 +8,9 @@ export const MONTH = 'Month';
 export const DAY = 'Day';
 export const YEAR = 'Year';
 
+export const DETAILS_STEP = 'details';
+export const PASSWORD_STEP = 'password';
+
 export const NEXT_BUTTON = 'Next';
 export const SUBMIT_BUTTON = 'Submit';
 export const LOADING_BUTTON = 'Loading...';

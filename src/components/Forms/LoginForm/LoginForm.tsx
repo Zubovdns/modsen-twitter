@@ -7,6 +7,7 @@ import { SIGN_UP_ROUTE } from '@src/routes';
 import { useAppDispatch, useAppSelector } from '@src/store/hooks';
 import { selectUserError, selectUserStatus } from '@src/store/selectors/user';
 import { fetchUserDataWithLoginViaEmail } from '@src/store/thunks/userThunk';
+import { status } from '@store/slices/types';
 import { requiredField } from '@utils/requiredField';
 
 import { FloatingLabelInputField } from '../FloatingLabelInputField';
@@ -38,7 +39,7 @@ export const LoginForm = () => {
 
 	const onSubmit = async (data: LoginData) => {
 		dispatch(fetchUserDataWithLoginViaEmail(data)).then(() => {
-			if (userStatus === 'failed' && userError !== null) {
+			if (userStatus === status.FAILED && userError !== null) {
 				showNotification(userError);
 			}
 		});
@@ -79,7 +80,7 @@ export const LoginForm = () => {
 						}}
 					/>
 					<SubmitButton
-						isSubmitting={isSubmitting && userStatus === 'loading'}
+						isSubmitting={isSubmitting && userStatus === status.LOADING}
 						buttonText={SUBMIT_BUTTON}
 					/>
 					<LinkTo to={SIGN_UP_ROUTE}>Sign up to Twitter</LinkTo>

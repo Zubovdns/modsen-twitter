@@ -10,18 +10,21 @@ import { fetchUserDataWithRegistrationViaEmail } from '@store/thunks/userThunk';
 
 import { FormWrapper, Logo } from '../styled';
 
+import { DETAILS_STEP, PASSWORD_STEP } from './constants';
 import { DetailsForm } from './DetailsForm';
 import { PasswordForm } from './PasswordForm';
 
 export const RegistrationForm = () => {
-	const [step, setStep] = useState<'details' | 'password'>('details');
+	const [step, setStep] = useState<typeof DETAILS_STEP | typeof PASSWORD_STEP>(
+		DETAILS_STEP
+	);
 	const [formData, setFormData] = useState<DetailsRegistrationData>(null!);
 
 	const dispatch = useAppDispatch();
 
 	const handleDetailsSubmit = (data: DetailsRegistrationData) => {
 		setFormData(data);
-		setStep('password');
+		setStep(PASSWORD_STEP);
 	};
 
 	const handlePasswordSubmit = async (data: PasswordRegistrationData) => {
@@ -32,7 +35,7 @@ export const RegistrationForm = () => {
 	return (
 		<FormWrapper>
 			<Logo src={TwitterLogo} />
-			{step === 'details' ? (
+			{step === DETAILS_STEP ? (
 				<DetailsForm onSubmit={handleDetailsSubmit} />
 			) : (
 				<PasswordForm onSubmit={handlePasswordSubmit} />
